@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Modele;
+package Controleur;
 
+import Modele.Joueur;
+import Modele.Plateau;
+import java.awt.Point;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,6 +35,9 @@ public class Partie {
         } catch (Exception ex) {
             Logger.getLogger(Partie.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    public boolean action(Point p){ //TODO
+        return true;
     }
     
     public Joueur getJoueur1(){
