@@ -5,8 +5,7 @@
  */
 package Controleur;
 
-import Modele.Joueur;
-import Modele.Plateau;
+import Modele.*;
 import java.awt.Point;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +23,7 @@ public class Partie {
     private Plateau plateau;
     private Joueur joueur1;
     private Joueur joueur2;
+    private int nbCoups;
     
     public Partie(String classJ1, String nomJ1, String classJ2, String nomJ2){
         this.plateau = new Plateau();
@@ -36,8 +36,22 @@ public class Partie {
             Logger.getLogger(Partie.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    public boolean click(Point p){ //TODO
+        if( (joueur1 instanceof Humain && nbCoups % 2 == 0 && nbCoups != 2) || joueur2 instanceof Humain && nbCoups % 2 == 1 || nbCoups == 2){
+            action(p);
+            return true;
+        }
+        else return false;
+    }
     public boolean action(Point p){ //TODO
         return true;
+    }
+    
+    public Point[] coupsJouables(){
+        return coupsJouables(this.plateau);
+    }
+    public Point[] coupsJouables(Plateau p){ //TODO
+        return null;
     }
     
     public Joueur getJoueur1(){
@@ -48,5 +62,14 @@ public class Partie {
     }
     public Plateau getPlateau(){
         return plateau;
+    }
+    public int getNbCoups(){
+        return nbCoups;
+    }
+    public void incNbCoups(){
+        nbCoups++;
+    }
+    public void decNbCoups(){
+        nbCoups--;
     }
 }
