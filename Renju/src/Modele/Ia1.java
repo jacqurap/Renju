@@ -5,6 +5,8 @@
  */
 package Modele;
 
+import java.awt.Point;
+
 /**
  *
  * @author jacqurap
@@ -13,5 +15,9 @@ public class Ia1 extends Ia{
     
     public Ia1(String nom){
         super(nom);
+    }
+    
+    public Point solver(){
+    	return null;
     }
 }
