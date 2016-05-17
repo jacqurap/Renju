@@ -78,12 +78,12 @@ public class Partie {
         int i = 1;
         if (nbCoups % 2 == 0) {
             //horizontale
-            while (n < 5 && plateau.getCase(p.x + i, p.y) == plateau.CASENOIRE) {
+            while (n < 5 && p.x + i < plateau.getDimX() && plateau.getCase(p.x + i, p.y) == plateau.CASENOIRE) {
                 n++;
                 i++;
             }
             i = 1;
-            while (n < 5 && plateau.getCase(p.x - i, p.y) == plateau.CASENOIRE) {
+            while (n < 5 && p.x - i >= 0 && plateau.getCase(p.x - i, p.y) == plateau.CASENOIRE) {
                 n++;
                 i++;
             }
@@ -95,12 +95,12 @@ public class Partie {
             //verticale
             n = 1;
             i = 1;
-            while (n < 5 && plateau.getCase(p.x, p.y + i) == plateau.CASENOIRE) {
+            while (n < 5 && p.y + i < plateau.getDimY() && plateau.getCase(p.x, p.y + i) == plateau.CASENOIRE) {
                 n++;
                 i++;
             }
             i = 1;
-            while (n < 5 && plateau.getCase(p.x, p.y - i) == plateau.CASENOIRE) {
+            while (n < 5 && p.y - i >= 0 && plateau.getCase(p.x, p.y - i) == plateau.CASENOIRE) {
                 n++;
                 i++;
             }
@@ -112,12 +112,12 @@ public class Partie {
             //diagonale1
             n = 1;
             i = 1;
-            while (n < 5 && plateau.getCase(p.x + i, p.y + i) == plateau.CASENOIRE) {
+            while (n < 5 && p.x + i < plateau.getDimX() && p.y + i < plateau.getDimY() && plateau.getCase(p.x + i, p.y + i) == plateau.CASENOIRE) {
                 n++;
                 i++;
             }
             i = 1;
-            while (n < 5 && plateau.getCase(p.x - i, p.y - i) == plateau.CASENOIRE) {
+            while (n < 5 && p.x - i >= 0 && p.y - i >= 0 && plateau.getCase(p.x - i, p.y - i) == plateau.CASENOIRE) {
                 n++;
                 i++;
             }
@@ -129,12 +129,12 @@ public class Partie {
             //diagonale2
             n = 1;
             i = 1;
-            while (n < 5 && plateau.getCase(p.x + i, p.y - i) == plateau.CASENOIRE) {
+            while (n < 5 && p.x + i < plateau.getDimX() && p.y - i >= 0 && plateau.getCase(p.x + i, p.y - i) == plateau.CASENOIRE) {
                 n++;
                 i++;
             }
             i = 1;
-            while (n < 5 && plateau.getCase(p.x - i, p.y + i) == plateau.CASENOIRE) {
+            while (n < 5 && p.x - i >= 0 && p.y + i < plateau.getDimY() && plateau.getCase(p.x - i, p.y + i) == plateau.CASENOIRE) {
                 n++;
                 i++;
             }
@@ -144,12 +144,12 @@ public class Partie {
             }
         } else {
             //horizontale
-            while (n < 5 && plateau.getCase(p.x + i, p.y) == plateau.CASEBLANCHE) {
+            while (n < 5 && p.x + i < plateau.getDimX() && plateau.getCase(p.x + i, p.y) == plateau.CASEBLANCHE) {
                 n++;
                 i++;
             }
             i = 1;
-            while (n < 5 && plateau.getCase(p.x - i, p.y) == plateau.CASEBLANCHE) {
+            while (n < 5 && p.x - i >= 0 && plateau.getCase(p.x - i, p.y) == plateau.CASEBLANCHE) {
                 n++;
                 i++;
             }
@@ -161,12 +161,12 @@ public class Partie {
             //verticale
             n = 1;
             i = 1;
-            while (n < 5 && plateau.getCase(p.x, p.y + i) == plateau.CASEBLANCHE) {
+            while (n < 5 && p.y + i < plateau.getDimY() && plateau.getCase(p.x, p.y + i) == plateau.CASEBLANCHE) {
                 n++;
                 i++;
             }
             i = 1;
-            while (n < 5 && plateau.getCase(p.x, p.y - i) == plateau.CASEBLANCHE) {
+            while (n < 5 && p.y - i >= 0 && plateau.getCase(p.x, p.y - i) == plateau.CASEBLANCHE) {
                 n++;
                 i++;
             }
@@ -178,161 +178,25 @@ public class Partie {
             //diagonale
             n = 1;
             i = 1;
-            while (n < 5 && plateau.getCase(p.x + i, p.y + i) == plateau.CASEBLANCHE) {
+            while (n < 5 && p.x + i < plateau.getDimX() && p.y + i < plateau.getDimY() && plateau.getCase(p.x + i, p.y + i) == plateau.CASEBLANCHE) {
                 n++;
                 i++;
             }
             i = 1;
-            while (n < 5 && plateau.getCase(p.x - i, p.y - i) == plateau.CASEBLANCHE) {
+            while (n < 5 && p.x - i >= 0 && p.y - i >= 0 && plateau.getCase(p.x - i, p.y - i) == plateau.CASEBLANCHE) {
                 n++;
                 i++;
             }
-	public void partieFini(Point p){
-		int n =1;
-		int i=1;
-		if(nbCoups%2==0){
-			//horizontale
-			while(n<5 && p.x+i < plateau.getDimX() && plateau.getCase(p.x+i, p.y)== plateau.CASENOIRE ){
-				n++;
-				i++;
-			}
-			i=1;
-			while(n<5 && p.x-i >= 0 && plateau.getCase(p.x-i, p.y)== plateau.CASENOIRE ){
-				n++;
-				i++;
-			}
-			if(n==5){
-				partieFinie = true;
-				j1Win = true;
-			}
-			
-			//verticale
-			n=1;
-			i=1;
-			while(n<5 && p.y+i < plateau.getDimY() && plateau.getCase(p.x, p.y+i)== plateau.CASENOIRE ){
-				n++;
-				i++;
-			}
-			i=1;
-			while(n<5 && p.y-i >= 0 && plateau.getCase(p.x, p.y-i)== plateau.CASENOIRE ){
-				n++;
-				i++;
-			}
-			if(n==5){
-				partieFinie = true;
-				j1Win = true;
-			}
-			
-			//diagonale1
-			n=1;
-			i=1;
-			while(n<5 && p.x+i < plateau.getDimX() && p.y+i < plateau.getDimY() && plateau.getCase(p.x+i, p.y+i)== plateau.CASENOIRE ){
-				n++;
-				i++;
-			}
-			i=1;
-			while(n<5 && p.x-i >= 0 && p.y-i >= 0 && plateau.getCase(p.x-i, p.y-i)== plateau.CASENOIRE ){
-				n++;
-				i++;
-			}
-			if(n==5){
-				partieFinie = true;
-				j2Win = true;
-			}
-			
-			//diagonale2
-			n=1;
-			i=1;
-			while(n<5 && p.x+i < plateau.getDimX() && p.y-i >= 0 && plateau.getCase(p.x+i, p.y-i)== plateau.CASENOIRE ){
-				n++;
-				i++;
-			}
-			i=1;
-			while(n<5 && p.x-i >= 0 && p.y+i < plateau.getDimY() && plateau.getCase(p.x-i, p.y+i)== plateau.CASENOIRE ){
-				n++;
-				i++;
-			}
-			if(n==5){
-				partieFinie = true;
-				j2Win = true;
-			}
-		}
-		else{
-			//horizontale
-			while(n<5 && p.x+i < plateau.getDimX() && plateau.getCase(p.x+i, p.y)== plateau.CASEBLANCHE ){
-				n++;
-				i++;
-			}
-			i=1;
-			while(n<5 && p.x-i >= 0 && plateau.getCase(p.x-i, p.y)== plateau.CASEBLANCHE ){
-				n++;
-				i++;
-			}
-			if(n==5){
-				partieFinie = true;
-				j2Win = true;
-			}
-			
-			//verticale
-			n=1;
-			i=1;
-			while(n<5 && p.y+i < plateau.getDimY() && plateau.getCase(p.x, p.y+i)== plateau.CASEBLANCHE ){
-				n++;
-				i++;
-			}
-			i=1;
-			while(n<5 && p.y-i >= 0 && plateau.getCase(p.x, p.y-i)== plateau.CASEBLANCHE ){
-				n++;
-				i++;
-			}
-			if(n==5){
-				partieFinie = true;
-				j2Win = true;
-			}
-			
-			//diagonale
-			n=1;
-			i=1;
-			while(n<5 && p.x+i < plateau.getDimX() && p.y+i < plateau.getDimY() && plateau.getCase(p.x+i, p.y+i)== plateau.CASEBLANCHE ){
-				n++;
-				i++;
-			}
-			i=1;
-			while(n<5 && p.x-i >= 0 && p.y-i >= 0 && plateau.getCase(p.x-i, p.y-i)== plateau.CASEBLANCHE ){
-				n++;
-				i++;
-			}
-			
-			//diagonale2
-			n=1;
-			i=1;
-			while(n<5 && p.x+i < plateau.getDimX() && p.y-i >= 0 && plateau.getCase(p.x+i, p.y-i)== plateau.CASEBLANCHE ){
-				n++;
-				i++;
-			}
-			i=1;
-			while(n<5 && p.x-i >= 0 && p.y+i < plateau.getDimY() && plateau.getCase(p.x-i, p.y+i)== plateau.CASEBLANCHE ){
-				n++;
-				i++;
-			}
-			if(n==5){
-				partieFinie = true;
-				j2Win = true;
-			}
-			
-		}
-		System.out.println(partieFinie);
-	}
 
             //diagonale2
             n = 1;
             i = 1;
-            while (n < 5 && plateau.getCase(p.x + i, p.y - i) == plateau.CASEBLANCHE) {
+            while (n < 5 && p.x + i < plateau.getDimX() && p.y - i >= 0 && plateau.getCase(p.x + i, p.y - i) == plateau.CASEBLANCHE) {
                 n++;
                 i++;
             }
             i = 1;
-            while (n < 5 && plateau.getCase(p.x - i, p.y + i) == plateau.CASEBLANCHE) {
+            while (n < 5 && p.x - i >= 0 && p.y + i < plateau.getDimY() && plateau.getCase(p.x - i, p.y + i) == plateau.CASEBLANCHE) {
                 n++;
                 i++;
             }
@@ -342,7 +206,7 @@ public class Partie {
             }
 
         }
-        System.out.println(isPartieFinie());
+        System.out.println(partieFinie);
     }
 
     public ArrayList<Point> coupsJouables() {
