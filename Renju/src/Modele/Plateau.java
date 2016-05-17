@@ -24,9 +24,13 @@ public class Plateau {
         this.dimX = x;
         this.dimY = y;
         this.plateau = new int[x][y];
+        
     }
     public Plateau(){
-        new Plateau(DEFAULT_DIMX, DEFAULT_DIMY);
+    	//this.dimX = DEFAULT_DIMX;
+        //this.dimY = DEFAULT_DIMY;
+        //this.plateau = new int[DEFAULT_DIMX][DEFAULT_DIMY];
+        this(DEFAULT_DIMX, DEFAULT_DIMY);
     }
     
     
