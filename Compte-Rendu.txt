@@ -1,0 +1,13 @@
+﻿	Projet Renju
+
+-- Jeudi 12 Mai
+
+- IA : Réflexion sur les différentes méthodes pour coder l'IA
+- Jeu : Recherche des règles du Renju pour adapter l'IA
+- Interface graphique : Codade de la grille de Renju et de la barre de menu
+- IHM : Plan de la navigation entre les fenêtres de l'application couchée sur tableau.
+
+-- Vendredi 13 Mai 
+
+- IA : Création des classes principale pour le codage de l'IA en utilisant le modèle M.V.C.
+- IHM : Début du prototypage ur Ordi (à imprimer)
