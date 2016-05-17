@@ -132,7 +132,7 @@ public class Partie {
 			}
 			if(n==5){
 				partieFinie = true;
-				j1Win = true;
+				j2Win = true;
 			}
 			
 			//diagonale2
@@ -149,7 +149,7 @@ public class Partie {
 			}
 			if(n==5){
 				partieFinie = true;
-				j1Win = true;
+				j2Win = true;
 			}
 		}
 		else{
@@ -165,7 +165,7 @@ public class Partie {
 			}
 			if(n==5){
 				partieFinie = true;
-				j1Win = true;
+				j2Win = true;
 			}
 			
 			//verticale
@@ -182,7 +182,7 @@ public class Partie {
 			}
 			if(n==5){
 				partieFinie = true;
-				j1Win = true;
+				j2Win = true;
 			}
 			
 			//diagonale
@@ -197,10 +197,24 @@ public class Partie {
 				n++;
 				i++;
 			}
+			
+			//diagonale2
+			n=1;
+			i=1;
+			while(n<5 && plateau.getCase(p.x+i, p.y-i)== plateau.CASEBLANCHE){
+				n++;
+				i++;
+			}
+			i=1;
+			while(n<5 && plateau.getCase(p.x-i, p.y+i)== plateau.CASEBLANCHE){
+				n++;
+				i++;
+			}
 			if(n==5){
 				partieFinie = true;
-				j1Win = true;
+				j2Win = true;
 			}
+			
 		}
 		System.out.println(partieFinie);
 	}
@@ -220,9 +234,10 @@ public class Partie {
 		else if(nbCoups == 1 ){
 			coupJouables.add(new Point(6,7));
 			coupJouables.add(new Point(8,7));
-			coupJouables.add(new Point(7,6));
 			
+			coupJouables.add(new Point(7,6));			
 			coupJouables.add(new Point(7,8));
+			
 			coupJouables.add(new Point(6,6));
 			coupJouables.add(new Point(8,8));
 			
