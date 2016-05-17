@@ -5,17 +5,18 @@
  */
 package Modele;
 
+import Controleur.Partie;
 import java.awt.Point;
 
 /**
  *
  * @author jacqurap
  */
-public abstract class Ia extends Joueur{
-    
-    public Ia(String nom){
+public abstract class Ia extends Joueur {
+
+    public Ia(String nom) {
         super(nom);
     }
-    
-    public abstract Point solver();
+
+    public abstract Point solver(Partie partie);
 }

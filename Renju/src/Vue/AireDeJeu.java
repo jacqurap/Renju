@@ -15,7 +15,7 @@ public class AireDeJeu extends JComponent{
 	public Partie partie;
 	
 	public AireDeJeu(){
-		partie = new Partie("Humain", "toto", "Humain", "titi");
+		partie = new Partie("Modele.Humain", "toto", "Modele.Humain", "titi");
 	}
 	
 	@Override

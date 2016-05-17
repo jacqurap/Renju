@@ -14,15 +14,22 @@ import java.util.Random;
  *
  * @author jacqurap
  */
-public class Ia1 extends Ia{
+public class Ia2 extends Ia{
     
-    public Ia1(String nom){
+    public Ia2(String nom){
         super(nom);
     }
     
     public Point solver(Partie partie){
+        ArrayList<Point> listCoupsGagnant = new ArrayList<Point>();
+        ArrayList<Point> listCoupsNonPerdant = new ArrayList<Point>();
+        
         ArrayList<Point> listCoupsJouables = partie.coupsJouables();
         Random rand = new Random();
+        
+        for(int i = 0; i < listCoupsJouables.size(); i++){
+            
+        }
     	return listCoupsJouables.get(rand.nextInt(listCoupsJouables.size()-1));
     }
 }

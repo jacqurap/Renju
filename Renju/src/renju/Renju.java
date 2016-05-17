@@ -5,6 +5,8 @@
  */
 package renju;
 
+import Vue.Fenetre;
+
 /**
  *
  * @author jacqurap
@@ -16,6 +18,7 @@ public class Renju {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        //Fenetre.main(args);
     }
     
 }
