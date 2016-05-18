@@ -41,4 +41,8 @@ public class AireDeJeu extends JComponent{
         	}
         }
 	}
+	
+    public Partie getPartie() {
+        return this.partie;
+    }
 }

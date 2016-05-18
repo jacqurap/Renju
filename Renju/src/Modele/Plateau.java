@@ -50,6 +50,14 @@ public class Plateau {
     public int getDimY() {
         return dimY;
     }
+    
+    public int[][] getGrille() {
+        return this.grille;
+    }
+    
+    public void setGrille(int[][] g) {
+        this.grille = g;
+    }
 
     // clone avec le constructeur suivant
     public Plateau clone() {
