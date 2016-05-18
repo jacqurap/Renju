@@ -23,15 +23,16 @@ public abstract class Ia extends Joueur {
         ArrayList<Point> liste = new ArrayList<>();
         for(int i = 0; i < p.getDimX(); i++){
             for(int j = 0; j < p.getDimY(); j++){
-                if( (i>0 && j>0 && p.getCase(i-1, j-1) != Plateau.CASEVIDE)
+                if(p.getCase(i, j) == Plateau.CASEVIDE && (
+                		   i>0 && j>0 && p.getCase(i-1, j-1) != Plateau.CASEVIDE
                         || i>0 && p.getCase(i-1, j) != Plateau.CASEVIDE
-                        || i>0 && j<p.getDimY() && p.getCase(i-1, j+1) != Plateau.CASEVIDE
-                        || j<p.getDimY() && p.getCase(i, j+1) != Plateau.CASEVIDE
-                        || i<p.getDimX() && j<p.getDimY() && p.getCase(i+1, j+1) != Plateau.CASEVIDE
-                        || i<p.getDimX() && p.getCase(i+1, j) != Plateau.CASEVIDE
-                        || i<p.getDimX() && j>0 && p.getCase(i+1, j-1) != Plateau.CASEVIDE
+                        || i>0 && j<p.getDimY()-1 && p.getCase(i-1, j+1) != Plateau.CASEVIDE
+                        || j<p.getDimY()-1 && p.getCase(i, j+1) != Plateau.CASEVIDE
+                        || i<p.getDimX()-1 && j<p.getDimY()-1 && p.getCase(i+1, j+1) != Plateau.CASEVIDE
+                        || i<p.getDimX()-1 && p.getCase(i+1, j) != Plateau.CASEVIDE
+                        || i<p.getDimX()-1 && j>0 && p.getCase(i+1, j-1) != Plateau.CASEVIDE
                         || j>0 && p.getCase(i, j-1) != Plateau.CASEVIDE
-                        )
+                        ))
                     liste.add(new Point(i, j));
             }
         }
