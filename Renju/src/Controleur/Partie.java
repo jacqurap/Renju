@@ -6,16 +6,18 @@
 package Controleur;
 
 import Modele.*;
+import java.util.Stack;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.io.Serializable;
 
 /**
  *
  * @author jacqurap
  */
-public class Partie {
+public class Partie implements Serializable{
 
     public static final int JOUEUR_HUMAIN = 0;
     public static final int JOUEUR_IA_1 = 1;
@@ -29,10 +31,14 @@ public class Partie {
     private boolean partieFinie = false;
     private boolean j1Win = false;
     private boolean j2Win = false;
+    private Stack<Plateau> annuler;
+    private Stack<Plateau> refaire;
 
     public Partie(String classJ1, String nomJ1, String classJ2, String nomJ2) {
 
         this.plateau = new Plateau();
+        this.annuler = new Stack<>();
+        this.refaire = new Stack<>();
         /* creation des joueur en foction de leur classe sans condition a ralonge, et ça c'est la CLASS  !!!!!!  si ça c'est pas une blague trop badass ...*/
         try {
             this.joueur1 = (Joueur) Class.forName(classJ1).getConstructor(String.class).newInstance(nomJ1);
@@ -285,5 +291,13 @@ public class Partie {
      */
     public boolean isJ2Win() {
         return j2Win;
+    }
+    
+    public Stack<Plateau> getAnnuler(){
+    	return annuler;
+    }
+    
+    public Stack<Plateau> getRefaire(){
+    	return refaire;
     }
 }
