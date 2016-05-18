@@ -23,6 +23,7 @@ public class EcouteurDeSouris implements MouseListener {
 		System.out.println("x " +x+ " y " +y);
 		if(aire.partie.click(new Point(x,y))){
 			aire.repaint();
+			aire.partie.joueIa();
 		}
 		
 	}

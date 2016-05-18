@@ -33,7 +33,18 @@ public class Partie implements Serializable{
     private boolean j2Win = false;
     private Stack<Plateau> annuler;
     private Stack<Plateau> refaire;
+    private boolean ia1=false;
+    public boolean isIa1() {
+		return ia1;
+	}
 
+	public boolean isIa2() {
+		return ia2;
+	}
+
+	private boolean ia2=false;
+    
+    
     public Partie(String classJ1, String nomJ1, String classJ2, String nomJ2) {
 
         this.plateau = new Plateau();
@@ -43,11 +54,28 @@ public class Partie implements Serializable{
         try {
             this.joueur1 = (Joueur) Class.forName(classJ1).getConstructor(String.class).newInstance(nomJ1);
             this.joueur2 = (Joueur) Class.forName(classJ2).getConstructor(String.class).newInstance(nomJ2);
+            if(joueur1 instanceof Ia){
+            	ia1=true;
+            }
+            if(joueur2 instanceof Ia){
+            	ia2=true;
+            }
         } catch (Exception ex) {
             Logger.getLogger(Partie.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    public void joueIa(){
+    	
+    	if(nbCoups%2==0 && ia1){
+    		action(((Ia) joueur1).solver(this));
+    	}
+    	else if(nbCoups%2==1 && ia2){
+    		action(((Ia) joueur2).solver(this));
+    	}
+    	
+    }
+    
     public boolean click(Point p) { //TODO
 
         if ((joueur1 instanceof Humain && nbCoups % 2 == 0) || joueur2 instanceof Humain && nbCoups % 2 == 1) {
