@@ -21,7 +21,7 @@ public class AireDeJeu extends JComponent{
 	@Override
     public void paintComponent(Graphics g) {
 		Graphics2D drawable = (Graphics2D) g;
-        drawable.setColor(Color.DARK_GRAY);
+        drawable.setColor(Color.PINK);
         drawable.fillRect(0, 0, 640, 640);
         drawable.setColor(Color.black);
         for (int i = 0;i<15;i++ ){

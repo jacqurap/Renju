@@ -13,19 +13,24 @@ import java.util.Random;
 /**
  *
  * @author jacqurap
- * 
- * joue aleatoirement sur une case libre du plateau
  */
-public class Ia1 extends Ia{
+public class Ia3 extends Ia{
     
-    public Ia1(String nom){
+    public Ia3(String nom){
         super(nom);
     }
     
     @Override
     public Point solver(Partie partie){
-        ArrayList<Point> listCoupsJouables = partie.coupsJouables();
+        ArrayList<Point> listCoupsGagnant = new ArrayList<Point>();
+        ArrayList<Point> listCoupsNonPerdant = new ArrayList<Point>();
+        
+        ArrayList<Point> listCoupsPertinents = this.coupsPertinents(partie.getPlateau());
         Random rand = new Random();
-    	return listCoupsJouables.get(rand.nextInt(listCoupsJouables.size()-1));
+        
+        for(int i = 0; i < listCoupsPertinents.size(); i++){
+            
+        }
+    	return listCoupsPertinents.get(rand.nextInt(listCoupsPertinents.size()-1));
     }
 }

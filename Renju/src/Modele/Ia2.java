@@ -13,6 +13,8 @@ import java.util.Random;
 /**
  *
  * @author jacqurap
+ * 
+ * joue aleatoirement sur une case libre et limitrophe a un pion
  */
 public class Ia2 extends Ia{
     
@@ -20,16 +22,10 @@ public class Ia2 extends Ia{
         super(nom);
     }
     
+    @Override
     public Point solver(Partie partie){
-        ArrayList<Point> listCoupsGagnant = new ArrayList<Point>();
-        ArrayList<Point> listCoupsNonPerdant = new ArrayList<Point>();
-        
-        ArrayList<Point> listCoupsJouables = partie.coupsJouables();
+        ArrayList<Point> listCoupsPertinents = this.coupsPertinents(partie.getPlateau());
         Random rand = new Random();
-        
-        for(int i = 0; i < listCoupsJouables.size(); i++){
-            
-        }
-    	return listCoupsJouables.get(rand.nextInt(listCoupsJouables.size()-1));
+    	return listCoupsPertinents.get(rand.nextInt(listCoupsPertinents.size()-1));
     }
 }
