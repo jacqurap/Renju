@@ -10,14 +10,25 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 /**
- *
+ * Le modele IA
  * @author jacqurap
  */
 public abstract class Ia extends Joueur {
 
+	/**
+	 * Creation d'une IA
+	 * @param nom le nom du joueur ordinateur
+	 */
+	
     public Ia(String nom) {
         super(nom);
     }
+    
+    /**
+     * Liste les differents coups pertinents
+     * @param p le plateau de la partie
+     * @return liste, la liste des coups pertinents
+     */
 
     public ArrayList<Point> coupsPertinents(Plateau p) {
         ArrayList<Point> liste = new ArrayList<>();
@@ -37,6 +48,14 @@ public abstract class Ia extends Joueur {
         }
         return liste;
     }
+    
+    /**
+     * Evalue le coup a jouer
+     * @param plateau le plateau de la partie
+     * @param point le point du coup a jouer
+     * @param couleur la couleur de la pierre
+     * @return valeur, le poids du coup a jouer
+     */
 
     public int evaluationCoup(Plateau plateau, Point point, int couleur) {
         int i;
@@ -179,9 +198,20 @@ public abstract class Ia extends Joueur {
         return valeur;
     }
 
+    /**
+     * Evalue le plateau
+     * @param plateau le plateau de la partie 
+     * @return 0
+     */
+    
     public int evaluationPlateau(Plateau plateau) {
         return 0;
     }
 
+    /**
+     * Fonction de resolution
+     * @param partie 
+     */
+    
     public abstract Point solver(Partie partie);
 }

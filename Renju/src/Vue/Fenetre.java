@@ -9,7 +9,10 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-
+/**
+ * Fenetre de l'appication
+ *
+ */
 public class Fenetre implements Runnable {
 
 	@Override

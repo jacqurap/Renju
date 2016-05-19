@@ -10,9 +10,16 @@ import Controleur.Partie;
 import Modele.Humain;
 import Modele.Plateau;
 
+/**
+ * L'aire de jeu
+ */
 public class AireDeJeu extends JComponent{
 	
 	public Partie partie;
+	
+	/**
+	 * Création de l'aire de jeu
+	 */
 	
 	public AireDeJeu(){
 		partie = new Partie("Modele.Humain", "toto", "Modele.Ia3", "titi");

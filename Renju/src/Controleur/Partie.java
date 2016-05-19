@@ -14,9 +14,10 @@ import java.util.logging.Logger;
 import java.io.Serializable;
 
 /**
- *
+ * La partie
  * @author jacqurap
  */
+
 public class Partie implements Serializable{
 
 	public static final int JOUEUR_HUMAIN = 0;
@@ -34,17 +35,35 @@ public class Partie implements Serializable{
 	private Stack<Plateau> annuler;
 	private Stack<Plateau> refaire;
 	private boolean ia1=false;
+	
+	/**
+	 * Determine si le joueur 1 est un ordinateur
+	 * @return ia1, true si l'ordinateur 1 est un ordinateur 
+	 */
+	
 	public boolean isIa1() {
 		return ia1;
 	}
-
+	
+	/**
+	 * Determine si le joueur 2 est un ordinateur
+	 * @return ia2, true si l'ordinateur 2 est un ordinateur 
+	 */
+	
 	public boolean isIa2() {
 		return ia2;
 	}
 
 	private boolean ia2=false;
 
-
+	/**
+	 * Creation d'une partie
+	 * @param classJ1 type du joueur 1
+	 * @param nomJ1 nom du joueur 1
+	 * @param classJ2 type du joueur 2
+	 * @param nomJ2 nom du joueur 2
+	 */
+	
 	public Partie(String classJ1, String nomJ1, String classJ2, String nomJ2) {
 
 		this.plateau = new Plateau();
@@ -65,6 +84,10 @@ public class Partie implements Serializable{
 		}
 	}
 
+	/**
+	 * Action des IAs
+	 */
+	
 	public void joueIa(){
 
 		if(nbCoups%2==0 && ia1){
@@ -75,6 +98,12 @@ public class Partie implements Serializable{
 		}
 
 	}
+	
+	/**
+	 * Action des joueurs au clic sur le point p
+	 * @param p le point de coordonnee (x,y)
+	 * @return true, quand l'action est faite, false sinon
+	 */
 
 	public boolean click(Point p) { //TODO
 
@@ -95,6 +124,12 @@ public class Partie implements Serializable{
 		}
 		return false;
 	}
+	
+	/**
+	 * Action sur le plateau de jeu
+	 * @param p le point de coordonnee (x,y)
+	 * @return true, quand l'action est faite
+	 */
 
 	public boolean action(Point p) { //TODO
 		if (nbCoups % 2 == 0) {
@@ -110,6 +145,11 @@ public class Partie implements Serializable{
 		return true;
 	}
 
+	/**
+	 * Action des coups de jeu
+	 * @param p le point de coordonnee (x,y)
+	 */
+	
 	public void partieFini(Point p) {
 		int n = 1;
 		int i = 1;
@@ -186,10 +226,21 @@ public class Partie implements Serializable{
 
 		System.out.println(partieFinie);
 	}
+	
+	/**
+	 * Liste des coups jouables sur le plateau en cours
+	 * @return coupsJouables
+	 */
 
 	public ArrayList<Point> coupsJouables() {
 		return coupsJouables(this.plateau);
 	}
+	
+	/**
+	 Liste des coups jouables sur un plateau
+	 * @param p un plateau de jeu
+	 * @return coupJouables
+	 */
 
 	public ArrayList<Point> coupsJouables(Plateau p) { //TODO
 		ArrayList<Point> coupJouables = new ArrayList<Point>();
@@ -220,55 +271,97 @@ public class Partie implements Serializable{
 		return coupJouables;
 	}
 
+	/**
+	 * Recupere le joueur 1
+	 * @return joueur1
+	 */
+	
 	public Joueur getJoueur1() {
 		return joueur1;
 	}
 
+	/**
+	 * Recupere le joueur 2
+	 * @return joueur2
+	 */
+	
 	public Joueur getJoueur2() {
 		return joueur2;
 	}
 
+	/**
+	 * Recupere le plateau de jeu
+	 * @return plateau
+	 */
+	
 	public Plateau getPlateau() {
 		return plateau;
 	}
+	
+	/**
+	 * Recupere le nombre de coups joues
+	 * @return nbCoups
+	 */
 
 	public int getNbCoups() {
 		return nbCoups;
 	}
 
+	/**
+	 * Incremente le nombre de coups
+	 */
+	
 	public void incNbCoups() {
 		nbCoups++;
 	}
+	
+	/**
+	 * Decremente le nombre de coups
+	 */
 
 	public void decNbCoups() {
 		nbCoups--;
 	}
 
 	/**
-	 * @return the partieFinie
+	 * Determine si la partie est terminee
+	 * @return partieFinie, retourne true si la partie est finie, false sinon
 	 */
 	public boolean isPartieFinie() {
 		return partieFinie;
 	}
 
 	/**
-	 * @return the j1Win
+	 * Determine si le joueur 1 a gagne la partie
+	 * @return j1Win, retourne true si joueur 1 gagne, false sinon
 	 */
 	public boolean isJ1Win() {
 		return j1Win;
 	}
 
 	/**
-	 * @return the j2Win
+	 * Determine si le joueur 2 a gagne la partie
+	 * @return j2Win, retourne true si joueur 2 gagne, false sinon
 	 */
+	
 	public boolean isJ2Win() {
 		return j2Win;
 	}
 
+	/**
+	 * Recupere la pile annuler
+	 * @return annuler
+	 */
+	
 	public Stack<Plateau> getAnnuler(){
 		return annuler;
 	}
 
+	/**
+	 * Recupere la pile refaire
+	 * @return annuler
+	 */
+	
 	public Stack<Plateau> getRefaire(){
 		return refaire;
 	}

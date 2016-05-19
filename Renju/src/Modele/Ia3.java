@@ -12,11 +12,16 @@ import java.util.Collections;
 import java.util.Random;
 
 /**
- *
+ * L'IA (Niveau 3) qui joue avec un arbre MiniMax
  * @author jacqurap
  */
 public class Ia3 extends Ia {
 
+	/**
+	 * Creation de l'IA (Niveau 3)
+	 * @param nom le nom de l'IA
+	 */
+	
     public Ia3(String nom) {
         super(nom);
     }
@@ -45,6 +50,16 @@ public class Ia3 extends Ia {
         Random rand = new Random();
         return listeCoupsValeur.get(rand.nextInt(i)).point;
     }
+    
+    /**
+     * Creation d'une partie de l'arbre MiniMax
+     * @param plateau le plateau de la partie
+     * @param point les coordonnee du coup a jouer
+     * @param profondeur la profondeur de l'arbre
+     * @param couleur la couleur de la pierre
+     * @param maximiser le joueur a faire gagner
+     * @return la branche a parcourir
+     */
 
     public int minimax(Plateau plateau, Point point, int profondeur, int couleur, boolean maximiser) {
         int meilleur;
@@ -87,11 +102,19 @@ public class Ia3 extends Ia {
     }
 }
 
+/**
+ * Le poids d'un coup
+ */
 class ValeurCoup implements Comparable<ValeurCoup> {
 
     Point point;
     int valeur;
 
+    /**
+     * Creation du poids d'un coup
+     * @param p un point de coordonnee (x,y)
+     * @param v une valeur
+     */
     public ValeurCoup(Point p, int v) {
         this.point = p;
         this.valeur = v;
