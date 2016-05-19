@@ -10,16 +10,35 @@
 
 ----------
 
-Projet de jeu de plateau japonais à départager en 3 groupes distincts pour une futur planification.
+Projet de jeu de plateau japonais 
 
-## Prochains Rendez-vous
+## Equipe
+IHM
+: Mattieu
+: Clément
+
+IA
+: Raphaël
+: Julien
+
+Fonctionnalité
+: Benjamin
+: Guillaume
+
+> Bien sûr, les équipes pourront varier en fonction.
+
+### Prochains Rendez-vous
+Audit IA
+: Vendredi 20 Mai 10h
+
+2ème Audit IHM
+: Lundi 23 Mai
+### Rendez-vous passés
 Audit IHM
-:  Mardi 17 Mai 11h45
+:  Mardi 17 Mai 11h15
 
 
-## Diagramme UML
-
-
+### Diagramme UML
 
 ```sequence
 Accueil->Sélection joueurs: Nouvelle Partie

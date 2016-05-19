@@ -11,3 +11,30 @@
 
 - IA : Création des classes principale pour le codage de l'IA en utilisant le modèle M.V.C.
 - IHM : Début du prototypage ur Ordi (à imprimer)
+
+-- Mardi 17 Mai
+
+- Audit IHM 1 : Passage à l'audit IHM, Synthèse des points importants par Mathieu Bochaton:
+	. Libellé des boutons homogènes (soit que des verbes ou que des noms)
+	. Changement J1 J2 par Noir Blanc
+	. ! Nombre de clics
+	. Ajouter le nombre de pierres restantes
+	. Reflechir pour l'hisorique des coups grâce aux sondages utilisateur
+	. Distiction des termes Abandonner, Recommencer, Nouvelle Partie
+	. Quitter la partie = Abandonner Partie
+	. Plusieurs replésentations graphiques pour une même action (Annuler ...)
+	. ! au menu "Edition"
+	. Gestion des tabous
+	. Gestion des la suggestion de coups
+	. Privilégier des emplacements de sauvegarde plutôt qu'une recherche de celle-ci par l'utilisateur pour les débutants
+- Fonctionnalités : Création des fontions de sauvegarde et de chargement d'emplacement de sauvegarde.
+- IA : Mise en place des règles de départ sur l'interface graphique (centrage, coup adjacent)
+- IHM: Mise en place de L'IHM
+
+-- Mercredi 18 Mai
+
+- IHM : Création des différentes fenêtres de jeu
+- IA : Création de l'IA aléatoire
+- Fonctionnalité : Création de la fonction Annuler / Refaire
+
+	. 
