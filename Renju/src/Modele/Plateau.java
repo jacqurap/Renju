@@ -59,6 +59,9 @@ public class Plateau {
         this.grille = g;
     }
 
+    public int getAutreCouleur(int couleur){
+        return (couleur == CASEBLANCHE) ? CASENOIRE : CASEBLANCHE;
+    }
     // clone avec le constructeur suivant
     public Plateau clone() {
         return new Plateau(grille.clone());
