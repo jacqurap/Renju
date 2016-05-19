@@ -15,13 +15,13 @@ public class AireDeJeu extends JComponent{
 	public Partie partie;
 	
 	public AireDeJeu(){
-		partie = new Partie("Modele.Humain", "toto", "Modele.Humain", "titi");
+		partie = new Partie("Modele.Humain", "toto", "Modele.Ia2", "titi");
 	}
 	
 	@Override
     public void paintComponent(Graphics g) {
 		Graphics2D drawable = (Graphics2D) g;
-        drawable.setColor(Color.DARK_GRAY);
+        drawable.setColor(Color.PINK);
         drawable.fillRect(0, 0, 640, 640);
         drawable.setColor(Color.black);
         for (int i = 0;i<15;i++ ){
@@ -41,4 +41,8 @@ public class AireDeJeu extends JComponent{
         	}
         }
 	}
+	
+    public Partie getPartie() {
+        return this.partie;
+    }
 }
