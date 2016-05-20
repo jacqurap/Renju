@@ -13,32 +13,42 @@
 Projet de jeu de plateau japonais avec Java Swing
 
 ## Equipe
+
 IHM
-: Mattieu
-: Clément
+
+* Mathieu
+* Clément
 
 IA
-: Raphaël
-: Julien
+
+* Raphaël
+* Julien
 
 Fonctionnalités
-: Benjamin
-: Guillaume
+
+* Benjamin
+* Guillaume
 
 > Bien sûr, les équipes pourront varier en fonction.
 
 ## A faire
+
  > IHM
+ 
 - [ ]  Finir l'affichage
 - [ ] Améliorations diverses
 - [ ] Rapport IHM
+
 > IA
+
 - [ ]  Faire le Minimax
 - [ ] Ajouter les tabous
 - [ ] Tester les autres IA
 - [ ] Faire le IA vs IA
 - [ ] Rapport IA
+
 > Fonctionnalités
+
 - [ ] Intégrer les fonctions de sauvegarde et d'historique
 - [ ] Faire le Compte-Rendu
 - [ ] Mettre en place les animations diverses (victoire/ défaite ...)
@@ -48,7 +58,9 @@ Fonctionnalités
 
 2ème Audit IHM
 : Lundi 23 Mai
+
 ### Rendez-vous passés
+
 Audit IHM
 :  Mardi 17 Mai 11h15
 
@@ -57,7 +69,8 @@ Audit IA
 
 
 
-### Diagramme UML
+### Diagramme UML 
+* Version 1
 
 ![PlantUML model](http://plantuml.com/plantuml/png/RLB1ReGW4Btp5Vo0xTs32MdQmpRPklRYpL0SksmGDWXDFwdzZlsnGa5GryHacFVUp9kPI1Ypm4LHlTz-1J33bUmkoeBLKucFodw14D3LL1iEw5vJL2GqA743Hbczfrc8sjqU1x0bVdj5BZhnoN9ZG7kn1we6c1f7aCnZOP8bXXRl8lPgLs30ZagkKR_TGx2sF5Xj5avsCnvpjD5bsosHhU-OlOEdGSW7bRsIQO2OenYpuGnaeuIaeyUkkAYm3oL-xhdthJeYfHMW7niOADUmLZsT5V_kQa4DKBkco31mTgQVcmetB1rlFqR35DR0XFVGkUyIobnMBI2qUAUDOc5NQtLLKwh2r_ySpKI-G5WJxxhvxE2DikY5IqV6domJYMd_0000)
 
