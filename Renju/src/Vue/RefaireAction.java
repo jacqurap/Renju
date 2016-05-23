@@ -16,7 +16,7 @@ class RefaireAction implements ActionListener {
     private JMenuItem btnRefaire;
     
     /**
-     * Création d'une action pour refaire
+     * Creation d'une action pour refaire
      * @param aire l'aire de jeu
      * @param annuler le bouton annuler
      * @param refaire le bouton refaire

@@ -6,7 +6,7 @@
 package Modele;
 
 /**
- *
+ * Le plateau
  * @author jacqurap
  */
 public class Plateau {
@@ -20,6 +20,12 @@ public class Plateau {
     private int dimX;
     private int dimY;
     private int[][] grille;
+    
+    /**
+     * Creation d'un plateau
+     * @param x le nombre d'intersection en horizontal
+     * @param y le nombre d'intersection en vertical
+     */
 
     public Plateau(int x, int y) {
         this.dimX = x;
@@ -27,7 +33,11 @@ public class Plateau {
         this.grille = new int[x][y];
 
     }
-
+    
+    /**
+     * Constructeur par defaut
+     */
+    
     public Plateau() {
         //this.dimX = DEFAULT_DIMX;
         //this.dimY = DEFAULT_DIMY;
@@ -35,38 +45,84 @@ public class Plateau {
         this(DEFAULT_DIMX, DEFAULT_DIMY);
     }
 
+    /**
+     * Recupere la valeur d'une intersection
+     * @param x la position en x
+     * @param y la position en y
+     * @return grille[x][y], la valeur de l'intersection
+     */
+    
     public int getCase(int x, int y) {
         return grille[x][y];
     }
+    
+    /**
+     * Attribue une valeur a une intersection
+     * @param x la position en x
+     * @param y la position en y
+     * @param value la valeur a attribuer
+     */
 
     public void setCase(int x, int y, int value) {
         grille[x][y] = value;
     }
 
+    /**
+     * Recupere la dimension du plateau en x
+     * @return dimX
+     */
+    
     public int getDimX() {
         return dimX;
     }
 
+    /**
+     * Recupere la dimension du plateau en y
+     * @return dimY
+     */
+    
     public int getDimY() {
         return dimY;
     }
+    
+    /**
+     * Recupere la grille du plateau
+     * @return grille
+     */
     
     public int[][] getGrille() {
         return this.grille;
     }
     
+    /**
+     * Attribue une grille au plateau
+     * @param g la grille a attribuer
+     */
+    
     public void setGrille(int[][] g) {
         this.grille = g;
     }
+    
+    /**
+     * Recupere la couleur de l'adversaire
+     * @param couleur la couleur de la pierre du joueur courant
+     * @return la couleur de la pierre de l'adversaire
+     */
 
     public int getAutreCouleur(int couleur){
         return (couleur == CASEBLANCHE) ? CASENOIRE : CASEBLANCHE;
     }
+
     // clone avec le constructeur suivant
     public Plateau clone() {
         return new Plateau(grille.clone());
     }
 
+    /**
+     * Creation d'un plateau a partir de sa grille
+     * @param grille une grille de plateau
+     */
+    
     private Plateau(int[][] grille) { //private car ne doit etre utilise que depuis cet objet (pour le clone)
         this.grille = grille;
         this.dimX = grille.length;

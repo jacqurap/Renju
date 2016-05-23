@@ -2,10 +2,23 @@ package Vue;
 
 import Controleur.*;
 import java.io.*;
+
+/**
+ * La sauvegarde
+ * @author rohautb
+ * 
+ */
+
 public class Sauvegarde {
 	File[] slot = new File[10];
 	
+
 	@SuppressWarnings("null")
+	
+	/**
+	 * Creation des emplacements de sauvegarde
+	 */
+	
 	public Sauvegarde(){
 		String chemin = System.getProperty("user.dir"); //+ "/saves"
 		File[] files = new File(chemin).listFiles();
@@ -23,11 +36,13 @@ public class Sauvegarde {
 		}
 		
 	}
-	/*
-	 * 
+	
+	/**
 	 * Sauvegarder la partie p au slot i 
-	 * 
+	 * @param p la partie a sauvegarder
+	 * @param i le numero de l'emplacement de sauvegarde
 	 */
+	
 	public void Sauvegarder(Partie p, int i){
 		try{
 			File f = new File(i+1 + "." + p.getJoueur1().getNom() + "-vs-" + p.getJoueur2().getNom() + ".ser");
@@ -42,11 +57,12 @@ public class Sauvegarde {
 		}
 	}
 	
-	/*
-	 * 
+	/**
 	 * Charger la partie au slot i
-	 * 
+	 * @param i le numero de l'emplacement de sauvegarde
+	 * @return null
 	 */
+	
 	public Partie Charger(int i){
 		try{
 			FileInputStream fis = new FileInputStream(slot[i].getName());

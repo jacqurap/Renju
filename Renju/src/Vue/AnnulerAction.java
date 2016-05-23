@@ -16,7 +16,7 @@ class AnnulerAction implements ActionListener {
     private JMenuItem btnRefaire;
     
     /**
-     * Création d'une action d'annulation
+     * Creation d'une action d'annulation
      * @param aire l'aire de jeu
      * @param annuler le bouton annuler
      * @param refaire le bouton refaire

@@ -11,12 +11,16 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- *
- * @author jacqurap
- * 
- * joue aleatoirement sur une case libre et limitrophe a un pion
+ * L'IA (Niveau 2) qui
+ *joue aleatoirement sur une case libre et limitrophe a un pion
+ *@author jacqurap
  */
 public class Ia2 extends Ia{
+	
+	/**
+	 * Creation de l'IA (Niveau 2)
+	 * @param nom le nom de l'IA
+	 */
     
     public Ia2(String nom){
         super(nom);
@@ -24,8 +28,12 @@ public class Ia2 extends Ia{
     
     @Override
     public Point solver(Partie partie){
-        ArrayList<Point> listCoupsPertinents = this.coupsPertinents(partie.getPlateau());
+        ArrayList<Point> listCoupsPertinents = this.coupsPertinents(partie.getPlateau(),partie.getNbCoups());
         Random rand = new Random();
+        System.out.println(listCoupsPertinents.size());
+        if(listCoupsPertinents.size()==1){
+        	return listCoupsPertinents.get(0);
+        }
     	return listCoupsPertinents.get(rand.nextInt(listCoupsPertinents.size()-1));
     }
 }

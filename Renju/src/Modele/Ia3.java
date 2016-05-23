@@ -12,13 +12,18 @@ import java.util.Collections;
 import java.util.Random;
 
 /**
- *
+ * L'IA (Niveau 3) qui joue avec un arbre MiniMax
  * @author jacqurap
  */
 public class Ia3 extends Ia {
     
     
 
+	/**
+	 * Creation de l'IA (Niveau 3)
+	 * @param nom le nom de l'IA
+	 */
+	
     public Ia3(String nom) {
         super(nom);
     }
@@ -33,14 +38,14 @@ public class Ia3 extends Ia {
         } else {
             couleur = Plateau.CASEBLANCHE;
         }
-        for (Point p : coupsPertinents(partie.getPlateau())) {
-            listeCoupsValeur.add(new ValeurCoup(p, minimax(partie.getPlateau(), p, 3, couleur, false)));
-        }
-        for (ValeurCoup vc: listeCoupsValeur){
-            System.out.println(vc);
+        for (Point p : coupsPertinents(partie.getPlateau(), partie.getNbCoups())) {
+            listeCoupsValeur.add(new ValeurCoup(p, minimax(partie.getPlateau(), p, 3, couleur, false,partie.getNbCoups())));
         }
         Collections.sort(listeCoupsValeur);
         Collections.reverse(listeCoupsValeur);
+        for(int i = 0 ; i < listeCoupsValeur.size(); i++){
+        	System.out.println(listeCoupsValeur.get(i).point + "  " + listeCoupsValeur.get(i).valeur);
+        }
         int valeurMax = listeCoupsValeur.get(0).valeur;
         int range = valeurMax;
         System.out.println(range);
@@ -55,8 +60,18 @@ public class Ia3 extends Ia {
         Random rand = new Random();
         return listeCoupsValeur.get(rand.nextInt(i)).point;
     }
+    
+    /**
+     * Creation d'une partie de l'arbre MiniMax
+     * @param plateau le plateau de la partie
+     * @param point les coordonnee du coup a jouer
+     * @param profondeur la profondeur de l'arbre
+     * @param couleur la couleur de la pierre
+     * @param maximiser le joueur a faire gagner
+     * @return la branche a parcourir
+     */
 
-    public int minimax(Plateau plateau, Point point, int profondeur, int couleur, boolean maximiser) {
+    public int minimax(Plateau plateau, Point point, int profondeur, int couleur, boolean maximiser,int nbCoups) {
         int meilleur;
         int valeur;
         int evalCourant;
@@ -69,30 +84,30 @@ public class Ia3 extends Ia {
         }
         if (maximiser) {
             evalCourant = evaluationCoup(plateau, point, couleur);
-            if (evalCourant == LETHAL) {
+            if (evalCourant == 10000) {
                 return evalCourant;
             }
-            meilleur = - LETHAL;
-            for (Point p : coupsPertinents(plateau)) {
+            meilleur = Integer.MIN_VALUE;
+            for (Point p : coupsPertinents(plateau,nbCoups)) {
                 plateau.setCase((int) p.getX(), (int) p.getY(), couleur);
-                valeur = minimax(plateau, p, profondeur - 1, plateau.getAutreCouleur(couleur), false);
+                valeur = minimax(plateau, p, profondeur - 1, plateau.getAutreCouleur(couleur), false,nbCoups+1);
                 meilleur = Integer.max(meilleur, valeur);
                 plateau.setCase((int) p.getX(), (int) p.getY(), Plateau.CASEVIDE);
-                if(meilleur == LETHAL){
-                    return meilleur;
+                if(meilleur == 10000){
+                	return meilleur;
                 }
             }
-            return meilleur + evalCourant;
+            return evalCourant - meilleur;
         } else {
             evalCourant = evaluationCoup(plateau, point, couleur);
-            if (evalCourant == LETHAL) {
-                return - LETHAL;
+            if (evalCourant == 10000) {
+                return -evalCourant;
             }
-            meilleur =  - LETHAL;
-            for (Point p : coupsPertinents(plateau)) {
+            meilleur = Integer.MAX_VALUE;
+            for (Point p : coupsPertinents(plateau,nbCoups)) {
                 plateau.setCase((int) p.getX(), (int) p.getY(), couleur);
-                valeur = minimax(plateau, p, profondeur - 1, plateau.getAutreCouleur(couleur), true);
-                meilleur = Integer.max(meilleur, valeur);
+                valeur = minimax(plateau, p, profondeur - 1, plateau.getAutreCouleur(couleur), true,nbCoups+1);
+                meilleur = Integer.min(meilleur, valeur);
                 plateau.setCase((int) p.getX(), (int) p.getY(), Plateau.CASEVIDE);
                 if(meilleur == LETHAL){
                     return meilleur;
@@ -103,11 +118,19 @@ public class Ia3 extends Ia {
     }
 }
 
+/**
+ * Le poids d'un coup
+ */
 class ValeurCoup implements Comparable<ValeurCoup> {
 
     Point point;
     int valeur;
 
+    /**
+     * Creation du poids d'un coup
+     * @param p un point de coordonnee (x,y)
+     * @param v une valeur
+     */
     public ValeurCoup(Point p, int v) {
         this.point = p;
         this.valeur = v;

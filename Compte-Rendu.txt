@@ -34,7 +34,11 @@
 -- Mercredi 18 Mai
 
 - IHM : Création des différentes fenêtres de jeu
-- IA : Création de l'IA aléatoire
+- IA : Création de l'IA aléatoire (Niveau 1) et l'IA aléatoire sur les intersections adjacentes (Niveau 2)
 - Fonctionnalité : Création de la fonction Annuler / Refaire
 
-	. 
+-- Jeudi 19 Mai
+
+- IHM : Interactions entre les différentes fenêtres de jeu, réactualisation du contenu des fenêtres de jeu.
+- IA : Création de l'IA Minimax (Niveau 3) en cours
+- Fonctionnalités : Création des animations de victoire / Défaite
