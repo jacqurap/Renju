@@ -9,6 +9,9 @@ import javax.swing.JComponent;
 import Controleur.Partie;
 import Modele.Humain;
 import Modele.Plateau;
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 /**
  * L'aire de jeu
@@ -18,11 +21,24 @@ public class AireDeJeu extends JComponent{
 	public Partie partie;
 	
 	/**
-	 * Création de l'aire de jeu
+	 * Crï¿½ation de l'aire de jeu
 	 */
 	
 	public AireDeJeu(){
 		partie = new Partie("Modele.Ia2", "toto", "Modele.Ia2", "titi");
+                if(this.partie.isIa1() || this.partie.isIa2()){
+			Timer t = new Timer();
+			TimerTask tache = new TimerTask(){
+				@Override
+				public void run() {
+					if(partie.istrouria()){
+						partie.joueIa();
+						repaint();
+					}
+				}
+			};
+			t.scheduleAtFixedRate(tache,1000,2000);
+		}
 	}
 	
 	@Override
@@ -52,4 +68,6 @@ public class AireDeJeu extends JComponent{
     public Partie getPartie() {
         return this.partie;
     }
+
+  
 }

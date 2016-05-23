@@ -109,7 +109,7 @@ public class Ia3 extends Ia {
                 valeur = minimax(plateau, p, profondeur - 1, plateau.getAutreCouleur(couleur), true,nbCoups+1);
                 meilleur = Integer.min(meilleur, valeur);
                 plateau.setCase((int) p.getX(), (int) p.getY(), Plateau.CASEVIDE);
-                if(meilleur == LETHAL){
+                if(meilleur == 10000){
                     return meilleur;
                 }
             }
