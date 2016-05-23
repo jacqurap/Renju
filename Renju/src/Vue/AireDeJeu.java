@@ -25,7 +25,7 @@ public class AireDeJeu extends JComponent{
 	 */
 	
 	public AireDeJeu(){
-		partie = new Partie("Modele.Ia2", "toto", "Modele.Ia2", "titi");
+		partie = new Partie("Modele.Humain", "toto", "Modele.Humain", "titi");
                 if(this.partie.isIa1() || this.partie.isIa2()){
 			Timer t = new Timer();
 			TimerTask tache = new TimerTask(){

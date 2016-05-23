@@ -12,10 +12,13 @@ import java.awt.event.ActionListener;
 
 public class InterfaceJeu extends JPanel {
 
-    public InterfaceJeu(final Fenetre f, AireDeJeu aire) {
+    private static final JMenuItem ITEMANNU = new JMenuItem("Annuler");
+    private static final JMenuItem ITEMREFA = new JMenuItem("Refaire");
+
+    public InterfaceJeu(final Fenetre f, final AireDeJeu aire) {
         this.setLayout(new BorderLayout());
         final Popups popup = new Popups(f);
-        
+
         // Menu Partie
         JMenu menu_partie = new JMenu("Partie");
 
@@ -38,11 +41,41 @@ public class InterfaceJeu extends JPanel {
         menu_partie.add(item_char);
 
         menu_partie.addSeparator();
-        JMenuItem item_annu = new JMenuItem("Annuler");
-        menu_partie.add(item_annu);
+        ITEMANNU.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Partie partie = aire.getPartie();
+                Plateau plateauAnnule = partie.getAnnuler().pop();
+                partie.getRefaire().push(plateauAnnule);
+                partie.setPlateau();
+                getITEMREFA().setEnabled(true);
+                if (aire.getPartie().getAnnuler().size() <= 1) {
+                    getITEMANNU().setEnabled(false);
+                }
+                //aire.getPartie().;
+                aire.repaint();
+            }
+        });
+        ITEMANNU.setEnabled(false); //non visible de base
+        menu_partie.add(ITEMANNU);
 
-        JMenuItem item_refa = new JMenuItem("Refaire");
-        menu_partie.add(item_refa);
+        ITEMREFA.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Partie partie = aire.getPartie();
+                Plateau plateauRefaire = partie.getRefaire().pop();
+                partie.getAnnuler().push(plateauRefaire);
+                partie.setPlateau();
+                getITEMANNU().setEnabled(true);
+                if (aire.getPartie().getRefaire().empty()) {
+                    getITEMREFA().setEnabled(false);
+                }
+                //aire.getPartie().;
+                aire.repaint();
+            }
+        });
+        ITEMREFA.setEnabled(false);
+        menu_partie.add(ITEMREFA);
 
         menu_partie.addSeparator();
         JMenuItem item_reco = new JMenuItem("Recommencer");
@@ -167,6 +200,20 @@ public class InterfaceJeu extends JPanel {
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(Box.createRigidArea(new Dimension(0, 20)));
         this.add(button);
+    }
+
+    /**
+     * @return the ITEMANNU
+     */
+    public static JMenuItem getITEMANNU() {
+        return ITEMANNU;
+    }
+
+    /**
+     * @return the ITEMREFA
+     */
+    public static JMenuItem getITEMREFA() {
+        return ITEMREFA;
     }
 
 }

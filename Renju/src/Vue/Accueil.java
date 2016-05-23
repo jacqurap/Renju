@@ -17,7 +17,7 @@ public class Accueil extends JPanel {
         final Popups popup = new Popups(f);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        JButton btnNouvellePartie = new JButton("Nouvelle partie");
+        JButton btnNouvellePartie = new JButton("Démarrer une partie");
         btnNouvellePartie.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -35,7 +35,7 @@ public class Accueil extends JPanel {
         });
         addButton(btnChargerPartie);
 
-        JButton btnAideJeu = new JButton("Aide de jeu");
+        JButton btnAideJeu = new JButton("Consulter les règles");
         btnAideJeu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
