@@ -60,6 +60,7 @@ public class Popups {
             public void actionPerformed(ActionEvent e) {
                 f.closeGame();
                 popQuitterMenu.dispose();
+                System.exit(0);
             }
         });
 
@@ -127,11 +128,50 @@ public class Popups {
         popSauver.setLocationRelativeTo(null);
         popSauver.setLayout(new FlowLayout());
 
+        final JButton btnSauvegarder = new JButton("Sauvegarder");
+        btnSauvegarder.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                popSauver.dispose();
+            }
+        });
+        btnSauvegarder.setEnabled(false);
+
+        final JLabel warning = new JLabel("Attention une partie est déjà sauvegardée sur ce slot, vous allez l'écraser !");
+        warning.setVisible(false);
+
+        ButtonGroup grpSlot = new ButtonGroup();
         for (int i = 1; i <= 10; i++) {
             String val = String.valueOf(i);
-            popSauver.add(new JButton("Slot " + val));
+            JRadioButton slot = new JRadioButton("Slot " + val);
+            slot.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (!btnSauvegarder.isEnabled()) {
+                        btnSauvegarder.setEnabled(true);
+                    }
+                }
+            });
+            if (i < 5) { //pour tester
+                slot.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        warning.setVisible(true);
+                    }
+                });
+            }
+            if (i >= 5) {
+                slot.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        warning.setVisible(false);
+                    }
+                });
+            }
+            grpSlot.add(slot);
+            popSauver.add(slot);
         }
-        JLabel warning = new JLabel("Attention une partie est déjà sauvegardée sur ce slot, vous allez l'écraser !");
+
         popSauver.add(warning);
 
         JLabel labelNom = new JLabel("Nom de la sauvegarde :");
@@ -139,13 +179,6 @@ public class Popups {
         JTextField nom = new JTextField("Sauvegarde", 20);
         popSauver.add(nom);
 
-        JButton btnSauvegarder = new JButton("Sauvegarder");
-        btnSauvegarder.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popSauver.dispose();
-            }
-        });
         popSauver.add(btnSauvegarder);
 
         JButton btnAnnuler = new JButton("Annuler");
@@ -218,7 +251,7 @@ public class Popups {
             }
         });
         popAbandonner.add(btnAbandonner);
-        
+
         JButton btnAnnuler = new JButton("Annuler");
         btnAnnuler.addActionListener(new ActionListener() {
             @Override

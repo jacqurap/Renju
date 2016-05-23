@@ -12,10 +12,8 @@ import java.awt.event.ActionListener;
 
 public class NouvellePartie extends JPanel {
 
-
     public NouvellePartie(final Fenetre f) {
 
-        
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         JLabel title = new JLabel("Sélection des joueurs");
@@ -33,7 +31,7 @@ public class NouvellePartie extends JPanel {
         paneJoueur2.setLayout(new BoxLayout(paneJoueur2, BoxLayout.Y_AXIS));
         addComponent(paneJoueur2, paneJoueurs);
 
-        addComponent((JComponent)Box.createRigidArea(new Dimension(0,200)),paneJoueur1);
+        addComponent((JComponent) Box.createRigidArea(new Dimension(0, 200)), paneJoueur1);
         JLabel noir = new JLabel("Noir");
         addComponent(noir, paneJoueur1);
 
@@ -43,11 +41,12 @@ public class NouvellePartie extends JPanel {
 
         JLabel nomJ1 = new JLabel("Nom : ");
         addComponent(nomJ1, paneNomJoueur1);
-        JTextField j1 = new JTextField("J1",10);
+        JTextField j1 = new JTextField("J1", 10);
         addComponent(j1, paneNomJoueur1);
 
         ButtonGroup rbMenuItemJ1 = new ButtonGroup();
         JRadioButton rbJoueurJ1 = new JRadioButton("Joueur");
+        rbJoueurJ1.setSelected(true);
         JRadioButton rbOrdinateurJ1 = new JRadioButton("Ordinateur");
         rbMenuItemJ1.add(rbJoueurJ1);
         rbMenuItemJ1.add(rbOrdinateurJ1);
@@ -59,7 +58,7 @@ public class NouvellePartie extends JPanel {
         addComponent(rbJoueurJ1, paneSelJoueur1);
         addComponent(rbOrdinateurJ1, paneSelJoueur1);
 
-        addComponent((JComponent)Box.createRigidArea(new Dimension(0,200)),paneJoueur2);
+        addComponent((JComponent) Box.createRigidArea(new Dimension(0, 200)), paneJoueur2);
         JLabel blanc = new JLabel("Blanc");
         addComponent(blanc, paneJoueur2);
 
@@ -69,12 +68,13 @@ public class NouvellePartie extends JPanel {
 
         JLabel nomJ2 = new JLabel("Nom : ");
         addComponent(nomJ2, paneNomJoueur2);
-        JTextField j2 = new JTextField("J2",10);
+        JTextField j2 = new JTextField("J2", 10);
         addComponent(j2, paneNomJoueur2);
 
         ButtonGroup rbMenuItemJ2 = new ButtonGroup();
         JRadioButton rbJoueurJ2 = new JRadioButton("Joueur");
         JRadioButton rbOrdinateurJ2 = new JRadioButton("Ordinateur");
+        rbOrdinateurJ2.setSelected(true);
         rbMenuItemJ2.add(rbJoueurJ2);
         rbMenuItemJ2.add(rbOrdinateurJ2);
 
@@ -85,7 +85,6 @@ public class NouvellePartie extends JPanel {
         addComponent(rbJoueurJ2, paneSelJoueur2);
         addComponent(rbOrdinateurJ2, paneSelJoueur2);
 
-        
         JPanel paneBoutons = new JPanel();
         paneBoutons.setLayout(new BoxLayout(paneBoutons, BoxLayout.X_AXIS));
         addComponent(paneBoutons);
@@ -96,7 +95,7 @@ public class NouvellePartie extends JPanel {
                 f.changePanel(Fenetre.INTERFACEPANEL);
             }
         });
-        addComponent(btnOk,paneBoutons);
+        addComponent(btnOk, paneBoutons);
 
         JButton btnRetour = new JButton("Retour");
         btnRetour.addActionListener(new ActionListener() {
@@ -105,7 +104,7 @@ public class NouvellePartie extends JPanel {
                 f.changePanel(Fenetre.ACCUEILPANEL);
             }
         });
-        addComponent(btnRetour,paneBoutons);
+        addComponent(btnRetour, paneBoutons);
 
     }
 

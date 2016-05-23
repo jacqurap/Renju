@@ -20,9 +20,21 @@ public class InterfaceJeu extends JPanel {
         JMenu menu_partie = new JMenu("Partie");
 
         JMenuItem item_sauv = new JMenuItem("Sauvegarder");
+        item_sauv.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                popup.popSauver();
+            }
+        });
         menu_partie.add(item_sauv);
 
         JMenuItem item_char = new JMenuItem("Charger");
+        item_char.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                popup.popCharger();
+            }
+        });
         menu_partie.add(item_char);
 
         menu_partie.addSeparator();

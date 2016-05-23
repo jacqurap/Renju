@@ -91,7 +91,7 @@ public class Ia3 extends Ia {
             for (Point p : coupsPertinents(plateau,nbCoups)) {
                 plateau.setCase((int) p.getX(), (int) p.getY(), couleur);
                 valeur = minimax(plateau, p, profondeur - 1, plateau.getAutreCouleur(couleur), false,nbCoups+1);
-                meilleur = Integer.max(meilleur, valeur);
+                meilleur = Math.max(meilleur, valeur);
                 plateau.setCase((int) p.getX(), (int) p.getY(), Plateau.CASEVIDE);
                 if(meilleur == 10000){
                 	return meilleur;
@@ -107,7 +107,7 @@ public class Ia3 extends Ia {
             for (Point p : coupsPertinents(plateau,nbCoups)) {
                 plateau.setCase((int) p.getX(), (int) p.getY(), couleur);
                 valeur = minimax(plateau, p, profondeur - 1, plateau.getAutreCouleur(couleur), true,nbCoups+1);
-                meilleur = Integer.min(meilleur, valeur);
+                meilleur = Math.min(meilleur, valeur);
                 plateau.setCase((int) p.getX(), (int) p.getY(), Plateau.CASEVIDE);
                 if(meilleur == 10000){
                     return meilleur;

@@ -21,7 +21,7 @@ public class AireDeJeu extends JComponent{
 	public Partie partie;
 	
 	/**
-	 * Cr�ation de l'aire de jeu
+	 * Creation de l'aire de jeu
 	 */
 	
 	public AireDeJeu(){
