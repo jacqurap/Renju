@@ -1,7 +1,7 @@
 # Projet S6 - Renju
 
 > 
- - Mattieu BOCHATON
+ - Mathieu BOCHATON
  - Guillaume CHAPUT
  - Clément HERESAZ
  - Raphaël JACQUET
@@ -56,8 +56,6 @@ Fonctionnalités
 ### Prochains Rendez-vous
 
 
-2ème Audit IHM
-: Lundi 23 Mai
 
 ### Rendez-vous passés
 
@@ -66,6 +64,9 @@ Audit IHM
 
 Audit IA
 : Vendredi 20 Mai 10h
+
+2ème Audit IHM
+: Lundi 23 Mai 11h30
 
 
 
