@@ -16,6 +16,8 @@ import java.util.Random;
  * @author jacqurap
  */
 public class Ia3 extends Ia {
+    
+    
 
     public Ia3(String nom) {
         super(nom);
@@ -32,16 +34,24 @@ public class Ia3 extends Ia {
             couleur = Plateau.CASEBLANCHE;
         }
         for (Point p : coupsPertinents(partie.getPlateau())) {
-            listeCoupsValeur.add(new ValeurCoup(p, minimax(partie.getPlateau(), p, 5, couleur, true)));
+            listeCoupsValeur.add(new ValeurCoup(p, minimax(partie.getPlateau(), p, 3, couleur, false)));
+        }
+        for (ValeurCoup vc: listeCoupsValeur){
+            System.out.println(vc);
         }
         Collections.sort(listeCoupsValeur);
         Collections.reverse(listeCoupsValeur);
         int valeurMax = listeCoupsValeur.get(0).valeur;
-        float range = (float) (valeurMax * 0.9);
+        int range = valeurMax;
+        System.out.println(range);
         int i = 1;
-        while (i < listeCoupsValeur.size() && listeCoupsValeur.get(i).valeur > range) {
+        while (i < listeCoupsValeur.size() && listeCoupsValeur.get(i).valeur >= range) {
             i++;
         }
+        for (ValeurCoup vc: listeCoupsValeur){
+            System.out.println(vc);
+        }
+        System.out.println(i);
         Random rand = new Random();
         return listeCoupsValeur.get(rand.nextInt(i)).point;
     }
@@ -59,28 +69,34 @@ public class Ia3 extends Ia {
         }
         if (maximiser) {
             evalCourant = evaluationCoup(plateau, point, couleur);
-            if (evalCourant == Integer.MAX_VALUE) {
+            if (evalCourant == LETHAL) {
                 return evalCourant;
             }
-            meilleur = Integer.MIN_VALUE;
+            meilleur = - LETHAL;
             for (Point p : coupsPertinents(plateau)) {
                 plateau.setCase((int) p.getX(), (int) p.getY(), couleur);
                 valeur = minimax(plateau, p, profondeur - 1, plateau.getAutreCouleur(couleur), false);
                 meilleur = Integer.max(meilleur, valeur);
                 plateau.setCase((int) p.getX(), (int) p.getY(), Plateau.CASEVIDE);
+                if(meilleur == LETHAL){
+                    return meilleur;
+                }
             }
             return meilleur + evalCourant;
         } else {
             evalCourant = evaluationCoup(plateau, point, couleur);
-            if (evalCourant == Integer.MAX_VALUE) {
-                return Integer.MIN_VALUE;
+            if (evalCourant == LETHAL) {
+                return - LETHAL;
             }
-            meilleur = Integer.MAX_VALUE;
+            meilleur =  - LETHAL;
             for (Point p : coupsPertinents(plateau)) {
                 plateau.setCase((int) p.getX(), (int) p.getY(), couleur);
                 valeur = minimax(plateau, p, profondeur - 1, plateau.getAutreCouleur(couleur), true);
-                meilleur = Integer.min(meilleur, valeur);
+                meilleur = Integer.max(meilleur, valeur);
                 plateau.setCase((int) p.getX(), (int) p.getY(), Plateau.CASEVIDE);
+                if(meilleur == LETHAL){
+                    return meilleur;
+                }
             }
             return meilleur - evalCourant;
         }
@@ -100,5 +116,9 @@ class ValeurCoup implements Comparable<ValeurCoup> {
     @Override
     public int compareTo(ValeurCoup autre) {
         return this.valeur - autre.valeur;
+    }
+    
+    public String toString(){
+        return ("p = " + point + " v = " + valeur);
     }
 }

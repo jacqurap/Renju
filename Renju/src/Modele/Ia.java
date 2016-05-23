@@ -15,6 +15,8 @@ import java.util.ArrayList;
  */
 public abstract class Ia extends Joueur {
 
+    final static int LETHAL = 1000;
+    
     public Ia(String nom) {
         super(nom);
     }
@@ -173,8 +175,10 @@ public abstract class Ia extends Joueur {
             }
         }
         if (juxtHorizontal >= 4 || juxtVertical >= 4 || juxtDiagonalDescendante >= 4 || juxtDiagonalMontante >= 4) {
-            return Integer.MAX_VALUE;
+            return LETHAL;
         }
+        
+        //peut etre ameliore, par exemple en metant les variable juxt... au carre (ou au cube ...)
         valeur = 3 * (juxtHorizontal + juxtVertical + juxtDiagonalDescendante + juxtDiagonalMontante) + horizontal + vertical + diagonalDescendante + diagonalMontante;
         return valeur;
     }
