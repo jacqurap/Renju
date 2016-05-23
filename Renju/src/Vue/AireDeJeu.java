@@ -22,7 +22,7 @@ public class AireDeJeu extends JComponent{
 	 */
 	
 	public AireDeJeu(){
-		partie = new Partie("Modele.Humain", "toto", "Modele.Ia3", "titi");
+		partie = new Partie("Modele.Ia2", "toto", "Modele.Ia2", "titi");
 	}
 	
 	@Override

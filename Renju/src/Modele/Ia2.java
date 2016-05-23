@@ -28,8 +28,12 @@ public class Ia2 extends Ia{
     
     @Override
     public Point solver(Partie partie){
-        ArrayList<Point> listCoupsPertinents = this.coupsPertinents(partie.getPlateau());
+        ArrayList<Point> listCoupsPertinents = this.coupsPertinents(partie.getPlateau(),partie.getNbCoups());
         Random rand = new Random();
+        System.out.println(listCoupsPertinents.size());
+        if(listCoupsPertinents.size()==1){
+        	return listCoupsPertinents.get(0);
+        }
     	return listCoupsPertinents.get(rand.nextInt(listCoupsPertinents.size()-1));
     }
 }

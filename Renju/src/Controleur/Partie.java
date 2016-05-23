@@ -35,26 +35,10 @@ public class Partie implements Serializable{
 	private Stack<Plateau> annuler;
 	private Stack<Plateau> refaire;
 	private boolean ia1=false;
-	
-	/**
-	 * Determine si le joueur 1 est un ordinateur
-	 * @return ia1, true si l'ordinateur 1 est un ordinateur 
-	 */
-	
-	public boolean isIa1() {
-		return ia1;
-	}
-	
-	/**
-	 * Determine si le joueur 2 est un ordinateur
-	 * @return ia2, true si l'ordinateur 2 est un ordinateur 
-	 */
-	
-	public boolean isIa2() {
-		return ia2;
-	}
 
 	private boolean ia2=false;
+	private boolean touria= false;
+
 
 	/**
 	 * Creation d'une partie
@@ -63,7 +47,7 @@ public class Partie implements Serializable{
 	 * @param classJ2 type du joueur 2
 	 * @param nomJ2 nom du joueur 2
 	 */
-	
+
 	public Partie(String classJ1, String nomJ1, String classJ2, String nomJ2) {
 
 		this.plateau = new Plateau();
@@ -75,6 +59,7 @@ public class Partie implements Serializable{
 			this.joueur2 = (Joueur) Class.forName(classJ2).getConstructor(String.class).newInstance(nomJ2);
 			if(joueur1 instanceof Ia){
 				ia1=true;
+				touria = true;
 			}
 			if(joueur2 instanceof Ia){
 				ia2=true;
@@ -84,9 +69,11 @@ public class Partie implements Serializable{
 		}
 	}
 
+
 	/**
 	 * Action des IAs
 	 */
+
 	
 	public void joueIa(){
 
@@ -134,8 +121,12 @@ public class Partie implements Serializable{
 	public boolean action(Point p) { //TODO
 		if (nbCoups % 2 == 0) {
 			plateau.setCase(p.x, p.y, plateau.CASENOIRE);
+			if(ia2)
+				touria=true;
 		} else {
 			plateau.setCase(p.x, p.y, plateau.CASEBLANCHE);
+			if(ia1)
+				touria=true;
 		}
 		if(!refaire.isEmpty())
 			refaire.clear();
@@ -364,5 +355,26 @@ public class Partie implements Serializable{
 	
 	public Stack<Plateau> getRefaire(){
 		return refaire;
+	}
+	
+	/**
+	 * Determine si le joueur 1 est un ordinateur
+	 * @return ia1, true si l'ordinateur 1 est un ordinateur 
+	 */
+	
+	public boolean isIa1() {
+		return ia1;
+	}
+	
+	/**
+	 * Determine si le joueur 2 est un ordinateur
+	 * @return ia2, true si l'ordinateur 2 est un ordinateur 
+	 */
+	
+	public boolean isIa2() {
+		return ia2;
+	}
+	public boolean istrouria() {
+		return touria;
 	}
 }

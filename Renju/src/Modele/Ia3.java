@@ -36,11 +36,14 @@ public class Ia3 extends Ia {
         } else {
             couleur = Plateau.CASEBLANCHE;
         }
-        for (Point p : coupsPertinents(partie.getPlateau())) {
-            listeCoupsValeur.add(new ValeurCoup(p, minimax(partie.getPlateau(), p, 5, couleur, true)));
+        for (Point p : coupsPertinents(partie.getPlateau(), partie.getNbCoups())) {
+            listeCoupsValeur.add(new ValeurCoup(p, minimax(partie.getPlateau(), p, 3, couleur, false,partie.getNbCoups())));
         }
         Collections.sort(listeCoupsValeur);
         Collections.reverse(listeCoupsValeur);
+        for(int i = 0 ; i < listeCoupsValeur.size(); i++){
+        	System.out.println(listeCoupsValeur.get(i).point + "  " + listeCoupsValeur.get(i).valeur);
+        }
         int valeurMax = listeCoupsValeur.get(0).valeur;
         float range = (float) (valeurMax * 0.9);
         int i = 1;
@@ -61,7 +64,7 @@ public class Ia3 extends Ia {
      * @return la branche a parcourir
      */
 
-    public int minimax(Plateau plateau, Point point, int profondeur, int couleur, boolean maximiser) {
+    public int minimax(Plateau plateau, Point point, int profondeur, int couleur, boolean maximiser,int nbCoups) {
         int meilleur;
         int valeur;
         int evalCourant;
@@ -74,26 +77,29 @@ public class Ia3 extends Ia {
         }
         if (maximiser) {
             evalCourant = evaluationCoup(plateau, point, couleur);
-            if (evalCourant == Integer.MAX_VALUE) {
+            if (evalCourant == 10000) {
                 return evalCourant;
             }
             meilleur = Integer.MIN_VALUE;
-            for (Point p : coupsPertinents(plateau)) {
+            for (Point p : coupsPertinents(plateau,nbCoups)) {
                 plateau.setCase((int) p.getX(), (int) p.getY(), couleur);
-                valeur = minimax(plateau, p, profondeur - 1, plateau.getAutreCouleur(couleur), false);
+                valeur = minimax(plateau, p, profondeur - 1, plateau.getAutreCouleur(couleur), false,nbCoups+1);
                 meilleur = Integer.max(meilleur, valeur);
                 plateau.setCase((int) p.getX(), (int) p.getY(), Plateau.CASEVIDE);
+                if(meilleur == 10000){
+                	return meilleur;
+                }
             }
-            return meilleur + evalCourant;
+            return evalCourant - meilleur;
         } else {
             evalCourant = evaluationCoup(plateau, point, couleur);
-            if (evalCourant == Integer.MAX_VALUE) {
-                return Integer.MIN_VALUE;
+            if (evalCourant == 10000) {
+                return -evalCourant;
             }
             meilleur = Integer.MAX_VALUE;
-            for (Point p : coupsPertinents(plateau)) {
+            for (Point p : coupsPertinents(plateau,nbCoups)) {
                 plateau.setCase((int) p.getX(), (int) p.getY(), couleur);
-                valeur = minimax(plateau, p, profondeur - 1, plateau.getAutreCouleur(couleur), true);
+                valeur = minimax(plateau, p, profondeur - 1, plateau.getAutreCouleur(couleur), true,nbCoups+1);
                 meilleur = Integer.min(meilleur, valeur);
                 plateau.setCase((int) p.getX(), (int) p.getY(), Plateau.CASEVIDE);
             }
