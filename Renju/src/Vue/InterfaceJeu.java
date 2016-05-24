@@ -14,8 +14,9 @@ public class InterfaceJeu extends JPanel {
 
     private static final JMenuItem ITEMANNU = new JMenuItem("Annuler");
     private static final JMenuItem ITEMREFA = new JMenuItem("Refaire");
-
-    public InterfaceJeu(final Fenetre f, final AireDeJeu aire) {
+    private static final JButton btnAnnuler = new JButton("Annuler");
+    private static final JButton btnRefaire = new JButton("Refaire");
+    public InterfaceJeu( Fenetre f, final AireDeJeu aire) {
         this.setLayout(new BorderLayout());
         final Popups popup = new Popups(f);
 
@@ -41,39 +42,9 @@ public class InterfaceJeu extends JPanel {
         menu_partie.add(item_char);
 
         menu_partie.addSeparator();
-        ITEMANNU.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Partie partie = aire.getPartie();
-                Plateau plateauAnnule = partie.getAnnuler().pop();
-                partie.getRefaire().push(plateauAnnule);
-                partie.setPlateau();
-                getITEMREFA().setEnabled(true);
-                if (aire.getPartie().getAnnuler().size() <= 1) {
-                    getITEMANNU().setEnabled(false);
-                }
-                //aire.getPartie().;
-                aire.repaint();
-            }
-        });
         ITEMANNU.setEnabled(false); //non visible de base
         menu_partie.add(ITEMANNU);
 
-        ITEMREFA.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Partie partie = aire.getPartie();
-                Plateau plateauRefaire = partie.getRefaire().pop();
-                partie.getAnnuler().push(plateauRefaire);
-                partie.setPlateau();
-                getITEMANNU().setEnabled(true);
-                if (aire.getPartie().getRefaire().empty()) {
-                    getITEMREFA().setEnabled(false);
-                }
-                //aire.getPartie().;
-                aire.repaint();
-            }
-        });
         ITEMREFA.setEnabled(false);
         menu_partie.add(ITEMREFA);
 
@@ -97,10 +68,10 @@ public class InterfaceJeu extends JPanel {
         menu_partie.add(item_aban);
 
         // Menu Parametres
-        JMenu menu_param = new JMenu("ParamÃ¨tres");
+        JMenu menu_param = new JMenu("Paramètres");
 
-        // liste de ThÃ¨mes
-        JMenu menu_them = new JMenu("ThÃ¨me du plateau");
+        // liste de Thèmes
+        JMenu menu_them = new JMenu("Thème du plateau");
         menu_param.add(menu_them);
 
         ButtonGroup grpTheme = new ButtonGroup();
@@ -116,7 +87,7 @@ public class InterfaceJeu extends JPanel {
         menu_param.add(menu_lang);
 
         ButtonGroup grpLang = new ButtonGroup();
-        JRadioButtonMenuItem rdFran = new JRadioButtonMenuItem("FranÃ§ais");
+        JRadioButtonMenuItem rdFran = new JRadioButtonMenuItem("Français");
         menu_lang.add(rdFran);
         grpLang.add(rdFran);
         JRadioButtonMenuItem rdAngl = new JRadioButtonMenuItem("Anglais");
@@ -130,7 +101,7 @@ public class InterfaceJeu extends JPanel {
         menu_param.add(cbHist);
         JCheckBoxMenuItem cbNbCoupRest = new JCheckBoxMenuItem("Coups Restants");
         menu_param.add(cbNbCoupRest);
-        JCheckBoxMenuItem cbNumCases = new JCheckBoxMenuItem("NumÃ©ros des cases");
+        JCheckBoxMenuItem cbNumCases = new JCheckBoxMenuItem("Numéros des cases");
         menu_param.add(cbNumCases);
 
         // Aide
@@ -173,10 +144,18 @@ public class InterfaceJeu extends JPanel {
         paneJoueurs.add(tfJ1);
         paneJoueurs.add(tfJ2);
 
-        JButton btnAnnuler = new JButton("Annuler");
+        
         addButton(btnAnnuler);
-        JButton btnRefaire = new JButton("Refaire");
+        btnAnnuler.setEnabled(false);
+        
         addButton(btnRefaire);
+        AnnulerAction annu = new AnnulerAction(aire, getITEMANNU(), getITEMREFA(),btnAnnuler,btnRefaire);
+        RefaireAction ref = new RefaireAction(aire, getITEMANNU(), getITEMREFA(),btnAnnuler,btnRefaire);
+        btnAnnuler.addActionListener(annu);
+        ITEMANNU.addActionListener(annu);
+        ITEMREFA.addActionListener(ref);
+        btnRefaire.addActionListener(ref);
+        btnRefaire.setEnabled(false);
         paneJoueurs.add(btnAnnuler);
         paneJoueurs.add(btnRefaire);
 
@@ -214,6 +193,12 @@ public class InterfaceJeu extends JPanel {
      */
     public static JMenuItem getITEMREFA() {
         return ITEMREFA;
+    }
+    public static JButton getButAnnuler(){
+    	return btnAnnuler;
+    }
+    public static JButton getButRefaire(){
+    	return btnRefaire;
     }
 
 }

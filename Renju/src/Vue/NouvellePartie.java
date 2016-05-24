@@ -12,11 +12,11 @@ import java.awt.event.ActionListener;
 
 public class NouvellePartie extends JPanel {
 
-    public NouvellePartie(final Fenetre f) {
+    public NouvellePartie(Fenetre f) {
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        JLabel title = new JLabel("SÃ©lection des joueurs");
+        JLabel title = new JLabel("Sélection des joueurs");
         addComponent(title);
 
         JPanel paneJoueurs = new JPanel();
@@ -92,6 +92,7 @@ public class NouvellePartie extends JPanel {
         btnOk.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	
                 f.changePanel(Fenetre.INTERFACEPANEL);
             }
         });

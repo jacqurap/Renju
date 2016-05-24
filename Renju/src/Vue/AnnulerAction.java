@@ -3,6 +3,8 @@ package Vue;
 import Modele.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
 import javax.swing.JMenuItem;
 
 /**
@@ -14,6 +16,8 @@ class AnnulerAction implements ActionListener {
     private AireDeJeu aire;
     private JMenuItem btnAnnuler;
     private JMenuItem btnRefaire;
+    private JButton annu;
+    private JButton ref;
     
     /**
      * Creation d'une action d'annulation
@@ -22,13 +26,14 @@ class AnnulerAction implements ActionListener {
      * @param refaire le bouton refaire
      */
     
-    public AnnulerAction(AireDeJeu aire, JMenuItem annuler, JMenuItem refaire) {
+    public AnnulerAction(AireDeJeu aire, JMenuItem annuler, JMenuItem refaire, JButton annu, JButton ref) {
         this.aire = aire;
         this.btnAnnuler = annuler;
         this.btnRefaire = refaire;
+        this.annu = annu;
+        this.ref = ref;
     }
     
-
     @Override
     public void actionPerformed(ActionEvent e) {
         int[][] GrilleActuelle = aire.getPartie().getPlateau().getGrille();
@@ -39,8 +44,10 @@ class AnnulerAction implements ActionListener {
         aire.getPartie().getRefaire().push(newPlateau);
         aire.getPartie().getPlateau().setGrille(plateau.getGrille());
         getBtnRefaire().setEnabled(true);
+        ref.setEnabled(true);
         if(aire.getPartie().getAnnuler().empty()) { 
             getBtnAnnuler().setEnabled(false);
+            annu.setEnabled(false);
         }
         //aire.getPartie().printStacks(); DEBUG
         aire.repaint();

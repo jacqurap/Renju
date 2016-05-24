@@ -21,7 +21,7 @@ public class EcouteurDeSouris implements MouseListener {
 		int x = (int) e.getX()/40;
 		int y = (int) e.getY()/40-1;
 		System.out.println("x " +x+ " y " +y);
-		if(aire.partie.action(new Point(x,y)))
+		if(aire.partie.click(new Point(x,y)))
 			aire.repaint();
 
 

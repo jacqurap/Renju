@@ -12,12 +12,12 @@ import java.awt.event.ActionListener;
 
 public class Accueil extends JPanel {
 
-    public Accueil(final Fenetre f) {
+    public Accueil(Fenetre f) {
 
         final Popups popup = new Popups(f);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        JButton btnNouvellePartie = new JButton("DÃ©marrer une partie");
+        JButton btnNouvellePartie = new JButton("Démarrer une partie");
         btnNouvellePartie.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -35,7 +35,7 @@ public class Accueil extends JPanel {
         });
         addButton(btnChargerPartie);
 
-        JButton btnAideJeu = new JButton("Consulter les rÃ¨gles");
+        JButton btnAideJeu = new JButton("Consulter les règles");
         btnAideJeu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
