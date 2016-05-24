@@ -214,7 +214,7 @@ public abstract class Ia extends Joueur {
         return valeur;
     }
 
-    public static int evaluationPlateau(Plateau plateau) {
+    public static int evaluationPlateau(Plateau plateau, int couleur) {
         int i, j;
         int valeur = 0;
         int tmp;
@@ -228,7 +228,10 @@ public abstract class Ia extends Joueur {
                         tmp = evaluationCoup(plateau, p, Plateau.CASENOIRE);
                         if(tmp == Integer.MAX_VALUE){
                             System.out.println("-----------");
-                            return tmp;
+                            if(couleur == Plateau.CASENOIRE)
+                                return tmp;
+                            else
+                                return Integer.MIN_VALUE;
                             
                         }
                         if(tmp == Integer.MIN_VALUE) //en cas de defaite pour cause de tabou
@@ -238,7 +241,10 @@ public abstract class Ia extends Joueur {
                     {
                         tmp = evaluationCoup(plateau, p, Plateau.CASEBLANCHE);
                         if(tmp == Integer.MAX_VALUE){
-                            return Integer.MIN_VALUE;
+                            if(couleur == Plateau.CASEBLANCHE)
+                                return Integer.MIN_VALUE;
+                            else
+                                return tmp;
                         }
                             
                         valeur -= tmp;

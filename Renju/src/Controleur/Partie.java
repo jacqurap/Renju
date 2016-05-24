@@ -129,7 +129,7 @@ public class Partie implements Serializable{
 			if(ia1)
 				touria=true;
 		}
-		System.out.println(Ia.evaluationPlateau(plateau));
+		//System.out.println(Ia.evaluationPlateau(plateau));
 		annuler.push(oldp);
 		InterfaceJeu.getITEMANNU().setEnabled(true);
 		InterfaceJeu.getITEMREFA().setEnabled(false);
