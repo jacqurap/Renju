@@ -53,7 +53,7 @@ public class Partie implements Serializable{
 		this.plateau = new Plateau();
 		this.annuler = new Stack<>();
 		this.refaire = new Stack<>();
-		/* creation des joueur en foction de leur classe sans condition a ralonge, et ça c'est la CLASS  !!!!!!  si ça c'est pas une blague trop badass ...*/
+		/* creation des joueur en foction de leur classe sans condition a ralonge, et ca c'est la CLASS  !!!!!!  si ca c'est pas une blague trop badass ...*/
 		try {
 			this.joueur1 = (Joueur) Class.forName(classJ1).getConstructor(String.class).newInstance(nomJ1);
 			this.joueur2 = (Joueur) Class.forName(classJ2).getConstructor(String.class).newInstance(nomJ2);

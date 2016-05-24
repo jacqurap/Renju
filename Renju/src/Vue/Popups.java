@@ -137,7 +137,7 @@ public class Popups {
         });
         btnSauvegarder.setEnabled(false);
 
-        final JLabel warning = new JLabel("Attention une partie est dÈj‡ sauvegardÈe sur ce slot, vous allez l'Ècraser !");
+        final JLabel warning = new JLabel("Attention une partie est d√©j√† sauvegard√©e sur ce slot, vous allez l'√©craser !");
         warning.setVisible(false);
 
         ButtonGroup grpSlot = new ButtonGroup();
@@ -204,7 +204,7 @@ public class Popups {
         popRecommencer.setLocationRelativeTo(null);
         popRecommencer.setLayout(new FlowLayout());
 
-        JLabel warning = new JLabel("Attention : la partie en cours sera perdue si elle n'est pas sauvegardÈe! Voulez-vous vraiment recommencer la partie ?");
+        JLabel warning = new JLabel("Attention : la partie en cours sera perdue si elle n'est pas sauvegard√©e! Voulez-vous vraiment recommencer la partie ?");
         popRecommencer.add(warning);
 
         JButton btnRecommencer = new JButton("Recommencer");
@@ -239,7 +239,7 @@ public class Popups {
         popAbandonner.setLocationRelativeTo(null);
         popAbandonner.setLayout(new FlowLayout());
 
-        JLabel warning = new JLabel("Attention : la partie sera perdue si elle n'est pas sauvegardÈe! Voulez-vous vraiment abandonner la partie en cours, et retourner au menu principale ?");
+        JLabel warning = new JLabel("Attention : la partie sera perdue si elle n'est pas sauvegard√©e! Voulez-vous vraiment abandonner la partie en cours, et retourner au menu principale ?");
         popAbandonner.add(warning);
 
         JButton btnAbandonner = new JButton("Abandonner");

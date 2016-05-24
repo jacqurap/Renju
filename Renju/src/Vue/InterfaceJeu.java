@@ -68,10 +68,10 @@ public class InterfaceJeu extends JPanel {
         menu_partie.add(item_aban);
 
         // Menu Parametres
-        JMenu menu_param = new JMenu("Paramètres");
+        JMenu menu_param = new JMenu("ParamÃ¨tres");
 
-        // liste de Thèmes
-        JMenu menu_them = new JMenu("Thème du plateau");
+        // liste de Thï¿½mes
+        JMenu menu_them = new JMenu("ThÃ¨me du plateau");
         menu_param.add(menu_them);
 
         ButtonGroup grpTheme = new ButtonGroup();
@@ -87,7 +87,7 @@ public class InterfaceJeu extends JPanel {
         menu_param.add(menu_lang);
 
         ButtonGroup grpLang = new ButtonGroup();
-        JRadioButtonMenuItem rdFran = new JRadioButtonMenuItem("Français");
+        JRadioButtonMenuItem rdFran = new JRadioButtonMenuItem("FranÃ§ais");
         menu_lang.add(rdFran);
         grpLang.add(rdFran);
         JRadioButtonMenuItem rdAngl = new JRadioButtonMenuItem("Anglais");
@@ -101,7 +101,7 @@ public class InterfaceJeu extends JPanel {
         menu_param.add(cbHist);
         JCheckBoxMenuItem cbNbCoupRest = new JCheckBoxMenuItem("Coups Restants");
         menu_param.add(cbNbCoupRest);
-        JCheckBoxMenuItem cbNumCases = new JCheckBoxMenuItem("Numéros des cases");
+        JCheckBoxMenuItem cbNumCases = new JCheckBoxMenuItem("NumÃ©ros des cases");
         menu_param.add(cbNumCases);
 
         // Aide

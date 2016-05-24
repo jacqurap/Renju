@@ -12,11 +12,11 @@ import java.awt.event.ActionListener;
 
 public class NouvellePartie extends JPanel {
 
-    public NouvellePartie(Fenetre f) {
+    public NouvellePartie(final Fenetre f) {
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        JLabel title = new JLabel("Sélection des joueurs");
+        JLabel title = new JLabel("SÃ©lection des joueurs");
         addComponent(title);
 
         JPanel paneJoueurs = new JPanel();
