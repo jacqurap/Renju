@@ -51,17 +51,17 @@ public class Ia3 extends Ia {
         //}
         
         int valeurMax = listeCoupsValeur.get(0).valeur;
-        System.out.println(valeurMax);
+        //System.out.println(valeurMax);
         int range = valeurMax;
         //System.out.println(range);
         int i = 1;
         while (i < listeCoupsValeur.size() && listeCoupsValeur.get(i).valeur >= range) {
             i++;
         }
-        for (ValeurCoup vc: listeCoupsValeur){
-            System.out.println(vc);
-        }
-        System.out.println(i);
+        //for (ValeurCoup vc: listeCoupsValeur){
+        //    System.out.println(vc);
+        //}
+        //System.out.println(i);
         Random rand = new Random();
         if(i>1)
         	return listeCoupsValeur.get(rand.nextInt(i-1)).point;
@@ -98,7 +98,7 @@ public class Ia3 extends Ia {
         	if(maximiser)
         		return evaluationCoup(plateau,point, plateau.getAutreCouleur(couleur));
         	else
-        		return -evaluationCoup(plateau, point, plateau.getAutreCouleur(couleur));
+        		return evaluationCoup(plateau, point, plateau.getAutreCouleur(couleur));
         }
         if (maximiser) {
             meilleur = Integer.MIN_VALUE;

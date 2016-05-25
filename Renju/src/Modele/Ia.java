@@ -7,7 +7,6 @@ package Modele;
 
 import Controleur.Partie;
 import java.awt.Point;
-import java.time.Clock;
 import java.util.ArrayList;
 
 /**
