@@ -158,6 +158,7 @@ public class Partie implements Serializable{
 	public static int partieFini(Point p, Plateau plateau, int couleur) {
 		int n = 1;
 		int i = 1;
+		
 		//horizontale
 		while (n < 5 && p.x + i < plateau.getDimX() && plateau.getCase(p.x + i, p.y) == couleur) {
 			n++;

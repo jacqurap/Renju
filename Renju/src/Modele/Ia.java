@@ -208,7 +208,7 @@ public abstract class Ia extends Joueur {
             }
         }
         if (juxtHorizontal >= 4 || juxtVertical >= 4 || juxtDiagonalDescendante >= 4 || juxtDiagonalMontante >= 4) {
-            return Integer.MAX_VALUE;
+            return 10000;
         }
         valeur = 3 * (juxtHorizontal ^ 3 + juxtVertical ^ 3 + juxtDiagonalDescendante ^ 3 + juxtDiagonalMontante ^ 3) + horizontal ^ 3 + vertical ^ 3 + diagonalDescendante ^ 3 + diagonalMontante ^ 3;
         return valeur;
@@ -227,33 +227,38 @@ public abstract class Ia extends Joueur {
                         
                         tmp = evaluationCoup(plateau, p, Plateau.CASENOIRE);
                         if(tmp == Integer.MAX_VALUE){
-                            System.out.println("-----------");
+                           // System.out.println("-----------");
                             if(couleur == Plateau.CASENOIRE)
                                 return tmp;
                             else
-                                return Integer.MIN_VALUE;
+                                return -tmp;
                             
                         }
                         if(tmp == Integer.MIN_VALUE) //en cas de defaite pour cause de tabou
                             return tmp;
-                        valeur += tmp;
+                        else if(couleur == Plateau.CASENOIRE)
+                        	valeur += tmp;
+                        else
+                        	valeur -= tmp;
                     } else // if (plateau.getCase(i, j) == Plateau.CASEBLANCHE) {
                     {
                         tmp = evaluationCoup(plateau, p, Plateau.CASEBLANCHE);
                         if(tmp == Integer.MAX_VALUE){
                             if(couleur == Plateau.CASEBLANCHE)
-                                return Integer.MIN_VALUE;
+                                return -tmp;
                             else
                                 return tmp;
                         }
-                            
-                        valeur -= tmp;
+                        if(couleur == Plateau.CASEBLANCHE) 
+                        	valeur += tmp;
+                        else
+                        	valeur -= tmp;
                     }
                     
                 }
             }
         }
-        System.out.println("-------  " + valeur);
+        //System.out.println("-------  " + valeur);
         return valeur;
     }
 

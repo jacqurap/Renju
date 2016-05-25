@@ -39,17 +39,20 @@ public class Ia3 extends Ia {
             couleur = Plateau.CASEBLANCHE;
         }
         for (Point p : coupsPertinents(partie.getPlateau(), partie.getNbCoups())) {
-            listeCoupsValeur.add(new ValeurCoup(p, minimax(partie.getPlateau(), p, 1, partie.getPlateau().getAutreCouleur(couleur), false,partie.getNbCoups())));
+        	Plateau plateau = partie.getPlateau();
+        	plateau.setCase(p.x, p.y, couleur);
+            listeCoupsValeur.add(new ValeurCoup(p, minimax(partie.getPlateau(), p, 4, partie.getPlateau().getAutreCouleur(couleur), false,partie.getNbCoups())));
+            plateau.setCase(p.x, p.y, Plateau.CASEVIDE);
         }
         Collections.sort(listeCoupsValeur);
-        //Collections.reverse(listeCoupsValeur);
-        for(int i = 0 ; i < listeCoupsValeur.size(); i++){
-        	System.out.println(listeCoupsValeur.get(i).point + "  " + listeCoupsValeur.get(i).valeur);
-        }
-        /*
+        Collections.reverse(listeCoupsValeur);
+        //for(int i = 0 ; i < listeCoupsValeur.size(); i++){
+        	//System.out.println(listeCoupsValeur.get(i).point + "  " + listeCoupsValeur.get(i).valeur);
+        //}
+        
         int valeurMax = listeCoupsValeur.get(0).valeur;
         int range = valeurMax;
-        System.out.println(range);
+        //System.out.println(range);
         int i = 1;
         while (i < listeCoupsValeur.size() && listeCoupsValeur.get(i).valeur >= range) {
             i++;
@@ -59,7 +62,8 @@ public class Ia3 extends Ia {
         }
         System.out.println(i);
         Random rand = new Random();
-        */
+        if(i>1)
+        	return listeCoupsValeur.get(rand.nextInt(i-1)).point;
         return listeCoupsValeur.get(0).point;
     }
     
@@ -76,7 +80,20 @@ public class Ia3 extends Ia {
     public int minimax(Plateau plateau, Point point, int profondeur, int couleur, boolean maximiser,int nbCoups) {
         int meilleur;
         int valeur;
-        if (profondeur == 0 || Partie.partieFini(point, plateau, couleur) != 0) {
+        if( Partie.partieFini(point, plateau, plateau.getAutreCouleur(couleur)) != 0){
+        	//System.out.println("zetsfdjkdsjbfkjdsb"  + point);
+        	//for(int a = 0; a < plateau.getDimX(); a++){
+    			//for (int b = 0; b < plateau.getDimY(); b++){
+    				//System.out.print(plateau.getCase(a, b) + "  ");
+    			//}
+    			//System.out.println();
+    		//}
+        	if(!maximiser)
+        		return Integer.MAX_VALUE;
+        	else
+        		return Integer.MIN_VALUE;
+        }
+        if (profondeur == 0 ) {
             return evaluationPlateau(plateau, couleur);
         }
         if (maximiser) {
