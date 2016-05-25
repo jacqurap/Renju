@@ -51,6 +51,7 @@ public class Ia3 extends Ia {
         //}
         
         int valeurMax = listeCoupsValeur.get(0).valeur;
+        System.out.println(valeurMax);
         int range = valeurMax;
         //System.out.println(range);
         int i = 1;
@@ -94,7 +95,10 @@ public class Ia3 extends Ia {
         		return Integer.MIN_VALUE;
         }
         if (profondeur == 0 ) {
-            return evaluationPlateau(plateau, couleur);
+        	if(maximiser)
+        		return evaluationCoup(plateau,point, plateau.getAutreCouleur(couleur));
+        	else
+        		return -evaluationCoup(plateau, point, plateau.getAutreCouleur(couleur));
         }
         if (maximiser) {
             meilleur = Integer.MIN_VALUE;
@@ -138,7 +142,7 @@ class ValeurCoup implements Comparable<ValeurCoup> {
 
     @Override
     public int compareTo(ValeurCoup autre) {
-        return this.valeur - autre.valeur;
+        return Integer.compare(this.valeur , autre.valeur);
     }
     
     public String toString(){
