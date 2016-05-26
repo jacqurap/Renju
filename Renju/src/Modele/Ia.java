@@ -31,6 +31,8 @@ public abstract class Ia extends Joueur {
      * @param p le plateau de la partie
      * @return liste, la liste des coups pertinents
      */
+    
+    
     public ArrayList<Point> coupsPertinents(Plateau p, int nbCoups) {
         ArrayList<Point> liste = new ArrayList<>();
         if (nbCoups == 0) {

@@ -38,7 +38,7 @@ public class Partie implements Serializable{
 
 	private boolean ia2=false;
 	private boolean touria= false;
-
+	private boolean tabou = false;
 
 	/**
 	 * Creation d'une partie
@@ -148,14 +148,24 @@ public class Partie implements Serializable{
 
 	public void partieFini(Point p) {
 		int couleur;
-		if (nbCoups % 2 == 0)
+		if (nbCoups % 2 == 0){
 			couleur = plateau.CASENOIRE;
+			if(tabou)
+				partieFiniTabou(p, this.plateau, couleur);
+		}
 		else
 			couleur = plateau.CASEBLANCHE;
-		partieFini(p, this.plateau, couleur);
+		partieFiniSansTabou(p, this.plateau, couleur);
+			
+	}
+	public static int partieFini(Point p, Plateau plateau, int couleur,boolean tabou) {
+		if(tabou && couleur == Plateau.CASENOIRE)
+			return partieFiniTabou(p, plateau, couleur);
+		else 
+			return partieFiniSansTabou(p, plateau, couleur);
 	}
 
-	public static int partieFini(Point p, Plateau plateau, int couleur) {
+	public static int partieFiniSansTabou(Point p, Plateau plateau, int couleur) {
 		int n = 1;
 		int i = 1;
 		
@@ -185,6 +195,77 @@ public class Partie implements Serializable{
 			n++;
 			i++;
 		}
+		if (n == 5) {
+			return couleur;
+		}
+
+		//diagonale1
+		n = 1;
+		i = 1;
+		while (n < 5 && p.x + i < plateau.getDimX() && p.y + i < plateau.getDimY() && plateau.getCase(p.x + i, p.y + i) == couleur) {
+			n++;
+			i++;
+		}
+		i = 1;
+		while (n < 5 && p.x - i >= 0 && p.y - i >= 0 && plateau.getCase(p.x - i, p.y - i) == couleur) {
+			n++;
+			i++;
+		}
+		if (n == 5) {
+			return couleur;
+		}
+
+		//diagonale2
+		n = 1;
+		i = 1;
+		while (n < 5 && p.x + i < plateau.getDimX() && p.y - i >= 0 && plateau.getCase(p.x + i, p.y - i) == couleur) {
+			n++;
+			i++;
+		}
+		i = 1;
+		while (n < 5 && p.x - i >= 0 && p.y + i < plateau.getDimY() && plateau.getCase(p.x - i, p.y + i) == couleur) {
+			n++;
+			i++;
+		}
+		if (n == 5) {
+			return couleur;
+		}
+		return 0;
+	}
+	
+	public static int partieFiniTabou(Point p, Plateau plateau, int couleur) {
+		int n = 1;
+		int i = 1;
+		
+		//horizontale
+		while ( p.x + i < plateau.getDimX() && plateau.getCase(p.x + i, p.y) == couleur) {
+			n++;
+			i++;
+		}
+		i = 1;
+		while (p.x - i >= 0 && plateau.getCase(p.x - i, p.y) == couleur) {
+			n++;
+			i++;
+		}
+		if(n>5 && couleur == Plateau.CASENOIRE)
+			return plateau.getAutreCouleur(couleur);
+		if (n >= 5) {
+			return couleur;
+		}
+
+		//verticale
+		n = 1;
+		i = 1;
+		while (p.y + i < plateau.getDimY() && plateau.getCase(p.x, p.y + i) == couleur) {
+			n++;
+			i++;
+		}
+		i = 1;
+		while (p.y - i >= 0 && plateau.getCase(p.x, p.y - i) == couleur) {
+			n++;
+			i++;
+		}
+		
 		if (n == 5) {
 			return couleur;
 		}
