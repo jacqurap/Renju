@@ -18,10 +18,12 @@ public class EcouteurDeSouris implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		int x = (int) e.getX()/40;
-		int y = (int) e.getY()/40-1;
+                int caseSize = (aire.getHeight()/16);
+		int x = (int) ((e.getX()-(caseSize/2))/caseSize);
+		int y = (int) ((e.getY()-(caseSize/2))/caseSize); //23px pour la barre de menu
+                
 		System.out.println("x " +x+ " y " +y);
-		if(aire.partie.click(new Point(x,y)))
+		if((x<15 && y<15) && aire.getPartie().click(new Point(x,y))) //15 pour les coups en dehors de la zone de jeu
 			aire.repaint();
 
 

@@ -5,6 +5,9 @@
  */
 package Vue;
 
+import Listener.AnnulerVersAccueilListener;
+import Listener.ChargerPartieListener;
+import Listener.SlotChargerListener;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,29 +19,18 @@ import java.awt.event.ActionListener;
  */
 public class ChargerPartie extends JPanel {
 
-    public ChargerPartie(final Fenetre f) {
+    public ChargerPartie(Fenetre f) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        final JButton btnCharger = new JButton("Charger");
-        btnCharger.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                f.changePanel(Fenetre.INTERFACEPANEL);
-            }
-        });
+        JButton btnCharger = new JButton("Charger");
+        btnCharger.addActionListener(new ChargerPartieListener(f));
         btnCharger.setEnabled(false);
 
         ButtonGroup grpPartie = new ButtonGroup();
         for (int i = 1; i <= 10; i++) {
             String val = String.valueOf(i);
             JRadioButton rb = new JRadioButton("Slot " + val);
-            rb.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    if(!btnCharger.isEnabled())
-                    btnCharger.setEnabled(true);
-                }
-            });
+            rb.addActionListener(new SlotChargerListener(btnCharger));
             grpPartie.add(rb);
             this.add(rb);
         }
@@ -46,12 +38,7 @@ public class ChargerPartie extends JPanel {
         this.add(btnCharger);
 
         JButton btnAnnuler = new JButton("Annuler");
-        btnAnnuler.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                f.changePanel(Fenetre.ACCUEILPANEL);
-            }
-        });
+        btnAnnuler.addActionListener(new AnnulerVersAccueilListener(f));
         this.add(btnAnnuler);
 
     }

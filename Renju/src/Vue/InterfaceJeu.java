@@ -16,7 +16,12 @@ public class InterfaceJeu extends JPanel {
     private static final JMenuItem ITEMREFA = new JMenuItem("Refaire");
     private static final JButton btnAnnuler = new JButton("Annuler");
     private static final JButton btnRefaire = new JButton("Refaire");
-    public InterfaceJeu( Fenetre f, final AireDeJeu aire) {
+    private AireDeJeu aire;
+    private JLabel tfJ1;
+    private JLabel tfJ2;
+
+    public InterfaceJeu(Fenetre f, final AireDeJeu aire) {
+        this.aire = aire;
         this.setLayout(new BorderLayout());
         final Popups popup = new Popups(f);
 
@@ -139,18 +144,17 @@ public class InterfaceJeu extends JPanel {
         paneJoueurs.setLayout(new GridLayout(0, 1));
         addComponent(paneJoueurs);
 
-        JLabel tfJ1 = new JLabel("Joueur 1");
-        JLabel tfJ2 = new JLabel("Joueur 2");
+        tfJ1 = new JLabel();
+        tfJ2 = new JLabel();
         paneJoueurs.add(tfJ1);
         paneJoueurs.add(tfJ2);
 
-        
         addButton(btnAnnuler);
         btnAnnuler.setEnabled(false);
-        
+
         addButton(btnRefaire);
-        AnnulerAction annu = new AnnulerAction(aire, getITEMANNU(), getITEMREFA(),btnAnnuler,btnRefaire);
-        RefaireAction ref = new RefaireAction(aire, getITEMANNU(), getITEMREFA(),btnAnnuler,btnRefaire);
+        AnnulerAction annu = new AnnulerAction(this.getAire(), getITEMANNU(), getITEMREFA(), btnAnnuler, btnRefaire);
+        RefaireAction ref = new RefaireAction(this.getAire(), getITEMANNU(), getITEMREFA(), btnAnnuler, btnRefaire);
         btnAnnuler.addActionListener(annu);
         ITEMANNU.addActionListener(annu);
         ITEMREFA.addActionListener(ref);
@@ -160,7 +164,7 @@ public class InterfaceJeu extends JPanel {
         paneJoueurs.add(btnRefaire);
 
         this.add(paneJoueurs, BorderLayout.EAST);
-        this.add(aire, BorderLayout.CENTER);
+        this.add(this.aire, BorderLayout.CENTER);
 
     }
 
@@ -194,11 +198,55 @@ public class InterfaceJeu extends JPanel {
     public static JMenuItem getITEMREFA() {
         return ITEMREFA;
     }
-    public static JButton getButAnnuler(){
-    	return btnAnnuler;
+
+    public static JButton getButAnnuler() {
+        return btnAnnuler;
     }
-    public static JButton getButRefaire(){
-    	return btnRefaire;
+
+    public static JButton getButRefaire() {
+        return btnRefaire;
+    }
+
+    /**
+     * @return the aire
+     */
+    public AireDeJeu getAire() {
+        return aire;
+    }
+
+    /**
+     * @param aire the aire to set
+     */
+    public void setAire(AireDeJeu aire) {
+        this.aire = aire;
+    }
+
+    /**
+     * @return the tfJ1
+     */
+    public JLabel getTfJ1() {
+        return tfJ1;
+    }
+
+    /**
+     * @param tfJ1 the tfJ1 to set
+     */
+    public void setTfJ1(JLabel tfJ1) {
+        this.tfJ1 = tfJ1;
+    }
+
+    /**
+     * @return the tfJ2
+     */
+    public JLabel getTfJ2() {
+        return tfJ2;
+    }
+
+    /**
+     * @param tfJ2 the tfJ2 to set
+     */
+    public void setTfJ2(JLabel tfJ2) {
+        this.tfJ2 = tfJ2;
     }
 
 }
