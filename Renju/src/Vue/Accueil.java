@@ -21,7 +21,7 @@ public class Accueil extends JPanel {
         btnNouvellePartie.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                f.changePanel(Fenetre.NOUVPARTIEPANEL);
+                f.changePanel(f.getNOUVPARTIEPANEL());
             }
         });
         addButton(btnNouvellePartie);
@@ -30,7 +30,7 @@ public class Accueil extends JPanel {
         btnChargerPartie.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                f.changePanel(Fenetre.CHARPARTIEPANEL);
+                f.changePanel(f.getCHARPARTIEPANEL());
             }
         });
         addButton(btnChargerPartie);

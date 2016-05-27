@@ -99,7 +99,7 @@ public class Popups {
         btnCharger.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                f.changePanel(Fenetre.INTERFACEPANEL);
+                f.changePanel(f.getINTERFACEPANEL());
                 popCharger.dispose();
             }
         });
@@ -211,6 +211,11 @@ public class Popups {
         btnRecommencer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                AireDeJeu aire = new AireDeJeu(f.getAire().getJoueur1(), f.getAire().getNomJoueur1(), f.getAire().getJoueur2(), f.getAire().getNomJoueur2());
+                f.setAire(aire);
+                f.changePanel(f.getACCUEILPANEL()); //pour ne pas freeze pendant le removeAll
+                f.refreshInterface();
+                f.changePanel(f.getINTERFACEPANEL());
                 popRecommencer.dispose();
             }
         });
@@ -246,7 +251,7 @@ public class Popups {
         btnAbandonner.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                f.changePanel(Fenetre.ACCUEILPANEL);
+                f.changePanel(f.getACCUEILPANEL());
                 popAbandonner.dispose();
             }
         });
