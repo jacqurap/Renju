@@ -82,18 +82,17 @@ public class Ia4 extends Ia {
 		int meilleur;
 		int valeur;
 		int fin = evaluationCoup(plateau,point, plateau.getAutreCouleur(couleur));
-		if( fin == Integer.MAX_VALUE){
-			//System.out.println("zetsfdjkdsjbfkjdsb"  + point);
-			//for(int a = 0; a < plateau.getDimX(); a++){
-			//for (int b = 0; b < plateau.getDimY(); b++){
-			//System.out.print(plateau.getCase(a, b) + "  ");
-			//}
-			//System.out.println();
-			//}
+		if( fin == Integer.MAX_VALUE){ // le joueur gagne
 			if(!maximiser)
 				return Integer.MAX_VALUE;
 			else
 				return Integer.MIN_VALUE;
+		}
+                if( fin == Integer.MIN_VALUE){ // noir joue un tabou
+			if(!maximiser)
+				return Integer.MIN_VALUE;
+			else
+				return Integer.MAX_VALUE;
 		}
 		if (profondeur == 0 ) {
 			return fin;
