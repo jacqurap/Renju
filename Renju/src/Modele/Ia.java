@@ -209,7 +209,7 @@ public abstract class Ia extends Joueur {
             }
         }
         if (juxtHorizontal >= 4 || juxtVertical >= 4 || juxtDiagonalDescendante >= 4 || juxtDiagonalMontante >= 4) {
-            return 10000;
+            return Integer.MAX_VALUE;
         }
         valeur = 3 * (juxtHorizontal ^ 3 + juxtVertical ^ 3 + juxtDiagonalDescendante ^ 3 + juxtDiagonalMontante ^ 3) + horizontal ^ 3 + vertical ^ 3 + diagonalDescendante ^ 3 + diagonalMontante ^ 3;
         return valeur;
