@@ -51,16 +51,17 @@ public class Ia3 extends Ia {
         //}
         
         int valeurMax = listeCoupsValeur.get(0).valeur;
+        //System.out.println(valeurMax);
         int range = valeurMax;
         //System.out.println(range);
         int i = 1;
         while (i < listeCoupsValeur.size() && listeCoupsValeur.get(i).valeur >= range) {
             i++;
         }
-        for (ValeurCoup vc: listeCoupsValeur){
-            System.out.println(vc);
-        }
-        System.out.println(i);
+        //for (ValeurCoup vc: listeCoupsValeur){
+        //    System.out.println(vc);
+        //}
+        //System.out.println(i);
         Random rand = new Random();
         if(i>1)
         	return listeCoupsValeur.get(rand.nextInt(i-1)).point;
@@ -80,7 +81,7 @@ public class Ia3 extends Ia {
     public int minimax(Plateau plateau, Point point, int profondeur, int couleur, boolean maximiser,int nbCoups) {
         int meilleur;
         int valeur;
-        if( Partie.partieFini(point, plateau, plateau.getAutreCouleur(couleur)) != 0){
+        if( Partie.partieFini(point, plateau, plateau.getAutreCouleur(couleur),false) != 0){
         	//System.out.println("zetsfdjkdsjbfkjdsb"  + point);
         	//for(int a = 0; a < plateau.getDimX(); a++){
     			//for (int b = 0; b < plateau.getDimY(); b++){
@@ -94,7 +95,10 @@ public class Ia3 extends Ia {
         		return Integer.MIN_VALUE;
         }
         if (profondeur == 0 ) {
-            return evaluationPlateau(plateau, couleur);
+        	if(maximiser)
+        		return evaluationCoup(plateau,point, plateau.getAutreCouleur(couleur));
+        	else
+        		return evaluationCoup(plateau, point, plateau.getAutreCouleur(couleur));
         }
         if (maximiser) {
             meilleur = Integer.MIN_VALUE;
@@ -138,7 +142,7 @@ class ValeurCoup implements Comparable<ValeurCoup> {
 
     @Override
     public int compareTo(ValeurCoup autre) {
-        return this.valeur - autre.valeur;
+        return Integer.compare(this.valeur , autre.valeur);
     }
     
     public String toString(){
