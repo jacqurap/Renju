@@ -20,7 +20,7 @@ public class EcouteurDeSouris implements MouseListener {
 		// TODO Auto-generated method stub
                 int caseSize = (aire.getHeight()/16);
 		int x = (int) ((e.getX()-(caseSize/2))/caseSize);
-		int y = (int) ((e.getY()-(caseSize/2))/caseSize); //23px pour la barre de menu
+		int y = (int) ((e.getY()-(caseSize/2))/caseSize);
                 
 		System.out.println("x " +x+ " y " +y);
 		if((x<15 && y<15) && aire.getPartie().click(new Point(x,y))) //15 pour les coups en dehors de la zone de jeu

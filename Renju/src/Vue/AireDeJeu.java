@@ -66,10 +66,10 @@ public class AireDeJeu extends JComponent {
         
         //thème du terrain
         try {
-            BufferedImage img = ImageIO.read(new File(".\\..\\Ressources\\trad.jpg"));
+            BufferedImage img = ImageIO.read(new File("Ressources/trad.png"));
             drawable.drawImage(img, 0, 0, largeurAire, largeurAire, null);
         } catch (IOException ex) {
-           // Logger.getLogger(AireDeJeu.class.getName()).log(Level.SEVERE, null, ex);
+           Logger.getLogger(AireDeJeu.class.getName()).log(Level.SEVERE, null, ex);
             drawable.setColor(Color.LIGHT_GRAY);
             drawable.fillRect(0, 0, largeurAire, largeurAire);
         }

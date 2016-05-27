@@ -45,7 +45,7 @@ public class Fenetre {
         InterfaceJeu ij = new InterfaceJeu(this, aire);
         ij.getTfJ1().setText(aire.getNomJoueur1());
         ij.getTfJ2().setText(aire.getNomJoueur2());
-        ij.addMouseListener(new EcouteurDeSouris(aire));
+        aire.addMouseListener(new EcouteurDeSouris(aire));
         getPanelInterface().add(ij);
     }
 
