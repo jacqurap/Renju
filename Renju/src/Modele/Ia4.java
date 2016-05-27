@@ -105,8 +105,8 @@ public class Ia4 extends Ia {
 				valeur = minimax(plateau, p, profondeur - 1, plateau.getAutreCouleur(couleur), false, nbCoups+1, alpha, beta);
 				meilleur = Math.max(meilleur, valeur);
 				plateau.setCase((int) p.getX(), (int) p.getY(), Plateau.CASEVIDE);
-				//if (alpha <= meilleur) break;
-				//beta = Math.min(beta, valeur);
+				if (beta <= meilleur) return meilleur;
+				alpha = Math.min(alpha, valeur);
 			}
 			return meilleur;
 		} else { //minimiser
@@ -116,8 +116,8 @@ public class Ia4 extends Ia {
 				valeur = minimax(plateau, p, profondeur - 1, plateau.getAutreCouleur(couleur), true, nbCoups+1, alpha, beta);
 				meilleur = Math.min(meilleur, valeur);
 				plateau.setCase((int) p.getX(), (int) p.getY(), Plateau.CASEVIDE);
-				//if (beta <= meilleur) break;
-				//alpha = Math.max(alpha, valeur);
+				if (alpha >= meilleur) return meilleur;
+				beta = Math.max(beta, valeur);
 			}
 			return meilleur;
 		}
