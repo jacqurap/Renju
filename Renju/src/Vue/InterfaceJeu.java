@@ -145,8 +145,8 @@ public class InterfaceJeu extends JPanel {
         paneJoueurs.setLayout(new GridLayout(0, 1));
         addComponent(paneJoueurs);
         
-        ImageIcon icone1 = createImageIcon("../Ressources/Pion_Noir.png","Pion noir du joueur 1");
-        ImageIcon icone2 = createImageIcon("../Ressources/Pion_Blanc.png", "Pion blanc du joueur 2");
+        ImageIcon icone1 = createImageIcon("Ressources/Pion_Noir.png","Pion noir du joueur 1");
+        ImageIcon icone2 = createImageIcon("Ressources/Pion_Blanc.png", "Pion blanc du joueur 2");
 
         tfJ1 = new JLabel("", icone1, JLabel.CENTER);
         tfJ2 = new JLabel("", icone2, JLabel.CENTER);
