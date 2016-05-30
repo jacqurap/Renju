@@ -85,6 +85,9 @@ public abstract class Ia extends Joueur {
         int juxtHorizontal = 0, juxtVertical = 0, juxtDiagonalMontante = 0, juxtDiagonalDescendante = 0;
         // ces int permettent de compter mes pions sur la ligne/colonne/diagonale, plus cette valeur est elevee, mieux c'est pour le joueur courant;
         int horizontal = 0, vertical = 0, diagonalMontante = 0, diagonalDescendante = 0;
+        // ces boolean servent a savoir si une ligne est bloque pour detecter les tabous
+        boolean isHorizontalGaucheBloque = false, isHorizontalDroiteBloque = false, isVerticalHautBloque = false, isVerticalBasBloque = false, isDiagonalDroiteHautBloque = false, isDiagonalGaucheBasBloque = false, isDiagonalDroiteBasBloque = false, isDiagonalGaucheHautBloque = false;
+
         int casee;
         for (i = 1; i <= 5; i++) {
             if (point.getX() + i < plateau.getDimX()) {
@@ -99,6 +102,7 @@ public abstract class Ia extends Joueur {
                         isJuxtHorizontalDroite = false;
                     } else {
                         isHorizontalDroite = false;
+                        isHorizontalGaucheBloque = true;
                     }
                 }
             }
@@ -114,6 +118,7 @@ public abstract class Ia extends Joueur {
                         isJuxtHorizontalGauche = false;
                     } else {
                         isHorizontalGauche = false;
+                        isHorizontalGaucheBloque = true;
                     }
                 }
             }
@@ -129,6 +134,7 @@ public abstract class Ia extends Joueur {
                         isJuxtVerticalHaut = false;
                     } else {
                         isVerticalHaut = false;
+                        isVerticalHautBloque = true;
                     }
                 }
             }
@@ -144,6 +150,7 @@ public abstract class Ia extends Joueur {
                         isJuxtVerticalBas = false;
                     } else {
                         isVerticalBas = false;
+                        isVerticalBasBloque = true;
                     }
                 }
             }
@@ -159,6 +166,7 @@ public abstract class Ia extends Joueur {
                         isDiagonalDroiteHaut = false;
                     } else {
                         isDiagonalDroiteHaut = false;
+                        isDiagonalDroiteHautBloque = true;
                     }
                 }
             }
@@ -174,6 +182,7 @@ public abstract class Ia extends Joueur {
                         isDiagonalDroiteBas = false;
                     } else {
                         isDiagonalDroiteBas = false;
+                        isDiagonalDroiteBasBloque = true;
                     }
                 }
             }
@@ -189,6 +198,7 @@ public abstract class Ia extends Joueur {
                         isDiagonalGaucheHaut = false;
                     } else {
                         isDiagonalGaucheHaut = false;
+                        isDiagonalGaucheHautBloque = true;
                     }
                 }
             }
@@ -204,13 +214,55 @@ public abstract class Ia extends Joueur {
                         isDiagonalGaucheBas = false;
                     } else {
                         isDiagonalGaucheBas = false;
+                        isDiagonalGaucheBasBloque = true;
                     }
                 }
             }
         }
+        
+        int nb33NonBloque = 0;
+        if(juxtVertical == 2 && !isVerticalBasBloque && !isVerticalHautBloque){
+            nb33NonBloque++;
+        }
+        if(juxtHorizontal == 2 && !isHorizontalGaucheBloque && !isHorizontalDroiteBloque){
+            nb33NonBloque++;
+        }
+        if(juxtDiagonalDescendante == 2 && !isDiagonalGaucheHautBloque && !isDiagonalDroiteBasBloque){
+            nb33NonBloque++;
+        }
+        if(juxtDiagonalMontante == 2 && !isDiagonalGaucheBasBloque && !isDiagonalDroiteHautBloque){
+            nb33NonBloque++;
+        }
+        
+        int nb44NonBloque = 0;
+        if(juxtVertical == 3 && (!isVerticalBasBloque || !isVerticalHautBloque)){
+            nb44NonBloque++;
+        }
+        if(juxtHorizontal == 3 && (!isHorizontalGaucheBloque || !isHorizontalDroiteBloque)){
+            nb44NonBloque++;
+        }
+        if(juxtDiagonalDescendante == 3 && (!isDiagonalGaucheHautBloque || !isDiagonalDroiteBasBloque)){
+            nb44NonBloque++;
+        }
+        if(juxtDiagonalMontante == 3 && (!isDiagonalGaucheBasBloque || !isDiagonalDroiteHautBloque)){
+            nb44NonBloque++;
+        }
+        
+        if((couleur == Plateau.CASENOIRE) 
+                && (juxtHorizontal > 4              /// ligne de plus de 5 pions
+                        || juxtVertical > 4 
+                        || juxtDiagonalDescendante > 4 
+                        || juxtDiagonalMontante > 4
+                    || nb33NonBloque >= 2          /// 3 * 3 non bloque
+                    || nb44NonBloque >= 2           /// 4 * 4 non double bloque
+                
+                )){
+            return Integer.MIN_VALUE;
+        }
         if (juxtHorizontal >= 4 || juxtVertical >= 4 || juxtDiagonalDescendante >= 4 || juxtDiagonalMontante >= 4) {
             return Integer.MAX_VALUE;
         }
+        
         valeur = 3 * (juxtHorizontal ^ 3 + juxtVertical ^ 3 + juxtDiagonalDescendante ^ 3 + juxtDiagonalMontante ^ 3) + horizontal ^ 3 + vertical ^ 3 + diagonalDescendante ^ 3 + diagonalMontante ^ 3;
         return valeur;
     }
@@ -270,4 +322,32 @@ public abstract class Ia extends Joueur {
      */
     public abstract Point solver(Partie partie);
 
+}
+
+/**
+ * structure de donnee permettant d'associer un point a une valeur
+ */
+class ValeurCoup implements Comparable<ValeurCoup> {
+
+    Point point;
+    int valeur;
+
+    /**
+     * Creation du poids d'un coup
+     * @param p un point de coordonnee (x,y)
+     * @param v une valeur
+     */
+    public ValeurCoup(Point p, int v) {
+        this.point = p;
+        this.valeur = v;
+    }
+
+    @Override
+    public int compareTo(ValeurCoup autre) {
+        return Integer.compare(this.valeur , autre.valeur);
+    }
+    
+    public String toString(){
+        return ("p = " + point + " v = " + valeur);
+    }
 }
