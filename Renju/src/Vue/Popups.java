@@ -211,7 +211,7 @@ public class Popups {
         btnRecommencer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AireDeJeu aire = new AireDeJeu(f.getAire().getJoueur1(), f.getAire().getNomJoueur1(), f.getAire().getJoueur2(), f.getAire().getNomJoueur2());
+                AireDeJeu aire = new AireDeJeu(f.getAire().getJoueur1(), f.getAire().getNomJoueur1(), f.getAire().getJoueur2(), f.getAire().getNomJoueur2(),f);
                 f.setAire(aire);
                 f.changePanel(f.getACCUEILPANEL()); //pour ne pas freeze pendant le removeAll
                 f.refreshInterface();
