@@ -106,6 +106,7 @@ public class AireDeJeu extends JComponent {
                 }
             }
         }
+        System.out.println(partie.isJ2Win());
     }
 
     public Partie getPartie() {
