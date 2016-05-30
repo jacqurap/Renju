@@ -17,8 +17,8 @@ public class InterfaceJeu extends JPanel {
     private static final JButton btnAnnuler = new JButton("Annuler");
     private static final JButton btnRefaire = new JButton("Refaire");
     private AireDeJeu aire;
-    private JLabel tfJ1;
-    private JLabel tfJ2;
+    private static JLabel tfJ1; //static pour pouvoir l'utiliser dans la classe Partie
+    private static JLabel tfJ2;
 
     public InterfaceJeu(Fenetre f, final AireDeJeu aire) {
         this.aire = aire;
@@ -141,13 +141,24 @@ public class InterfaceJeu extends JPanel {
          addComponent(paneJoueur2, paneJoueurs);
          */
         JPanel paneJoueurs = new JPanel();
+
         paneJoueurs.setLayout(new GridLayout(0, 1));
         addComponent(paneJoueurs);
+        
+        ImageIcon icone1 = createImageIcon("../Ressources/Pion_Noir.png","Pion noir du joueur 1");
+        ImageIcon icone2 = createImageIcon("../Ressources/Pion_Blanc.png", "Pion blanc du joueur 2");
 
-        tfJ1 = new JLabel();
-        tfJ2 = new JLabel();
+        tfJ1 = new JLabel("", icone1, JLabel.CENTER);
+        tfJ2 = new JLabel("", icone2, JLabel.CENTER);
+        
+        tfJ1.setForeground(Color.RED); // Subrillance de depart
+       // tfJ1.add
+        
+       // SurbrillanceTour(tfJ1, tfJ2, aire);
         paneJoueurs.add(tfJ1);
         paneJoueurs.add(tfJ2);
+        tfJ1.setAlignmentY(Component.CENTER_ALIGNMENT);
+        
 
         addButton(btnAnnuler);
         btnAnnuler.setEnabled(false);
@@ -224,7 +235,7 @@ public class InterfaceJeu extends JPanel {
     /**
      * @return the tfJ1
      */
-    public JLabel getTfJ1() {
+    public static JLabel getTfJ1() {
         return tfJ1;
     }
 
@@ -238,7 +249,7 @@ public class InterfaceJeu extends JPanel {
     /**
      * @return the tfJ2
      */
-    public JLabel getTfJ2() {
+    public static JLabel getTfJ2() {
         return tfJ2;
     }
 
@@ -248,5 +259,27 @@ public class InterfaceJeu extends JPanel {
     public void setTfJ2(JLabel tfJ2) {
         this.tfJ2 = tfJ2;
     }
+    
+    /** Returns an ImageIcon, or null if the path was invalid. */
+    protected ImageIcon createImageIcon(String path,
+                                               String description) {
+        java.net.URL imgURL = getClass().getResource(path);
+        if (imgURL != null) {
+            return new ImageIcon(imgURL, description);
+        } else {
+            System.err.println("Couldn't find file: " + path);
+            return null;
+        }
+    }
+    
+  /*  public void SurbrillanceTour(JLabel J1, JLabel J2, AireDeJeu aire){
+    	if(aire.getPartie().getNbCoups() %2 == 0){
+            J1.setForeground(Color.RED);
+    	}
+    	else{
+    		 J2.setForeground(Color.RED);
+    	}
+    	
+    }*/
 
 }
