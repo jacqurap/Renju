@@ -20,7 +20,7 @@ public class InterfaceJeu extends JPanel {
     private  JLabel tfJ1;
     private  JLabel tfJ2;
 
-    public InterfaceJeu(Fenetre f, AireDeJeu aire) {
+    public InterfaceJeu(Fenetre f, final AireDeJeu aire) {
         this.aire = aire;
         this.setLayout(new BorderLayout());
         final Popups popup = new Popups(f);
