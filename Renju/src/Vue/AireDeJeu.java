@@ -154,5 +154,8 @@ public class AireDeJeu extends JComponent {
 	public void setNomJoueur2(String nomJoueur2) {
 		this.nomJoueur2 = nomJoueur2;
 	}
-
+                
+        public void setPartie(Partie p){
+                this.partie = p;
+        }
 }

@@ -32,7 +32,7 @@ public class InterfaceJeu extends JPanel {
         item_sauv.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                popup.popSauver();
+                popup.popSauver(aire.getPartie());
             }
         });
         menu_partie.add(item_sauv);
@@ -41,7 +41,7 @@ public class InterfaceJeu extends JPanel {
         item_char.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                popup.popCharger();
+                popup.popCharger(aire.getPartie());
             }
         });
         menu_partie.add(item_char);
