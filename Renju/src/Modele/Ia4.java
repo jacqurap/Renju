@@ -47,7 +47,7 @@ public class Ia4 extends Ia {
 		Collections.sort(listeCoupsValeur);
 		Collections.reverse(listeCoupsValeur);
 		for(int i = 0 ; i < listeCoupsValeur.size(); i++){
-		System.out.println(listeCoupsValeur.get(i).point + "  " + listeCoupsValeur.get(i).valeur);
+			System.out.println(listeCoupsValeur.get(i).point + "  " + listeCoupsValeur.get(i).valeur);
 		}
 
 		int valeurMax = listeCoupsValeur.get(0).valeur;
@@ -88,7 +88,7 @@ public class Ia4 extends Ia {
 			else
 				return Integer.MIN_VALUE;
 		}
-                if( fin == Integer.MIN_VALUE){ // noir joue un tabou
+		if( fin == Integer.MIN_VALUE){ // noir joue un tabou
 			if(!maximiser)
 				return Integer.MIN_VALUE;
 			else
