@@ -323,3 +323,31 @@ public abstract class Ia extends Joueur {
     public abstract Point solver(Partie partie);
 
 }
+
+/**
+ * structure de donnee permettant d'associer un point a une valeur
+ */
+class ValeurCoup implements Comparable<ValeurCoup> {
+
+    Point point;
+    int valeur;
+
+    /**
+     * Creation du poids d'un coup
+     * @param p un point de coordonnee (x,y)
+     * @param v une valeur
+     */
+    public ValeurCoup(Point p, int v) {
+        this.point = p;
+        this.valeur = v;
+    }
+
+    @Override
+    public int compareTo(ValeurCoup autre) {
+        return Integer.compare(this.valeur , autre.valeur);
+    }
+    
+    public String toString(){
+        return ("p = " + point + " v = " + valeur);
+    }
+}

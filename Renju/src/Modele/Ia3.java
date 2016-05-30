@@ -13,17 +13,16 @@ import java.util.Random;
 
 /**
  * L'IA (Niveau 3) qui joue avec un arbre MiniMax
+ *
  * @author jacqurap
  */
 public class Ia3 extends Ia {
-    
-    
 
-	/**
-	 * Creation de l'IA (Niveau 3)
-	 * @param nom le nom de l'IA
-	 */
-	
+    /**
+     * Creation de l'IA (Niveau 3)
+     *
+     * @param nom le nom de l'IA
+     */
     public Ia3(String nom) {
         super(nom);
     }
@@ -39,17 +38,17 @@ public class Ia3 extends Ia {
             couleur = Plateau.CASEBLANCHE;
         }
         for (Point p : coupsPertinents(partie.getPlateau(), partie.getNbCoups())) {
-        	Plateau plateau = partie.getPlateau();
-        	plateau.setCase(p.x, p.y, couleur);
-            listeCoupsValeur.add(new ValeurCoup(p, minimax(partie.getPlateau(), p, 4, partie.getPlateau().getAutreCouleur(couleur), false,partie.getNbCoups())));
+            Plateau plateau = partie.getPlateau();
+            plateau.setCase(p.x, p.y, couleur);
+            listeCoupsValeur.add(new ValeurCoup(p, minimax(partie.getPlateau(), p, 5, partie.getPlateau().getAutreCouleur(couleur), false, partie.getNbCoups(), Integer.MIN_VALUE, Integer.MAX_VALUE)));
             plateau.setCase(p.x, p.y, Plateau.CASEVIDE);
         }
         Collections.sort(listeCoupsValeur);
         Collections.reverse(listeCoupsValeur);
-        //for(int i = 0 ; i < listeCoupsValeur.size(); i++){
-        	//System.out.println(listeCoupsValeur.get(i).point + "  " + listeCoupsValeur.get(i).valeur);
-        //}
-        
+        for (int i = 0; i < listeCoupsValeur.size(); i++) {
+            System.out.println(listeCoupsValeur.get(i).point + "  " + listeCoupsValeur.get(i).valeur);
+        }
+
         int valeurMax = listeCoupsValeur.get(0).valeur;
         //System.out.println(valeurMax);
         int range = valeurMax;
@@ -58,94 +57,74 @@ public class Ia3 extends Ia {
         while (i < listeCoupsValeur.size() && listeCoupsValeur.get(i).valeur >= range) {
             i++;
         }
-        //for (ValeurCoup vc: listeCoupsValeur){
+		//for (ValeurCoup vc: listeCoupsValeur){
         //    System.out.println(vc);
         //}
         //System.out.println(i);
         Random rand = new Random();
-        if(i>1)
-        	return listeCoupsValeur.get(rand.nextInt(i-1)).point;
+        if (i > 1) {
+            return listeCoupsValeur.get(rand.nextInt(i - 1)).point;
+        }
         return listeCoupsValeur.get(0).point;
     }
-    
+
     /**
      * Creation d'une partie de l'arbre MiniMax
+     *
      * @param plateau le plateau de la partie
      * @param point les coordonnee du coup a jouer
      * @param profondeur la profondeur de l'arbre
-     * @param couleur la couleur de la pierre
-     * @param maximiser le joueur a faire gagner
-     * @return la branche a parcourir
+     * @param couleur la couleur du joueur a cette profondeur
+     * @param maximiser faut-il maximiser ou minimiser a cette profondeur
+     * @return l'evaluation minimax du coups rentre en parametre "point"
      */
-
-    public int minimax(Plateau plateau, Point point, int profondeur, int couleur, boolean maximiser,int nbCoups) {
+    public int minimax(Plateau plateau, Point point, int profondeur, int couleur, boolean maximiser, int nbCoups, int alpha, int beta) {
         int meilleur;
         int valeur;
-        if( Partie.partieFini(point, plateau, plateau.getAutreCouleur(couleur),false) != 0){
-        	//System.out.println("zetsfdjkdsjbfkjdsb"  + point);
-        	//for(int a = 0; a < plateau.getDimX(); a++){
-    			//for (int b = 0; b < plateau.getDimY(); b++){
-    				//System.out.print(plateau.getCase(a, b) + "  ");
-    			//}
-    			//System.out.println();
-    		//}
-        	if(!maximiser)
-        		return Integer.MAX_VALUE;
-        	else
-        		return Integer.MIN_VALUE;
+        int fin = evaluationCoup(plateau, point, plateau.getAutreCouleur(couleur));
+        if (fin == Integer.MAX_VALUE) { // le joueur gagne
+            if (!maximiser) {
+                return Integer.MAX_VALUE;
+            } else {
+                return Integer.MIN_VALUE;
+            }
         }
-        if (profondeur == 0 ) {
-        	if(maximiser)
-        		return evaluationCoup(plateau,point, plateau.getAutreCouleur(couleur));
-        	else
-        		return evaluationCoup(plateau, point, plateau.getAutreCouleur(couleur));
+        if (fin == Integer.MIN_VALUE) { // noir joue un tabou
+            if (!maximiser) {
+                return Integer.MIN_VALUE;
+            } else {
+                return Integer.MAX_VALUE;
+            }
+        }
+        if (profondeur == 0) {
+            return fin;
         }
         if (maximiser) {
             meilleur = Integer.MIN_VALUE;
-            for (Point p : coupsPertinents(plateau,nbCoups)) {
+            for (Point p : coupsPertinents(plateau, nbCoups)) {
                 plateau.setCase((int) p.getX(), (int) p.getY(), couleur);
-                valeur = minimax(plateau, p, profondeur - 1, plateau.getAutreCouleur(couleur), false, nbCoups+1);
+                valeur = minimax(plateau, p, profondeur - 1, plateau.getAutreCouleur(couleur), false, nbCoups + 1, alpha, beta);
                 meilleur = Math.max(meilleur, valeur);
                 plateau.setCase((int) p.getX(), (int) p.getY(), Plateau.CASEVIDE);
+                if (beta <= meilleur) {
+                    return meilleur;
+                }
+                alpha = Math.min(alpha, valeur);
             }
             return meilleur;
-        } else {
+        } else { //minimiser
             meilleur = Integer.MAX_VALUE;
-            for (Point p : coupsPertinents(plateau,nbCoups)) {
+            for (Point p : coupsPertinents(plateau, nbCoups)) {
                 plateau.setCase((int) p.getX(), (int) p.getY(), couleur);
-                valeur = minimax(plateau, p, profondeur - 1, plateau.getAutreCouleur(couleur), true, nbCoups+1);
+                valeur = minimax(plateau, p, profondeur - 1, plateau.getAutreCouleur(couleur), true, nbCoups + 1, alpha, beta);
                 meilleur = Math.min(meilleur, valeur);
                 plateau.setCase((int) p.getX(), (int) p.getY(), Plateau.CASEVIDE);
+                if (alpha >= meilleur) {
+                    return meilleur;
+                }
+                beta = Math.max(beta, valeur);
             }
             return meilleur;
         }
-    }
-}
-
-/**
- * Le poids d'un coup
- */
-class ValeurCoup implements Comparable<ValeurCoup> {
-
-    Point point;
-    int valeur;
-
-    /**
-     * Creation du poids d'un coup
-     * @param p un point de coordonnee (x,y)
-     * @param v une valeur
-     */
-    public ValeurCoup(Point p, int v) {
-        this.point = p;
-        this.valeur = v;
-    }
-
-    @Override
-    public int compareTo(ValeurCoup autre) {
-        return Integer.compare(this.valeur , autre.valeur);
-    }
-    
-    public String toString(){
-        return ("p = " + point + " v = " + valeur);
     }
 }
