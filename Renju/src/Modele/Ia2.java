@@ -80,24 +80,23 @@ public class Ia2 extends Ia{
     public int minimax(Plateau plateau, Point point, int profondeur, int couleur, boolean maximiser,int nbCoups) {
         int meilleur;
         int valeur;
-        if( Partie.partieFini(point, plateau, plateau.getAutreCouleur(couleur),false) != 0){
-        	//System.out.println("zetsfdjkdsjbfkjdsb"  + point);
-        	//for(int a = 0; a < plateau.getDimX(); a++){
-    			//for (int b = 0; b < plateau.getDimY(); b++){
-    				//System.out.print(plateau.getCase(a, b) + "  ");
-    			//}
-    			//System.out.println();
-    		//}
-        	if(!maximiser)
-        		return Integer.MAX_VALUE;
-        	else
-        		return Integer.MIN_VALUE;
+        int fin = evaluationCoup(plateau, point, plateau.getAutreCouleur(couleur));
+        if (fin == Integer.MAX_VALUE) { // le joueur gagne
+            if (!maximiser) {
+                return Integer.MAX_VALUE;
+            } else {
+                return Integer.MIN_VALUE;
+            }
         }
-        if (profondeur == 0 ) {
-        	if(maximiser)
-        		return evaluationCoup(plateau,point, plateau.getAutreCouleur(couleur));
-        	else
-        		return evaluationCoup(plateau, point, plateau.getAutreCouleur(couleur));
+        if (fin == Integer.MIN_VALUE) { // noir joue un tabou
+            if (!maximiser) {
+                return Integer.MIN_VALUE;
+            } else {
+                return Integer.MAX_VALUE;
+            }
+        }
+        if (profondeur == 0) {
+            return fin;
         }
         if (maximiser) {
             meilleur = Integer.MIN_VALUE;
