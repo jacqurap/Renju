@@ -107,7 +107,7 @@ public class SelectJoueurListener implements ActionListener {
                     nomJ2 = nouvpartie.getSelectedButtonText(nouvpartie.getiAJ2());
 
                 }
-                AireDeJeu aire = new AireDeJeu(J1, nomJ1, J2, nomJ2);
+                AireDeJeu aire = new AireDeJeu(J1, nomJ1, J2, nomJ2, f);
                 f.setAire(aire);
                 f.refreshInterface();
                 f.changePanel(f.getINTERFACEPANEL());

@@ -13,11 +13,12 @@ public class Fenetre {
     private String CHARPARTIEPANEL = "Card with loading game panel";
     private String INTERFACEPANEL = "Card with game panel";
     private AireDeJeu aire;
+    private InterfaceJeu interjeu;
     private JPanel panelInterface;
 
     public void addComponentToPane(Container pane) {
 
-        setAire(new AireDeJeu("Modele.Humain", "Joueur1", "Modele.Humain", "Joueur2"));
+        setAire(new AireDeJeu("Modele.Humain", "Joueur1", "Modele.Humain", "Joueur2", this));
         Accueil acc = new Accueil(this);
         NouvellePartie np = new NouvellePartie(this);
         ChargerPartie cp = new ChargerPartie(this);
@@ -35,7 +36,8 @@ public class Fenetre {
         pane.add(getCards(), BorderLayout.CENTER);
     }
 
-    public void changePanel(String panelName) {
+  
+	public void changePanel(String panelName) {
         CardLayout cl = (CardLayout) (getCards().getLayout());
         cl.show(getCards(), panelName);
     }
@@ -45,11 +47,12 @@ public class Fenetre {
         InterfaceJeu ij = new InterfaceJeu(this, aire);
         ij.getTfJ1().setText(aire.getNomJoueur1());
         ij.getTfJ2().setText(aire.getNomJoueur2());
+        interjeu =ij;
         aire.addMouseListener(new EcouteurDeSouris(aire));
         getPanelInterface().add(ij);
     }
 
-    public void closeGame() {
+	public void closeGame() {
         getFrame().dispose();
     }
 
@@ -182,6 +185,16 @@ public class Fenetre {
     public void setPanelInterface(JPanel panelInterface) {
         this.panelInterface = panelInterface;
     }
+    
+    public InterfaceJeu getInterjeu() {
+  		return interjeu;
+  	}
+
+
+  	public void setInterjeu(InterfaceJeu interjeu) {
+  		this.interjeu = interjeu;
+  	}
+
 
 
 }

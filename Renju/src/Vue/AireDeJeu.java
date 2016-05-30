@@ -26,17 +26,18 @@ public class AireDeJeu extends JComponent {
     private String joueur2;
     private String nomJoueur1;
     private String nomJoueur2;
+    private Fenetre fenetre;
     
 
     /**
      * Creation de l'aire de jeu
      */
-    public AireDeJeu(String J1, String nomJ1, String J2,  String nomJ2) {
-    	
+    public AireDeJeu(String J1, String nomJ1, String J2,  String nomJ2, Fenetre f) {
     	this.joueur1=J1;
     	this.nomJoueur1=nomJ1;
     	this.joueur2=J2;
     	this.nomJoueur2=nomJ2;
+    	this.fenetre= f;
     	
     	
         partie = new Partie(J1, nomJ1, J2, nomJ2);
@@ -59,6 +60,15 @@ public class AireDeJeu extends JComponent {
 
 	@Override
     public void paintComponent(Graphics g) {
+		
+		if(this.getPartie().getNbCoups() %2 == 0){
+            fenetre.getInterjeu().getTfJ1().setForeground(Color.RED);
+            fenetre.getInterjeu().getTfJ2().setForeground(Color.BLACK); //.setForeground(Color.RED);
+    	}
+    	else{
+    		fenetre.getInterjeu().getTfJ2().setForeground(Color.RED);
+            fenetre.getInterjeu().getTfJ1().setForeground(Color.BLACK);
+    	}
 		
 		Graphics2D drawable = (Graphics2D) g;
         drawable.setStroke(new BasicStroke(2)); //épaisseur des lignes

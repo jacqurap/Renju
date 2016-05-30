@@ -123,14 +123,14 @@ public class Partie implements Serializable{
 	public boolean action(Point p) { //TODO
 		Plateau oldp = plateau.clone();
 		if (nbCoups % 2 == 0) {
-			InterfaceJeu.getTfJ2().setForeground(Color.RED); //Changement de surbrillance
-			InterfaceJeu.getTfJ1().setForeground(Color.BLACK);
+			//InterfaceJeu.getTfJ2().setForeground(Color.RED); //Changement de surbrillance
+			//InterfaceJeu.getTfJ1().setForeground(Color.BLACK);
 			plateau.setCase(p.x, p.y, plateau.CASENOIRE);
 			if(ia2)
 				touria=true;
 		} else {
-			InterfaceJeu.getTfJ1().setForeground(Color.RED); //Changement de surbrillance
-			InterfaceJeu.getTfJ2().setForeground(Color.BLACK);
+			//InterfaceJeu.getTfJ1().setForeground(Color.RED); //Changement de surbrillance
+			//InterfaceJeu.getTfJ2().setForeground(Color.BLACK);
 			plateau.setCase(p.x, p.y, plateau.CASEBLANCHE);
 			if(ia1)
 				touria=true;

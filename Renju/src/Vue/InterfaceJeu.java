@@ -17,8 +17,8 @@ public class InterfaceJeu extends JPanel {
     private static final JButton btnAnnuler = new JButton("Annuler");
     private static final JButton btnRefaire = new JButton("Refaire");
     private AireDeJeu aire;
-    private static JLabel tfJ1; //static pour pouvoir l'utiliser dans la classe Partie
-    private static JLabel tfJ2;
+    private  JLabel tfJ1;
+    private  JLabel tfJ2;
 
     public InterfaceJeu(Fenetre f, final AireDeJeu aire) {
         this.aire = aire;
@@ -235,7 +235,7 @@ public class InterfaceJeu extends JPanel {
     /**
      * @return the tfJ1
      */
-    public static JLabel getTfJ1() {
+    public JLabel getTfJ1() {
         return tfJ1;
     }
 
@@ -249,7 +249,7 @@ public class InterfaceJeu extends JPanel {
     /**
      * @return the tfJ2
      */
-    public static JLabel getTfJ2() {
+    public  JLabel getTfJ2() {
         return tfJ2;
     }
 
