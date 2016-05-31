@@ -1,8 +1,10 @@
 package Listener;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+
 import Vue.*;
 
 
@@ -12,7 +14,8 @@ public class PopupsListener implements ActionListener {
 	private JDialog popup;
 	private Fenetre fenetre;
 	private int val;
-	private JComponent jcomp;
+	private Component jcomp;
+	private Popups fpop;
 
 	
 	public PopupsListener(JDialog pop) {
@@ -28,12 +31,20 @@ public class PopupsListener implements ActionListener {
 
     }
 	
-	public PopupsListener(JComponent jc, int v ) {
+	public PopupsListener(Component jc, Popups fp, int v ) {
         this.jcomp= jc;
+        this.fpop = fp;
         this.val = v;
 
     }
 	
+	public PopupsListener(JDialog pop, Fenetre f, Popups fp, int v ) {
+        this.popup= pop;
+        this.fenetre=f;
+        this.fpop=fp;
+        this.val = v;
+
+    }
 	
 	
 	
@@ -48,22 +59,28 @@ public class PopupsListener implements ActionListener {
 			break;
 			
 		case 2 :
-			fenetre.changePanel(fenetre.getINTERFACEPANEL());
-            popup.dispose();
+			 fenetre.getAire().setPartie(fpop.Charger());
+             fenetre.getAire().repaint();
+             popup.dispose();
+             fenetre.changePanel(fenetre.getINTERFACEPANEL());
+             popup.dispose();
             break;
             
 		case 3:
 			if (!jcomp.isEnabled()) {
+                fpop.setSaveNum(Character.getNumericValue(((JRadioButton)e.getSource()).getText().charAt(0)));
                 jcomp.setEnabled(true);
             }
 			break;
 		
 		case 4 :
 			jcomp.setVisible(true);
+			fpop.setErase(true);
 			break;
 			
 		case 5 :
 			jcomp.setVisible(false);
+			fpop.setErase(false);
 			break;
 		
 		case 6 : 
@@ -78,6 +95,11 @@ public class PopupsListener implements ActionListener {
 		case 7 :
 			fenetre.changePanel(fenetre.getACCUEILPANEL());
             popup.dispose();
+            break;
+            
+		case 8 :
+			 popup.dispose();
+             fpop.Sauvegarder(fpop.getPart());
             break;
             
 		default: 

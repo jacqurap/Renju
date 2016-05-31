@@ -13,7 +13,15 @@ public class InterfaceJeuListener implements ActionListener {
 	
 	private int val;
 	private Popups popup;
+	private InterfaceJeu interjeu;
 
+	
+	public InterfaceJeuListener(Popups pop, InterfaceJeu ij, int v) {
+        this.popup= pop;
+        this.interjeu = ij;
+        this.val = v;
+
+    }
 	
 	public InterfaceJeuListener(Popups pop, int v) {
         this.popup= pop;
@@ -26,10 +34,10 @@ public class InterfaceJeuListener implements ActionListener {
             
 		switch (val){
 		case 1:
-			popup.popSauver();
+			popup.popSauver(interjeu.getAire().getPartie());
 			break;
 		case 2:
-			popup.popCharger();
+			popup.popCharger(interjeu.getAire().getPartie());
 			break;
 		case 3:
 			popup.popRecommencer();
