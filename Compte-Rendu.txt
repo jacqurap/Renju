@@ -42,3 +42,52 @@
 - IHM : Interactions entre les différentes fenêtres de jeu, réactualisation du contenu des fenêtres de jeu.
 - IA : Création de l'IA Minimax (Niveau 3) en cours
 - Fonctionnalités : Création des animations de victoire / Défaite
+
+-- Vendredi 20 Mai
+
+- IHM : Finition de la partie fonctionnelle
+- IA : Travail sur la version Ordinateur contre Ordinateur
+- Fonctionnalité : Mise à jour des docuents annexes
+
+-- Lundi 23 Mai
+
+- IHM : La partie fonctionelle est terminée et intégrée, gestion de la sauvegarde / chargement dans l'IHM en attendant le moteur
+- IA : IA vs IA fait, développement de l'IA Moyenne (minimax)
+- Fonctionnalité : Problème avec l'IHM pour l'IA difficile, développement de la sauvegarde / chargement
+
+-- Mardi 24 Mai
+
+- IHM : Annuler / Refaire dans le menu
+- IA : IA vs IA fait, développement de l'IA Moyenne
+- Fonctionnalité : Refonte de l'IHM, développement de la sauvegarde / chargement
+
+-- Mercredi 25 Mai
+
+- IHM : Refonte de l'IHM
+- IA : l'IA Moyenne faite mais non optimisé
+- Fonctionnalité : Refonte de l'IHM, développement de la sauvegarde / chargement
+
+-- Jeudi 26 Mai
+
+- IHM : Refonte de l'IHM
+- IA : l'IA difficile avec alpha-béta en développement
+- Fonctionnalité : Refonte de l'IHM, développement de la sauvegarde / chargement
+
+-- Vendredi 27 Mai
+
+- IHM : Fin de la refonte IHM + mise en place d'élements graphiques
+- IA : IA difficile fait
+- Fonctionnalité : Organisation des tâches de dernière semaine
+
+
+-- Lundi 30 Mai
+
+- IHM : Mise en place du design de l'application
+- IA : Mise en place des tabous 
+- Fonctionnalité : Mise en place de la subrillance et de la clarification du code
+
+-- Mardi 31 Mai
+
+- IHM : Mise en place du design de l'application
+- IA : Mise en place des tabou
+- Fonctionnalité : Mise en place des animations, de l'historique

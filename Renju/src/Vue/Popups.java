@@ -444,7 +444,7 @@ public class Popups {
             String path = Popups.class.getProtectionDomain().getCodeSource().getLocation().getPath();
             String decodedPath = URLDecoder.decode(path, "UTF-8");
             SavePath = (decodedPath + "Saves/");
-            System.out.println(SavePath);
+            System.out.println(SavePath); //TODO Creation du dossier sauvegarde
         } catch (Exception e) {
             System.out.println("Erreur lors de la definition du chemin");
         }
