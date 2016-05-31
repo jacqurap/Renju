@@ -46,7 +46,7 @@ public class AireDeJeu extends JComponent {
             TimerTask tache = new TimerTask() {
                 @Override
                 public void run() {
-                    if (partie.isTourIa()) {
+                    if (!partie.isPartieFinie() && partie.isTourIa()) {
                         partie.joueIa();
                         repaint();
                     }

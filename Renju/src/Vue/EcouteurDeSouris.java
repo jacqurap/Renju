@@ -22,6 +22,7 @@ public class EcouteurDeSouris implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
+            if(!aire.getPartie().isPartieFinie()){
                 int caseSize = (aire.getHeight()/16);
 		int x = (int) ((e.getX()-(caseSize/2))/caseSize);
 		int y = (int) ((e.getY()-(caseSize/2))/caseSize);
@@ -39,7 +40,7 @@ public class EcouteurDeSouris implements MouseListener {
             interfacejeu.getTfJ1().setForeground(Color.BLACK);
     	}*/
 
-
+            }
 	}
 
 
