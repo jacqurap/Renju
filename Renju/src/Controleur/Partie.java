@@ -471,55 +471,8 @@ public class Partie implements Serializable{
 			nb33NonBloque++;
 		}
 
-		System.out.println("nb33NonBloque  :  "+ nb33NonBloque);
-		if(nb33NonBloque == 1 && juxtVertical == 2 && !isVerticalBasBloque && !isVerticalHautBloque){
-			for(i = 1; i<=2;i++){
-				if(point.y+i < plateau.getDimY() && plateau.getCase(point.x, point.y+i)== Plateau.CASENOIRE && nonbloq33(new Point(point.x,point.y+i),plateau,couleur,0)){
-					nb33NonBloque++;
-					break;
-				}
-				if(point.y-i > 0 && plateau.getCase(point.x, point.y-i)== Plateau.CASENOIRE && nonbloq33(new Point(point.x,point.y-i),plateau,couleur,0)){
-					nb33NonBloque++;
-					break;
-				}
-			}
-		}
-		if(nb33NonBloque == 1 && juxtHorizontal == 2 && !isHorizontalGaucheBloque && !isHorizontalDroiteBloque){
-			for(i = 1; i<=2;i++){
-				if(point.x +i < plateau.getDimX() && plateau.getCase(point.x+i, point.y)== Plateau.CASENOIRE && nonbloq33(new Point(point.x+i,point.y),plateau,couleur,1)){
-					nb33NonBloque++;
-					break;
-				}
-				if(point.x -i > 0 && plateau.getCase(point.x-i, point.y)== Plateau.CASENOIRE && nonbloq33(new Point(point.x-i,point.y),plateau,couleur,1)){
-					nb33NonBloque++;
-					break;
-				}
-			}
-		}
-		if(nb33NonBloque == 1 && juxtDiagonalDescendante == 2 && !isDiagonalGaucheHautBloque && !isDiagonalDroiteBasBloque){
-			for(i = 1; i<=2;i++){
-				if(point.x < plateau.getDimX() && point.y > 0 && plateau.getCase(point.x+i, point.y-i)== Plateau.CASENOIRE && nonbloq33(new Point(point.x+i,point.y-i),plateau,couleur,3)){
-					nb33NonBloque++;
-					break;
-				}
-				if(point.x-i > 0 && point.y +i < plateau.getDimY() && plateau.getCase(point.x-i, point.y+i)== Plateau.CASENOIRE && nonbloq33(new Point(point.x-i,point.y+i),plateau,couleur,3)){
-					nb33NonBloque++;
-					break;
-				}
-			}
-		}
-		if(nb33NonBloque == 1 && juxtDiagonalMontante == 2 && !isDiagonalGaucheBasBloque && !isDiagonalDroiteHautBloque){
-			for(i = 1; i<=2;i++){
-				if(point.x+i < plateau.getDimX() && point.y+i < plateau.getDimY() && plateau.getCase(point.x+i, point.y+i)== Plateau.CASENOIRE && nonbloq33(new Point(point.x+i,point.y+i),plateau,couleur,2)){
-					nb33NonBloque++;
-					break;
-				}
-				if(point.x-i < 0 && point.y-1 < 0 && plateau.getCase(point.x-i, point.y-i)== Plateau.CASENOIRE && nonbloq33(new Point(point.x-i,point.y-i),plateau,couleur,2)){
-					nb33NonBloque++;
-					break;
-				}
-			}
-		}
+		
+                
 
 
 		int nb44NonBloque = 0;
@@ -537,54 +490,7 @@ public class Partie implements Serializable{
 		}
 		
 		
-		if(nb44NonBloque == 1 && juxtVertical == 3 && (!isVerticalBasBloque || !isVerticalHautBloque)){
-			for(i = 1 ; i <= 3; i++){
-				if(point.y+i < plateau.getDimY() && plateau.getCase(point.x, point.y+i)== Plateau.CASENOIRE && nonbloq44(new Point(point.x,point.y+i),plateau,couleur,0)){
-					nb44NonBloque++;
-					break;
-				}
-				if(point.y > 0 && plateau.getCase(point.x, point.y-i)== Plateau.CASENOIRE && nonbloq44(new Point(point.x,point.y-i),plateau,couleur,0)){
-					nb44NonBloque++;
-					break;
-				}
-			}
-		}
-		if(nb44NonBloque == 1 && juxtHorizontal == 3 && (!isHorizontalGaucheBloque || !isHorizontalDroiteBloque)){
-			for(i = 1; i<=3;i++){
-				if(point.x +i < plateau.getDimX() && plateau.getCase(point.x+i, point.y)== Plateau.CASENOIRE && nonbloq44(new Point(point.x+i,point.y),plateau,couleur,1)){
-					nb44NonBloque++;
-					break;
-				}
-				if(point.x -i > 0 && plateau.getCase(point.x-i, point.y)== Plateau.CASENOIRE && nonbloq44(new Point(point.x-i,point.y),plateau,couleur,1)){
-					nb44NonBloque++;
-					break;
-				}
-			}
-		}
-		if(nb44NonBloque == 1 && juxtDiagonalDescendante == 3 && (!isDiagonalGaucheHautBloque || !isDiagonalDroiteBasBloque)){
-			for(i = 1; i<=3;i++){
-				if(point.x < plateau.getDimX() && point.y > 0 && plateau.getCase(point.x+i, point.y-i)== Plateau.CASENOIRE && nonbloq44(new Point(point.x+i,point.y-i),plateau,couleur,3)){
-					nb44NonBloque++;
-					break;
-				}
-				if(point.x-i > 0 && point.y +i < plateau.getDimY() && plateau.getCase(point.x-i, point.y+i)== Plateau.CASENOIRE && nonbloq44(new Point(point.x-i,point.y+i),plateau,couleur,3)){
-					nb44NonBloque++;
-					break;
-				}
-			}
-		}
-		if(nb44NonBloque == 1 && juxtDiagonalMontante == 3 && (!isDiagonalGaucheBasBloque || !isDiagonalDroiteHautBloque)){
-			for(i = 1; i<=3;i++){
-				if(point.x+i < plateau.getDimX() && point.y+i < plateau.getDimY() && plateau.getCase(point.x+i, point.y+i)== Plateau.CASENOIRE && nonbloq44(new Point(point.x+i,point.y+i),plateau,couleur,2)){
-					nb44NonBloque++;
-					break;
-				}
-				if(point.x-i < 0 && point.y-1 < 0 && plateau.getCase(point.x-i, point.y-i)== Plateau.CASENOIRE && nonbloq44(new Point(point.x-i,point.y-i),plateau,couleur,2)){
-					nb44NonBloque++;
-					break;
-				}
-			}
-		}
+		
 		if((couleur == Plateau.CASENOIRE) 
 				&& (juxtHorizontal > 4              /// ligne de plus de 5 pions
 						|| juxtVertical > 4 
