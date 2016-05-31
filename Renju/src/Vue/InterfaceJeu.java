@@ -2,6 +2,7 @@ package Vue;
 
 import java.awt.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import Controleur.Partie;
@@ -11,6 +12,8 @@ import Modele.Humain;
 import Modele.Plateau;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 public class InterfaceJeu extends JPanel {
 
@@ -122,10 +125,11 @@ public class InterfaceJeu extends JPanel {
         paneJoueurs.setLayout(new GridLayout(0, 1));
         addComponent(paneJoueurs);
         
-        ImageIcon icone1 = createImageIcon("Ressources/Pion_Noir.png","Pion noir du joueur 1");
-        ImageIcon icone2 = createImageIcon("Ressources/Pion_Blanc.png", "Pion blanc du joueur 2");
+        
+       ImageIcon icone1 = createImageIcon("../Ressources/Pion_Noir.png","Pion noir du joueur 1");
+       ImageIcon icone2 = createImageIcon("../Ressources/Pion_Blanc.png", "Pion blanc du joueur 2");
 
-        tfJ1 = new JLabel("", icone1, JLabel.CENTER);
+        tfJ1 = new JLabel("", (ImageIcon)icone1, JLabel.CENTER);
         tfJ2 = new JLabel("", icone2, JLabel.CENTER);
         
         tfJ1.setForeground(Color.RED); // Subrillance de depart
