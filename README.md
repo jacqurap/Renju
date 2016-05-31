@@ -35,13 +35,12 @@ Fonctionnalités
 
  > IHM
  
-- [ ]  Finir l'affichage
+- [ ] Finir l'affichage
 - [ ] Améliorations diverses
 - [ ] Rapport IHM
-- [ ] Design
 - [x] Fin de partie
-- [ ] Règles
-- [ ] Nombres de coup adpaté à Anuler / Refaire
+- [x] Règles
+- [x] Nombres de coup adpaté à Anuler / Refaire
 
 > IA
 
