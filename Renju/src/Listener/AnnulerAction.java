@@ -1,6 +1,9 @@
-package Vue;
+package Listener;
 
 import Modele.*;
+import Vue.AireDeJeu;
+import Vue.AireDeJeu;
+import Vue.AireDeJeu;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +16,7 @@ import javax.swing.JMenuItem;
  *
  * @author bochatom
  */
-class AnnulerAction implements ActionListener {
+public class AnnulerAction implements ActionListener {
 
     private AireDeJeu aire;
     private JMenuItem btnAnnuler;
