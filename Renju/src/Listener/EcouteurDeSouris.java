@@ -19,13 +19,14 @@ public class EcouteurDeSouris implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        int caseSize = (aire.getHeight() / 16);
-        int x = (int) ((e.getX() - (caseSize / 2)) / caseSize);
-        int y = (int) ((e.getY() - (caseSize / 2)) / caseSize);
-        if ((x < 15 && y < 15) && aire.getPartie().click(new Point(x, y))) { //15 pour les coups en dehors de la zone de jeu
-            aire.repaint();
+        if (!aire.getPartie().isPartieFinie()) {
+            int caseSize = (aire.getHeight() / 16);
+            int x = (int) ((e.getX() - (caseSize / 2)) / caseSize);
+            int y = (int) ((e.getY() - (caseSize / 2)) / caseSize);
+            if ((x < 15 && y < 15) && aire.getPartie().click(new Point(x, y))) { //15 pour les coups en dehors de la zone de jeu
+                aire.repaint();
+            }
         }
-
     }
 
     @Override
