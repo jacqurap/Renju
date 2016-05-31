@@ -20,7 +20,6 @@ import Vue.*;
  *
  * @author jacqurap
  */
-
 public class Partie implements Serializable {
 
     public static final int JOUEUR_HUMAIN = 0;
@@ -121,8 +120,6 @@ public class Partie implements Serializable {
     public boolean action(Point p) { //TODO
         Plateau oldp = plateau.clone();
         if (nbCoups % 2 == 0) {
-            //InterfaceJeu.getTfJ2().setForeground(Color.RED); //Changement de surbrillance
-            //InterfaceJeu.getTfJ1().setForeground(Color.BLACK);
             plateau.setCase(p.x, p.y, plateau.CASENOIRE);
             if (ia2) {
                 touria = true;
@@ -130,8 +127,6 @@ public class Partie implements Serializable {
                 touria = false;
             }
         } else {
-            //InterfaceJeu.getTfJ1().setForeground(Color.RED); //Changement de surbrillance
-            //InterfaceJeu.getTfJ2().setForeground(Color.BLACK);
             plateau.setCase(p.x, p.y, plateau.CASEBLANCHE);
             if (ia1) {
                 touria = true;
@@ -139,7 +134,6 @@ public class Partie implements Serializable {
                 touria = false;
             }
         }
-        //System.out.println(Ia.evaluationPlateau(plateau));
         annuler.push(p);
         InterfaceJeu.getITEMANNU().setEnabled(true);
         InterfaceJeu.getITEMREFA().setEnabled(false);
@@ -169,13 +163,9 @@ public class Partie implements Serializable {
     }
 
     public int partieFini(Point p, Plateau plateau, int couleur, boolean tabou) {
-        if (tabou && couleur == Plateau.CASENOIRE) {
-            return partieFiniTabou(p, plateau, couleur);
-        } else {
-            return partieFiniTabou(p, plateau, couleur);
-        }
+        return partieFiniTabou(p, plateau, couleur);
     }
-	
+
     public int partieFiniTabou(Point point, Plateau plateau, int couleur) {
         int i;
         // ces boolean permettent de tester si les pions du joueur sont juxtaposes (pour tester la victoire)
@@ -198,8 +188,9 @@ public class Partie implements Serializable {
                         if (isJuxtHorizontalDroite) {
                             juxtHorizontal++;
                         }
-                        if(trouhorizontald < 2)
+                        if (trouhorizontald < 2) {
                             horizontal++;
+                        }
                     } else if (casee == Plateau.CASEVIDE) {
                         isJuxtHorizontalDroite = false;
                         trouhorizontald++;
@@ -216,8 +207,9 @@ public class Partie implements Serializable {
                         if (isJuxtHorizontalGauche) {
                             juxtHorizontal++;
                         }
-                        if(trouhorizontalg < 2)
+                        if (trouhorizontalg < 2) {
                             horizontal++;
+                        }
                     } else if (casee == Plateau.CASEVIDE) {
                         isJuxtHorizontalGauche = false;
                         trouhorizontalg++;
@@ -234,8 +226,9 @@ public class Partie implements Serializable {
                         if (isJuxtVerticalHaut) {
                             juxtVertical++;
                         }
-                        if(trouverticalh < 2)
+                        if (trouverticalh < 2) {
                             vertical++;
+                        }
                     } else if (casee == Plateau.CASEVIDE) {
                         isJuxtVerticalHaut = false;
                         trouverticalh++;
@@ -252,8 +245,9 @@ public class Partie implements Serializable {
                         if (isJuxtVerticalBas) {
                             juxtVertical++;
                         }
-                        if(trouverticalb < 2)
+                        if (trouverticalb < 2) {
                             vertical++;
+                        }
                     } else if (casee == Plateau.CASEVIDE) {
                         isJuxtVerticalBas = false;
                         trouverticalb++;
@@ -270,8 +264,9 @@ public class Partie implements Serializable {
                         if (isJuxtDiagonalDroiteHaut) {
                             juxtDiagonalMontante++;
                         }
-                        if(troudiagonalMontanted < 2)
+                        if (troudiagonalMontanted < 2) {
                             diagonalMontante++;
+                        }
                     } else if (casee == Plateau.CASEVIDE) {
                         isDiagonalDroiteHaut = false;
                         troudiagonalMontanted++;
@@ -288,8 +283,9 @@ public class Partie implements Serializable {
                         if (isJuxtDiagonalDroiteBas) {
                             juxtDiagonalDescendante++;
                         }
-                        if(troudiagonalDescendanted < 2)
+                        if (troudiagonalDescendanted < 2) {
                             diagonalDescendante++;
+                        }
                     } else if (casee == Plateau.CASEVIDE) {
                         isDiagonalDroiteBas = false;
                         troudiagonalDescendanted++;
@@ -306,8 +302,9 @@ public class Partie implements Serializable {
                         if (isJuxtDiagonalGaucheHaut) {
                             juxtDiagonalDescendante++;
                         }
-                        if(troudiagonalDescendanteg < 2)
+                        if (troudiagonalDescendanteg < 2) {
                             diagonalDescendante++;
+                        }
                     } else if (casee == Plateau.CASEVIDE) {
                         isDiagonalGaucheHaut = false;
                         troudiagonalDescendanteg++;
@@ -324,8 +321,9 @@ public class Partie implements Serializable {
                         if (isJuxtDiagonalGaucheBas) {
                             juxtDiagonalMontante++;
                         }
-                        if(troudiagonalMontanteg < 2)
+                        if (troudiagonalMontanteg < 2) {
                             diagonalMontante++;
+                        }
                     } else if (casee == Plateau.CASEVIDE) {
                         isDiagonalGaucheBas = false;
                         troudiagonalMontanteg++;
@@ -338,7 +336,7 @@ public class Partie implements Serializable {
         }
 
         int nb33NonBloque = 0;
-        if ((juxtVertical == 2 && vertical !=3 || vertical == 2) && !isVerticalBasBloque && !isVerticalHautBloque) {
+        if ((juxtVertical == 2 && vertical != 3 || vertical == 2) && !isVerticalBasBloque && !isVerticalHautBloque) {
             nb33NonBloque++;
         }
         if ((juxtHorizontal == 2 || horizontal == 2) && !isHorizontalGaucheBloque && !isHorizontalDroiteBloque) {
@@ -350,7 +348,6 @@ public class Partie implements Serializable {
         if ((juxtDiagonalMontante == 2 || diagonalMontante == 2) && !isDiagonalGaucheBasBloque && !isDiagonalDroiteHautBloque) {
             nb33NonBloque++;
         }
-        System.out.println("nb33 : " + nb33NonBloque);
         int nb44NonBloque = 0;
         if ((juxtVertical == 3 || vertical == 3) && (!isVerticalBasBloque || !isVerticalHautBloque)) {
             nb44NonBloque++;
@@ -369,12 +366,12 @@ public class Partie implements Serializable {
                 && (juxtHorizontal > 4 /// ligne de plus de 5 pions
                 || juxtVertical > 4
                 || juxtDiagonalDescendante > 4
-                || juxtDiagonalMontante > 4)){
+                || juxtDiagonalMontante > 4)) {
             partieFinie = true;
             j2Win = true;
             return 2;
         }
-        
+
         if (juxtHorizontal >= 4 || juxtVertical >= 4 || juxtDiagonalDescendante >= 4 || juxtDiagonalMontante >= 4) {
             partieFinie = true;
             if (couleur == Plateau.CASENOIRE) {
@@ -385,20 +382,18 @@ public class Partie implements Serializable {
                 return 2;
             }
         }
-        
+
         if ((couleur == Plateau.CASENOIRE)
-                && ( nb33NonBloque >= 2 /// 3 * 3 non bloque
+                && (nb33NonBloque >= 2 /// 3 * 3 non bloque
                 || nb44NonBloque >= 2 /// 4 * 4 non double bloque
                 )) {
             partieFinie = true;
             j2Win = true;
             return 2;
         }
-        
+
         return 0;
     }
-
-    
 
     public ArrayList<Point> coupsJouables() {
         return coupsJouables(this.plateau);

@@ -14,8 +14,9 @@ import java.awt.event.ActionListener;
  * @author Mathieu
  */
 public class AnnulerVersAccueilListener implements ActionListener {
+
     private Fenetre f;
-    
+
     public AnnulerVersAccueilListener(Fenetre f) {
         setF(f);
     }
@@ -38,5 +39,5 @@ public class AnnulerVersAccueilListener implements ActionListener {
     public void setF(Fenetre f) {
         this.f = f;
     }
-    
+
 }

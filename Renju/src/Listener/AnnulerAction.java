@@ -41,18 +41,10 @@ public class AnnulerAction implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //int[][] GrilleActuelle = aire.getPartie().getPlateau().getGrille();
-        //Plateau newPlateau = new Plateau();
-        //newPlateau.setGrille(GrilleActuelle);
-
-        //Plateau newPlateau = aire.getPartie().getPlateau().clone();
-        System.out.println("annulerAction : touria = " +aire.getPartie().isTourIa());
         if (!aire.getPartie().isTourIa() && (!aire.getPartie().isIa1() || aire.getPartie().getNbCoups() > 1)) {
             Point point = aire.getPartie().getAnnuler().pop();
             aire.getPartie().getRefaire().push(point);
-            //aire.getPartie().getPlateau().setGrille(plateau.getGrille());
             aire.getPartie().getPlateau().setCase(point.x, point.y, Plateau.CASEVIDE);
-            //aire.getPartie().setPlateau(newPlateau);
             aire.getPartie().decNbCoups();
             aire.getPartie().setPartieFinie(false);
             aire.getPartie().setJ1Win(false);
@@ -63,31 +55,29 @@ public class AnnulerAction implements ActionListener {
                 getBtnAnnuler().setEnabled(false);
                 annu.setEnabled(false);
             }
-            //aire.getPartie().printStacks(); DEBUG
 
             if (aire.getPartie().isIa1() || aire.getPartie().isIa2()) {
                 point = aire.getPartie().getAnnuler().pop();
                 aire.getPartie().getRefaire().push(point);
-                //aire.getPartie().getPlateau().setGrille(plateau.getGrille());
                 aire.getPartie().getPlateau().setCase(point.x, point.y, Plateau.CASEVIDE);
-                //aire.getPartie().setPlateau(newPlateau);
                 aire.getPartie().decNbCoups();
                 aire.getPartie().setPartieFinie(false);
                 aire.getPartie().setJ1Win(false);
                 aire.getPartie().setJ2Win(false);
-                
+
                 getBtnRefaire().setEnabled(true);
                 ref.setEnabled(true);
                 if (aire.getPartie().getAnnuler().empty()) {
                     getBtnAnnuler().setEnabled(false);
                     annu.setEnabled(false);
                 }
-            }if (aire.getPartie().isIa1() && aire.getPartie().getNbCoups() % 2 == 0) {
-                    aire.getPartie().setTouria(true);
-                }
-                if (aire.getPartie().isIa2() && aire.getPartie().getNbCoups() % 2 == 1) {
-                    aire.getPartie().setTouria(true);
-                }
+            }
+            if (aire.getPartie().isIa1() && aire.getPartie().getNbCoups() % 2 == 0) {
+                aire.getPartie().setTouria(true);
+            }
+            if (aire.getPartie().isIa2() && aire.getPartie().getNbCoups() % 2 == 1) {
+                aire.getPartie().setTouria(true);
+            }
             aire.repaint();
         }
 

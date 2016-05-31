@@ -13,7 +13,7 @@ import javax.swing.JButton;
  *
  * @author Mathieu
  */
-public class SlotChargerListener implements ActionListener{
+public class SlotChargerListener implements ActionListener {
 
     private JButton btnCharger;
 
