@@ -27,6 +27,7 @@ public class AireDeJeu extends JComponent {
     private String nomJoueur1;
     private String nomJoueur2;
     private Fenetre fenetre;
+    private String themePlateau;
     
 
     /**
@@ -38,6 +39,7 @@ public class AireDeJeu extends JComponent {
     	this.joueur2=J2;
     	this.nomJoueur2=nomJ2;
     	this.fenetre= f;
+        this.themePlateau = "Bois";
     	
     	
         partie = new Partie(J1, nomJ1, J2, nomJ2);
@@ -77,7 +79,7 @@ public class AireDeJeu extends JComponent {
         
         //thème du terrain
         try {
-            BufferedImage img = ImageIO.read(new File("../Ressources/trad.png"));
+            BufferedImage img = ImageIO.read(new File("Ressources/"+getThemePlateau()+".png"));
             drawable.drawImage(img, 0, 0, largeurAire, largeurAire, null);
         } catch (IOException ex) {
            Logger.getLogger(AireDeJeu.class.getName()).log(Level.SEVERE, null, ex);
@@ -180,4 +182,18 @@ public class AireDeJeu extends JComponent {
         public void setPartie(Partie p){
                 this.partie = p;
         }
+
+    /**
+     * @return the themePlateau
+     */
+    public String getThemePlateau() {
+        return themePlateau;
+    }
+
+    /**
+     * @param themePlateau the themePlateau to set
+     */
+    public void setThemePlateau(String themePlateau) {
+        this.themePlateau = themePlateau;
+    }
 }

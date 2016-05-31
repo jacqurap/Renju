@@ -15,6 +15,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class InterfaceJeu extends JPanel {
 
@@ -23,8 +26,8 @@ public class InterfaceJeu extends JPanel {
     private static final JButton btnAnnuler = new JButton("Annuler");
     private static final JButton btnRefaire = new JButton("Refaire");
     private AireDeJeu aire;
-    private  JLabel tfJ1;
-    private  JLabel tfJ2;
+    private JLabel tfJ1;
+    private JLabel tfJ2;
 
     public InterfaceJeu(Fenetre f, AireDeJeu aire) {
         this.aire = aire;
@@ -35,11 +38,11 @@ public class InterfaceJeu extends JPanel {
         JMenu menu_partie = new JMenu("Partie");
 
         JMenuItem item_sauv = new JMenuItem("Sauvegarder");
-        item_sauv.addActionListener(new InterfaceJeuListener(popup,this, 1));
+        item_sauv.addActionListener(new InterfaceJeuListener(popup, this, 1));
         menu_partie.add(item_sauv);
 
         JMenuItem item_char = new JMenuItem("Charger");
-        item_char.addActionListener(new InterfaceJeuListener(popup,this, 2));
+        item_char.addActionListener(new InterfaceJeuListener(popup, this, 2));
         menu_partie.add(item_char);
 
         menu_partie.addSeparator();
@@ -66,12 +69,19 @@ public class InterfaceJeu extends JPanel {
         menu_param.add(menu_them);
 
         ButtonGroup grpTheme = new ButtonGroup();
-        JRadioButtonMenuItem rdTrad = new JRadioButtonMenuItem("Traditionnel");
+        JRadioButtonMenuItem rdTrad = new JRadioButtonMenuItem("Bois");
         menu_them.add(rdTrad);
+        rdTrad.addActionListener(new InterfaceJeuListener(6, this, "Bois"));
+        rdTrad.setSelected(true);
         grpTheme.add(rdTrad);
         JRadioButtonMenuItem rdMarb = new JRadioButtonMenuItem("Marbre");
         menu_them.add(rdMarb);
+        rdMarb.addActionListener(new InterfaceJeuListener(6, this, "Marbre"));
         grpTheme.add(rdMarb);
+        JRadioButtonMenuItem rdMarin = new JRadioButtonMenuItem("Marin");
+        menu_them.add(rdMarin);
+        rdMarin.addActionListener(new InterfaceJeuListener(6, this, "Marin"));
+        grpTheme.add(rdMarin);
 
         // Liste de Langues
         JMenu menu_lang = new JMenu("Langue");
@@ -122,30 +132,43 @@ public class InterfaceJeu extends JPanel {
          addComponent(paneJoueur2, paneJoueurs);
          */
         JPanel paneJoueurs = new JPanel();
+        paneJoueurs.setOpaque(false);
+        paneJoueurs.setPreferredSize(new Dimension(400, 0));
 
-        paneJoueurs.setLayout(new GridLayout(0, 1));
+        paneJoueurs.setLayout(new BoxLayout(paneJoueurs, BoxLayout.Y_AXIS));
         addComponent(paneJoueurs);
-        
-        
-       ImageIcon icone1 = createImageIcon("../Ressources/Pion_Noir.png","Pion noir du joueur 1");
-       ImageIcon icone2 = createImageIcon("../Ressources/Pion_Blanc.png", "Pion blanc du joueur 2");
 
-        tfJ1 = new JLabel("", (ImageIcon)icone1, JLabel.CENTER);
+        ImageIcon icone1 = createImageIcon("../Ressources/Pion_Noir.png", "Pion noir du joueur 1");
+        ImageIcon icone2 = createImageIcon("../Ressources/Pion_Blanc.png", "Pion blanc du joueur 2");
+
+        Font font = new Font("Calibri", Font.BOLD, 25);
+        tfJ1 = new JLabel("", (ImageIcon) icone1, JLabel.CENTER);
+        tfJ1.setFont(font);
         tfJ2 = new JLabel("", icone2, JLabel.CENTER);
-        
-        tfJ1.setForeground(Color.RED); // Subrillance de depart
-       // tfJ1.add
-        
-       // SurbrillanceTour(tfJ1, tfJ2, aire);
-        paneJoueurs.add(tfJ1);
-        paneJoueurs.add(tfJ2);
-        tfJ1.setAlignmentY(Component.CENTER_ALIGNMENT);
-        
+        tfJ2.setFont(font);
 
-        addButton(btnAnnuler);
+        tfJ1.setForeground(Color.RED); // Subrillance de depart
+        // tfJ1.add
+
+        // SurbrillanceTour(tfJ1, tfJ2, aire);
+        JPanel paneNoms = new JPanel();
+        paneNoms.setOpaque(false);
+        paneNoms.setLayout(new FlowLayout());
+        paneNoms.add(Box.createHorizontalGlue());
+        paneNoms.add(tfJ1);
+        paneNoms.add(Box.createHorizontalGlue());
+        paneNoms.add(tfJ2);
+        paneNoms.add(Box.createHorizontalGlue());
+        tfJ1.setAlignmentY(Component.CENTER_ALIGNMENT);
+
+        JPanel paneBoutons = new JPanel();
+        paneBoutons.setOpaque(false);
+        paneBoutons.setLayout(new FlowLayout());
+
+        addButton(btnAnnuler, paneBoutons);
         btnAnnuler.setEnabled(false);
 
-        addButton(btnRefaire);
+        addButton(btnRefaire, paneBoutons);
         AnnulerAction annu = new AnnulerAction(this.getAire(), getITEMANNU(), getITEMREFA(), btnAnnuler, btnRefaire);
         RefaireAction ref = new RefaireAction(this.getAire(), getITEMANNU(), getITEMREFA(), btnAnnuler, btnRefaire);
         btnAnnuler.addActionListener(annu);
@@ -153,12 +176,26 @@ public class InterfaceJeu extends JPanel {
         ITEMREFA.addActionListener(ref);
         btnRefaire.addActionListener(ref);
         btnRefaire.setEnabled(false);
-        paneJoueurs.add(btnAnnuler);
-        paneJoueurs.add(btnRefaire);
+
+        paneJoueurs.add(paneNoms);
+        paneJoueurs.add(paneBoutons);
 
         this.add(paneJoueurs, BorderLayout.EAST);
         this.add(this.aire, BorderLayout.CENTER);
 
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        Dimension d = getParent().getSize();
+        /*try {
+            BufferedImage img = ImageIO.read(new File("../Ressources/fondpop.jpg"));
+            g.drawImage(img, 0, 0, d.width, d.height, null);
+        } catch (IOException ex) {
+            Logger.getLogger(AireDeJeu.class.getName()).log(Level.SEVERE, null, ex);*/
+        g.setColor(Color.WHITE);
+        g.fillRect(0, 0, d.width, d.height);
+        //}
     }
 
     private void addComponent(JComponent component) {
@@ -172,10 +209,26 @@ public class InterfaceJeu extends JPanel {
         pane.add(component);
     }
 
-    private void addButton(JButton button) {
-        button.setAlignmentX(Component.CENTER_ALIGNMENT);
-        this.add(Box.createRigidArea(new Dimension(0, 20)));
-        this.add(button);
+    private void addButton(final JButton button, Container pane) {
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
+        button.setFont(new Font("Calibri", Font.BOLD, 25));
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                if (button.isEnabled()) {
+                    setCursor(new Cursor(Cursor.HAND_CURSOR));
+                }
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                if (button.isEnabled()) {
+                setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                }
+            }
+        });
+        //button.setForeground(Color.white);
+        pane.add(button);
+        pane.add(Box.createVerticalGlue());
     }
 
     /**
@@ -231,7 +284,7 @@ public class InterfaceJeu extends JPanel {
     /**
      * @return the tfJ2
      */
-    public  JLabel getTfJ2() {
+    public JLabel getTfJ2() {
         return tfJ2;
     }
 
@@ -241,10 +294,12 @@ public class InterfaceJeu extends JPanel {
     public void setTfJ2(JLabel tfJ2) {
         this.tfJ2 = tfJ2;
     }
-    
-    /** Returns an ImageIcon, or null if the path was invalid. */
+
+    /**
+     * Returns an ImageIcon, or null if the path was invalid.
+     */
     protected ImageIcon createImageIcon(String path,
-                                               String description) {
+            String description) {
         java.net.URL imgURL = getClass().getResource(path);
         if (imgURL != null) {
             return new ImageIcon(imgURL, description);
@@ -253,8 +308,8 @@ public class InterfaceJeu extends JPanel {
             return null;
         }
     }
-    
-  /*  public void SurbrillanceTour(JLabel J1, JLabel J2, AireDeJeu aire){
+
+    /*  public void SurbrillanceTour(JLabel J1, JLabel J2, AireDeJeu aire){
     	if(aire.getPartie().getNbCoups() %2 == 0){
             J1.setForeground(Color.RED);
     	}
@@ -263,5 +318,4 @@ public class InterfaceJeu extends JPanel {
     	}
     	
     }*/
-
 }

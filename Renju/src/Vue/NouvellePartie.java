@@ -18,6 +18,7 @@ import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.border.Border;
 
 public class NouvellePartie extends JPanel {
 
@@ -71,28 +72,23 @@ public class NouvellePartie extends JPanel {
         addComponent(j1, paneNomJoueur1);
         j1.setPreferredSize(new Dimension(200, 30));
         j1.setHorizontalAlignment(JLabel.CENTER);
-        j1.setFont(new Font("Calibri", Font.BOLD, 20));
+        j1.setFont(new Font("Calibri", Font.BOLD, 25));
         j1.setOpaque(true);
         txtFdj1 = j1;
 
         JPanel paneIaJ1 = new JPanel();
         ButtonGroup groupIaJ1 = new ButtonGroup();
+
         JRadioButton facileJ1 = new JRadioButton("Facile");
-        facileJ1.setFont(new Font("Calibri", Font.BOLD, 20));
-        facileJ1.setForeground(Color.white);
-        facileJ1.setFocusPainted(false);
+        setRadioButtonStyle(facileJ1);
         groupIaJ1.add(facileJ1);
         addComponent(facileJ1, paneIaJ1);
         JRadioButton moyenJ1 = new JRadioButton("Moyen");
-        moyenJ1.setFont(new Font("Calibri", Font.BOLD, 20));
-        moyenJ1.setForeground(Color.white);
-        moyenJ1.setFocusPainted(false);
+        setRadioButtonStyle(moyenJ1);
         groupIaJ1.add(moyenJ1);
         addComponent(moyenJ1, paneIaJ1);
         JRadioButton difficileJ1 = new JRadioButton("Difficile");
-        difficileJ1.setFont(new Font("Calibri", Font.BOLD, 20));
-        difficileJ1.setForeground(Color.white);
-        difficileJ1.setFocusPainted(false);
+        setRadioButtonStyle(difficileJ1);
         groupIaJ1.add(difficileJ1);
         iAJ1 = groupIaJ1;
         addComponent(difficileJ1, paneIaJ1);
@@ -101,17 +97,13 @@ public class NouvellePartie extends JPanel {
 
         ButtonGroup rbMenuItemJ1 = new ButtonGroup();
         JRadioButton rbJoueurJ1 = new JRadioButton("Joueur");
-        rbJoueurJ1.setFont(new Font("Calibri", Font.BOLD, 20));
-        rbJoueurJ1.setForeground(Color.white);
-        rbJoueurJ1.setFocusPainted(false);
+        setRadioButtonStyle(rbJoueurJ1);
         rbJoueurJ1.setSelected(true);
 
         rbJoueurJ1.addActionListener(new SelectJoueurListener(0, paneIaJ1, f));
 
         JRadioButton rbOrdinateurJ1 = new JRadioButton("Ordinateur");
-        rbOrdinateurJ1.setFont(new Font("Calibri", Font.BOLD, 20));
-        rbOrdinateurJ1.setForeground(Color.white);
-        rbOrdinateurJ1.setFocusPainted(false);
+        setRadioButtonStyle(rbOrdinateurJ1);
         rbOrdinateurJ1.addActionListener(new SelectJoueurListener(1, paneIaJ1, f));
 
         rbMenuItemJ1.add(rbJoueurJ1);
@@ -141,28 +133,22 @@ public class NouvellePartie extends JPanel {
         addComponent(j2, paneNomJoueur2);
         j2.setPreferredSize(new Dimension(200, 30));
         j2.setHorizontalAlignment(JLabel.CENTER);
-        j2.setFont(new Font("Calibri", Font.BOLD, 20));
+        j2.setFont(new Font("Calibri", Font.BOLD, 25));
         j2.setOpaque(true);
         txtFdj2 = j2;
 
         JPanel paneIaJ2 = new JPanel();
         ButtonGroup groupIaJ2 = new ButtonGroup();
         JRadioButton facileJ2 = new JRadioButton("Facile");
-        facileJ2.setFont(new Font("Calibri", Font.BOLD, 20));
-        facileJ2.setForeground(Color.white);
-        facileJ2.setFocusPainted(false);
+        setRadioButtonStyle(facileJ2);
         groupIaJ2.add(facileJ2);
         addComponent(facileJ2, paneIaJ2);
         JRadioButton moyenJ2 = new JRadioButton("Moyen");
-        moyenJ2.setFont(new Font("Calibri", Font.BOLD, 20));
-        moyenJ2.setForeground(Color.white);
-        moyenJ2.setFocusPainted(false);
+        setRadioButtonStyle(moyenJ2);
         groupIaJ2.add(moyenJ2);
         addComponent(moyenJ2, paneIaJ2);
         JRadioButton difficileJ2 = new JRadioButton("Difficile");
-        difficileJ2.setFont(new Font("Calibri", Font.BOLD, 20));
-        difficileJ2.setForeground(Color.white);
-        difficileJ2.setFocusPainted(false);
+        setRadioButtonStyle(difficileJ2);
         groupIaJ2.add(difficileJ2);
         iAJ2 = groupIaJ2;
         addComponent(difficileJ2, paneIaJ2);
@@ -170,14 +156,10 @@ public class NouvellePartie extends JPanel {
 
         ButtonGroup rbMenuItemJ2 = new ButtonGroup();
         JRadioButton rbJoueurJ2 = new JRadioButton("Joueur");
-        rbJoueurJ2.setFont(new Font("Calibri", Font.BOLD, 20));
-        rbJoueurJ2.setForeground(Color.white);
-        rbJoueurJ2.setFocusPainted(false);
+        setRadioButtonStyle(rbJoueurJ2);
         rbJoueurJ2.addActionListener(new SelectJoueurListener(0, paneIaJ2, f));
         JRadioButton rbOrdinateurJ2 = new JRadioButton("Ordinateur");
-        rbOrdinateurJ2.setFont(new Font("Calibri", Font.BOLD, 20));
-        rbOrdinateurJ2.setForeground(Color.white);
-        rbOrdinateurJ2.setFocusPainted(false);
+        setRadioButtonStyle(rbOrdinateurJ2);
         rbOrdinateurJ2.addActionListener(new SelectJoueurListener(1, paneIaJ2, f));
         rbOrdinateurJ2.setSelected(true);
         rbMenuItemJ2.add(rbJoueurJ2);
@@ -217,6 +199,13 @@ public class NouvellePartie extends JPanel {
             g.setColor(Color.BLUE);
             g.fillRect(0, 0, d.width, d.height);
         }
+    }
+
+    private void setRadioButtonStyle(JComponent comp) {
+        comp.setFont(new Font("Calibri", Font.BOLD, 25));
+        comp.setForeground(Color.white);
+        //((Graphics2D)comp.getGraphics()).setStroke(new BasicStroke(2));
+        ((JRadioButton)comp).setFocusPainted(false);
     }
 
     private void addButton(final JButton button, Container pane) {
