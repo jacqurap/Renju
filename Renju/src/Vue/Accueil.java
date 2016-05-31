@@ -5,6 +5,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import Controleur.*;
+import Listener.AccueilListener;
 import Modele.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -24,39 +25,19 @@ public class Accueil extends JPanel {
         this.add(Box.createRigidArea(new Dimension(0, 100)));
         this.add(Box.createVerticalGlue());
         JButton btnNouvellePartie = new JButton("Démarrer une partie");
-        btnNouvellePartie.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                f.changePanel(f.getNOUVPARTIEPANEL());
-            }
-        });
+        btnNouvellePartie.addActionListener(new AccueilListener(f, 1));
         addButton(btnNouvellePartie);
 
         JButton btnChargerPartie = new JButton("Charger une partie");
-        btnChargerPartie.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                f.changePanel(f.getCHARPARTIEPANEL());
-            }
-        });
+        btnChargerPartie.addActionListener(new AccueilListener(f, 2));
         addButton(btnChargerPartie);
 
         JButton btnAideJeu = new JButton("Consulter les règles");
-        btnAideJeu.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popup.popRegles();
-            }
-        });
+        btnAideJeu.addActionListener(new AccueilListener(popup, 3));
         addButton(btnAideJeu);
 
         JButton btnQuitter = new JButton("Quitter le jeu");
-        btnQuitter.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popup.popQuitterMenu();
-            }
-        });
+        btnQuitter.addActionListener(new AccueilListener(popup, 4));
         addButton(btnQuitter);
 
         this.add(Box.createRigidArea(new Dimension(0, 100)));
@@ -66,11 +47,11 @@ public class Accueil extends JPanel {
     protected void paintComponent(Graphics g) {
         Dimension d = getParent().getSize();
         try {
-            BufferedImage img = ImageIO.read(new File("Ressources/acceuil.jpg"));
+            BufferedImage img = ImageIO.read(new File("../Ressources/acceuil.jpg"));
             g.drawImage(img, 0, 0, d.width, d.height, null);
         } catch (IOException ex) {
             Logger.getLogger(AireDeJeu.class.getName()).log(Level.SEVERE, null, ex);
-            g.setColor(Color.BLUE);
+            g.setColor(Color.GRAY);
             g.fillRect(0, 0, d.width, d.height);
         }
     }

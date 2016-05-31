@@ -1,14 +1,23 @@
 package Vue;
 
+import Listener.AnnulerAction;
 import java.awt.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import Controleur.Partie;
+import Listener.InterfaceJeuListener;
+import Listener.RefaireAction;
 import Modele.Humain;
 import Modele.Plateau;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class InterfaceJeu extends JPanel {
 
@@ -17,10 +26,10 @@ public class InterfaceJeu extends JPanel {
     private static final JButton btnAnnuler = new JButton("Annuler");
     private static final JButton btnRefaire = new JButton("Refaire");
     private AireDeJeu aire;
-    private  JLabel tfJ1;
-    private  JLabel tfJ2;
+    private JLabel tfJ1;
+    private JLabel tfJ2;
 
-    public InterfaceJeu(Fenetre f, final AireDeJeu aire) {
+    public InterfaceJeu(Fenetre f, AireDeJeu aire) {
         this.aire = aire;
         this.setLayout(new BorderLayout());
         final Popups popup = new Popups(f);
@@ -29,21 +38,11 @@ public class InterfaceJeu extends JPanel {
         JMenu menu_partie = new JMenu("Partie");
 
         JMenuItem item_sauv = new JMenuItem("Sauvegarder");
-        item_sauv.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popup.popSauver(aire.getPartie());
-            }
-        });
+        item_sauv.addActionListener(new InterfaceJeuListener(popup, this, 1));
         menu_partie.add(item_sauv);
 
         JMenuItem item_char = new JMenuItem("Charger");
-        item_char.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popup.popCharger(aire.getPartie());
-            }
-        });
+        item_char.addActionListener(new InterfaceJeuListener(popup, this, 2));
         menu_partie.add(item_char);
 
         menu_partie.addSeparator();
@@ -55,21 +54,11 @@ public class InterfaceJeu extends JPanel {
 
         menu_partie.addSeparator();
         JMenuItem item_reco = new JMenuItem("Recommencer");
-        item_reco.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popup.popRecommencer();
-            }
-        });
+        item_reco.addActionListener(new InterfaceJeuListener(popup, 3));
         menu_partie.add(item_reco);
 
         JMenuItem item_aban = new JMenuItem("Abandonner");
-        item_aban.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popup.popAbandonner();
-            }
-        });
+        item_aban.addActionListener(new InterfaceJeuListener(popup, 4));
         menu_partie.add(item_aban);
 
         // Menu Parametres
@@ -112,12 +101,7 @@ public class InterfaceJeu extends JPanel {
         // Aide
         JMenu menu_aide = new JMenu("Aide");
         JMenuItem aideJeu = new JMenuItem("Aide de jeu");
-        aideJeu.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popup.popRegles();
-            }
-        });
+        aideJeu.addActionListener(new InterfaceJeuListener(popup, 5));
         menu_aide.add(aideJeu);
         JMenuItem aPropos = new JMenuItem("A propos");
         menu_aide.add(aPropos);
@@ -144,21 +128,20 @@ public class InterfaceJeu extends JPanel {
 
         paneJoueurs.setLayout(new GridLayout(0, 1));
         addComponent(paneJoueurs);
-        
-        ImageIcon icone1 = createImageIcon("Ressources/Pion_Noir.png","Pion noir du joueur 1");
-        ImageIcon icone2 = createImageIcon("Ressources/Pion_Blanc.png", "Pion blanc du joueur 2");
 
-        tfJ1 = new JLabel("", icone1, JLabel.CENTER);
+        ImageIcon icone1 = createImageIcon("../Ressources/Pion_Noir.png", "Pion noir du joueur 1");
+        ImageIcon icone2 = createImageIcon("../Ressources/Pion_Blanc.png", "Pion blanc du joueur 2");
+
+        tfJ1 = new JLabel("", (ImageIcon) icone1, JLabel.CENTER);
         tfJ2 = new JLabel("", icone2, JLabel.CENTER);
-        
+
         tfJ1.setForeground(Color.RED); // Subrillance de depart
-       // tfJ1.add
-        
-       // SurbrillanceTour(tfJ1, tfJ2, aire);
+        // tfJ1.add
+
+        // SurbrillanceTour(tfJ1, tfJ2, aire);
         paneJoueurs.add(tfJ1);
         paneJoueurs.add(tfJ2);
         tfJ1.setAlignmentY(Component.CENTER_ALIGNMENT);
-        
 
         addButton(btnAnnuler);
         btnAnnuler.setEnabled(false);
@@ -177,6 +160,19 @@ public class InterfaceJeu extends JPanel {
         this.add(paneJoueurs, BorderLayout.EAST);
         this.add(this.aire, BorderLayout.CENTER);
 
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        Dimension d = getParent().getSize();
+        try {
+            BufferedImage img = ImageIO.read(new File("../Ressources/fondpop.jpg"));
+            g.drawImage(img, 0, 0, d.width, d.height, null);
+        } catch (IOException ex) {
+            Logger.getLogger(AireDeJeu.class.getName()).log(Level.SEVERE, null, ex);
+            g.setColor(Color.GRAY);
+            g.fillRect(0, 0, d.width, d.height);
+        }
     }
 
     private void addComponent(JComponent component) {
@@ -249,7 +245,7 @@ public class InterfaceJeu extends JPanel {
     /**
      * @return the tfJ2
      */
-    public  JLabel getTfJ2() {
+    public JLabel getTfJ2() {
         return tfJ2;
     }
 
@@ -259,10 +255,12 @@ public class InterfaceJeu extends JPanel {
     public void setTfJ2(JLabel tfJ2) {
         this.tfJ2 = tfJ2;
     }
-    
-    /** Returns an ImageIcon, or null if the path was invalid. */
+
+    /**
+     * Returns an ImageIcon, or null if the path was invalid.
+     */
     protected ImageIcon createImageIcon(String path,
-                                               String description) {
+            String description) {
         java.net.URL imgURL = getClass().getResource(path);
         if (imgURL != null) {
             return new ImageIcon(imgURL, description);
@@ -271,8 +269,8 @@ public class InterfaceJeu extends JPanel {
             return null;
         }
     }
-    
-  /*  public void SurbrillanceTour(JLabel J1, JLabel J2, AireDeJeu aire){
+
+    /*  public void SurbrillanceTour(JLabel J1, JLabel J2, AireDeJeu aire){
     	if(aire.getPartie().getNbCoups() %2 == 0){
             J1.setForeground(Color.RED);
     	}
@@ -281,5 +279,4 @@ public class InterfaceJeu extends JPanel {
     	}
     	
     }*/
-
 }

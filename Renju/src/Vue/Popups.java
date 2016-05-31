@@ -33,6 +33,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 import javax.swing.*;
+import Listener.PopupsListener;
 
 /**
  *
@@ -132,12 +133,7 @@ public class Popups {
         popRegle.add(new JLabel("Coups interdits"));
 
         JButton btnRetour = new JButton("Retour");
-        btnRetour.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popRegle.dispose();
-            }
-        });
+        btnRetour.addActionListener(new PopupsListener(popRegle));
         popRegle.add(btnRetour);
 
         popRegle.setVisible(true);*/
@@ -149,7 +145,7 @@ public class Popups {
             protected void paintComponent(Graphics g) {
                 Dimension d = getParent().getSize();
                 try {
-                    BufferedImage img = ImageIO.read(new File("Ressources/fondpop.jpg"));
+                    BufferedImage img = ImageIO.read(new File("../Ressources/fondpop.jpg"));
                     g.drawImage(img, 0, 0, d.width, d.height, null);
                 } catch (IOException ex) {
                     Logger.getLogger(AireDeJeu.class.getName()).log(Level.SEVERE, null, ex);
@@ -169,22 +165,10 @@ public class Popups {
         pane.setLayout(new BorderLayout());
 
         JButton btnQuitter = new JButton("Quitter");
-        btnQuitter.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                f.closeGame();
-                popQuitterMenu.dispose();
-                System.exit(0);
-            }
-        });
+        btnQuitter.addActionListener(new PopupsListener(popQuitterMenu, f, 1));
 
         JButton btnAnnuler = new JButton("Annuler");
-        btnAnnuler.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popQuitterMenu.dispose();
-            }
-        });
+        btnAnnuler.addActionListener(new PopupsListener(popQuitterMenu));
 
         JPanel paneTxt = new JPanel();
         paneTxt.setOpaque(false);
@@ -222,20 +206,11 @@ public class Popups {
         popCharger.setLocationRelativeTo(null);
         popCharger.setLayout(new FlowLayout());
 
-        final JButton btnCharger = new JButton("Charger");
-        btnCharger.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                f.getAire().setPartie(Charger());
-                f.getAire().repaint();
-                popCharger.dispose();
-                f.changePanel(f.getINTERFACEPANEL());
-                popCharger.dispose();
-            }
-        });
+        JButton btnCharger = new JButton("Charger");
+        btnCharger.addActionListener(new PopupsListener(popCharger, f, this, 2));
         btnCharger.setEnabled(false);
 
-        final JLabel warning = new JLabel("Attention, en chargeant une partie, la partie courante sera perdue !");
+        JLabel warning = new JLabel("Attention, en chargeant une partie, la partie courante sera perdue !");
         warning.setVisible(true);
 
         ButtonGroup grpSlot = new ButtonGroup();
@@ -250,15 +225,7 @@ public class Popups {
             }
             JRadioButton slot = new JRadioButton(val);
             slot.setEnabled(ready);
-            slot.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    if (!btnCharger.isEnabled()) {
-                        SaveNum = Character.getNumericValue(((JRadioButton) e.getSource()).getText().charAt(0));
-                        btnCharger.setEnabled(true);
-                    }
-                }
-            });
+            slot.addActionListener(new PopupsListener(btnCharger, this, 3));
             grpSlot.add(slot);
             popCharger.add(slot);
         }
@@ -268,12 +235,7 @@ public class Popups {
         popCharger.add(btnCharger);
 
         JButton btnAnnuler = new JButton("Annuler");
-        btnAnnuler.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popCharger.dispose();
-            }
-        });
+        btnAnnuler.addActionListener(new PopupsListener(popCharger));
         popCharger.add(btnAnnuler);
 
         popCharger.setVisible(true);
@@ -283,7 +245,7 @@ public class Popups {
         TrouverChemin();
         Sauvegarde();
         this.part = partie;
-        final JDialog popSauver = new JDialog();
+        JDialog popSauver = new JDialog();
         popSauver.setTitle("Sauvegarder");
 
         JDialog.setDefaultLookAndFeelDecorated(true);
@@ -293,17 +255,11 @@ public class Popups {
         popSauver.setLocationRelativeTo(null);
         popSauver.setLayout(new FlowLayout());
 
-        final JButton btnSauvegarder = new JButton("Sauvegarder");
-        btnSauvegarder.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popSauver.dispose();
-                Sauvegarder(part);
-            }
-        });
+        JButton btnSauvegarder = new JButton("Sauvegarder");
+        btnSauvegarder.addActionListener(new PopupsListener(popSauver, this, 8));
         btnSauvegarder.setEnabled(false);
 
-        final JLabel warning = new JLabel("Attention une partie est déjà sauvegardée sur ce slot, vous allez l'écraser !");
+        JLabel warning = new JLabel("Attention une partie est déjà sauvegardée sur ce slot, vous allez l'écraser !");
         warning.setVisible(false);
 
         ButtonGroup grpSlot = new ButtonGroup();
@@ -315,31 +271,11 @@ public class Popups {
                 val = (index + slot[index - 1].toString().substring(SavePath.length() + 1, (int) slot[index - 1].toString().length() - 4));
             }
             JRadioButton slot = new JRadioButton(val);
-            slot.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    if (!btnSauvegarder.isEnabled()) {
-                        SaveNum = Character.getNumericValue(((JRadioButton) e.getSource()).getText().charAt(0));
-                        btnSauvegarder.setEnabled(true);
-                    }
-                }
-            });
+            slot.addActionListener(new PopupsListener(btnSauvegarder, this, 3));
             if (this.slot[index - 1] != null) {
-                slot.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        warning.setVisible(true);
-                        erase = true;
-                    }
-                });
+                slot.addActionListener(new PopupsListener(warning, this, 4));
             } else {
-                slot.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        warning.setVisible(false);
-                        erase = false;
-                    }
-                });
+                slot.addActionListener(new PopupsListener(warning, this, 5));
             }
             grpSlot.add(slot);
             popSauver.add(slot);
@@ -359,19 +295,14 @@ public class Popups {
         popSauver.add(btnSauvegarder);
 
         JButton btnAnnuler = new JButton("Annuler");
-        btnAnnuler.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popSauver.dispose();
-            }
-        });
+        btnAnnuler.addActionListener(new PopupsListener(popSauver));
         popSauver.add(btnAnnuler);
 
         popSauver.setVisible(true);
     }
 
     public void popRecommencer() {
-        final JDialog popRecommencer = new JDialog();
+        JDialog popRecommencer = new JDialog();
         popRecommencer.setTitle("Recommencer");
 
         JDialog.setDefaultLookAndFeelDecorated(true);
@@ -385,33 +316,18 @@ public class Popups {
         popRecommencer.add(warning);
 
         JButton btnRecommencer = new JButton("Recommencer");
-        btnRecommencer.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                AireDeJeu aire = new AireDeJeu(f.getAire().getJoueur1(), f.getAire().getNomJoueur1(), f.getAire().getJoueur2(), f.getAire().getNomJoueur2(), f);
-                f.setAire(aire);
-                f.changePanel(f.getACCUEILPANEL()); //pour ne pas freeze pendant le removeAll
-                f.refreshInterface();
-                f.changePanel(f.getINTERFACEPANEL());
-                popRecommencer.dispose();
-            }
-        });
+        btnRecommencer.addActionListener(new PopupsListener(popRecommencer, f, 6));
         popRecommencer.add(btnRecommencer);
 
         JButton btnAnnuler = new JButton("Annuler");
-        btnAnnuler.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popRecommencer.dispose();
-            }
-        });
+        btnAnnuler.addActionListener(new PopupsListener(popRecommencer));
         popRecommencer.add(btnAnnuler);
 
         popRecommencer.setVisible(true);
     }
 
     public void popAbandonner() {
-        final JDialog popAbandonner = new JDialog();
+        JDialog popAbandonner = new JDialog();
         popAbandonner.setTitle("Abandonner");
 
         JDialog.setDefaultLookAndFeelDecorated(true);
@@ -425,22 +341,11 @@ public class Popups {
         popAbandonner.add(warning);
 
         JButton btnAbandonner = new JButton("Abandonner");
-        btnAbandonner.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                f.changePanel(f.getACCUEILPANEL());
-                popAbandonner.dispose();
-            }
-        });
+        btnAbandonner.addActionListener(new PopupsListener(popAbandonner, f, 7));
         popAbandonner.add(btnAbandonner);
 
         JButton btnAnnuler = new JButton("Annuler");
-        btnAnnuler.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popAbandonner.dispose();
-            }
-        });
+        btnAnnuler.addActionListener(new PopupsListener(popAbandonner));
         popAbandonner.add(btnAnnuler);
 
         popAbandonner.setVisible(true);
@@ -507,34 +412,13 @@ public class Popups {
         }
     }
 
-    private void addButton(final JButton button, JComponent comp, final JDialog dialog) {
-        button.setAlignmentX(Component.CENTER_ALIGNMENT);
-        button.setFocusPainted(false);
-        button.setBackground(new Color(247, 128, 104));
-        button.setForeground(Color.white);
-        button.setBorderPainted(false);
-        button.setSelected(false);
-        button.setFont(new Font("Calibri", Font.BOLD, 25));
-        button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                button.setBackground(new Color(252, 148, 119));
-                dialog.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            }
-
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                button.setBackground(new Color(247, 128, 104));
-                dialog.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-            }
-        });
-        comp.add(button);
-    }
-
     /**
      * Charger la partie au slot i
      *
      * @param i le numero de l'emplacement de sauvegarde
      * @return null
      */
+
     public Partie Charger() {
         if (SaveNum >= 0 && SaveNum <= 9) {
             System.out.println(SaveNum);
@@ -564,5 +448,91 @@ public class Popups {
         } catch (Exception e) {
             System.out.println("Erreur lors de la definition du chemin");
         }
+    }
+
+    public Fenetre getF() {
+        return f;
+    }
+
+    public void setF(Fenetre f) {
+        this.f = f;
+    }
+
+    public File[] getSlot() {
+        return slot;
+    }
+
+    public void setSlot(File[] slot) {
+        this.slot = slot;
+    }
+
+    public Partie getPart() {
+        return part;
+    }
+
+    public void setPart(Partie part) {
+        this.part = part;
+    }
+
+    public int getSaveNum() {
+        return SaveNum;
+    }
+
+    public void setSaveNum(int saveNum) {
+        SaveNum = saveNum;
+    }
+
+    public String getSaveName() {
+        return SaveName;
+    }
+
+    public void setSaveName(String saveName) {
+        SaveName = saveName;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public boolean isErase() {
+        return erase;
+    }
+
+    public void setErase(boolean erase) {
+        this.erase = erase;
+    }
+
+    public String getSavePath() {
+        return SavePath;
+    }
+
+    public void setSavePath(String savePath) {
+        SavePath = savePath;
+    }
+
+    private void addButton(final JButton button, JComponent comp, final JDialog dialog) {
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+        button.setFocusPainted(false);
+        button.setBackground(new Color(247, 128, 104));
+        button.setForeground(Color.white);
+        button.setBorderPainted(false);
+        button.setSelected(false);
+        button.setFont(new Font("Calibri", Font.BOLD, 25));
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                button.setBackground(new Color(252, 148, 119));
+                dialog.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                button.setBackground(new Color(247, 128, 104));
+                dialog.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+        });
+        comp.add(button);
     }
 }
