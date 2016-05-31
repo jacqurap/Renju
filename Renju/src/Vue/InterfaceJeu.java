@@ -31,11 +31,21 @@ public class InterfaceJeu extends JPanel {
         JMenu menu_partie = new JMenu("Partie");
 
         JMenuItem item_sauv = new JMenuItem("Sauvegarder");
-        item_sauv.addActionListener(new InterfaceJeuListener(popup, 1));
+        item_sauv.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                popup.popSauver(aire.getPartie());
+            }
+        });
         menu_partie.add(item_sauv);
 
         JMenuItem item_char = new JMenuItem("Charger");
-        item_char.addActionListener(new InterfaceJeuListener(popup, 2));
+        item_char.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                popup.popCharger(aire.getPartie());
+            }
+        });
         menu_partie.add(item_char);
 
         menu_partie.addSeparator();

@@ -56,11 +56,25 @@ public class Accueil extends JPanel {
         }
     }
 
-    private void addButton(JButton button) {
+    private void addButton(final JButton button) {
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
-        button.setBackground(new Color(247,128,104));
+        button.setFocusPainted(false);
+        button.setBackground(new Color(247, 128, 104));
         button.setForeground(Color.white);
-        button.setFont(new Font("Big Noodle Titling", Font.BOLD, 25));
+        button.setBorderPainted(false);
+        button.setSelected(false);
+        button.setFont(new Font("Calibri", Font.BOLD, 25));
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                button.setBackground(new Color(252, 148, 119));
+                setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                button.setBackground(new Color(247, 128, 104));
+                setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+        });
         this.add(button);
         this.add(Box.createVerticalGlue());
     }

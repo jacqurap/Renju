@@ -7,13 +7,12 @@ import Listener.EcouteurDeSouris;
 
 public class Fenetre {
 
-
     private JPanel cards;
     private static JFrame frame;
-    private String ACCUEILPANEL = "Card with home panel";
-    private String NOUVPARTIEPANEL = "Card with new game panel";
-    private String CHARPARTIEPANEL = "Card with loading game panel";
-    private String INTERFACEPANEL = "Card with game panel";
+    private final String ACCUEILPANEL = "Card with home panel";
+    private final String NOUVPARTIEPANEL = "Card with new game panel";
+    private final String CHARPARTIEPANEL = "Card with loading game panel";
+    private final String INTERFACEPANEL = "Card with game panel";
     private AireDeJeu aire;
     private InterfaceJeu interjeu;
     private JPanel panelInterface;
@@ -38,23 +37,38 @@ public class Fenetre {
         pane.add(getCards(), BorderLayout.CENTER);
     }
 
-  
-	public void changePanel(String panelName) {
+    public void changePanel(String panelName) {
         CardLayout cl = (CardLayout) (getCards().getLayout());
+        switch (panelName) {
+            case ACCUEILPANEL:
+                frame.setSize(1080, 720);
+                break;
+            case NOUVPARTIEPANEL:
+                frame.setSize(1080, 720);
+                break;
+            case CHARPARTIEPANEL:
+                frame.setSize(1080, 720);
+                break;
+            case INTERFACEPANEL:
+                frame.setSize(1080, 720);
+                break;
+            default:
+                frame.setSize(1080, 720);
+        }
         cl.show(getCards(), panelName);
     }
-    
+
     public void refreshInterface() {
         getPanelInterface().removeAll();
         InterfaceJeu ij = new InterfaceJeu(this, aire);
         ij.getTfJ1().setText(aire.getNomJoueur1());
         ij.getTfJ2().setText(aire.getNomJoueur2());
-        interjeu =ij;
+        interjeu = ij;
         aire.addMouseListener(new EcouteurDeSouris(aire));
         getPanelInterface().add(ij);
     }
 
-	public void closeGame() {
+    public void closeGame() {
         getFrame().dispose();
     }
 
@@ -71,12 +85,13 @@ public class Fenetre {
                 fenetre.addComponentToPane(getFrame().getContentPane());
 
                 //Display the window.
+                getFrame().setSize(1080, 720);
                 getFrame().setLocationRelativeTo(null);
-                getFrame().setExtendedState(JFrame.MAXIMIZED_BOTH);
                 getFrame().setVisible(true);
             }
         });
     }
+
     /**
      * @return the frame
      */
@@ -90,6 +105,7 @@ public class Fenetre {
     public static void setFrame(JFrame aFrame) {
         frame = aFrame;
     }
+
     /**
      * @return the cards
      */
@@ -112,24 +128,10 @@ public class Fenetre {
     }
 
     /**
-     * @param ACCUEILPANEL the ACCUEILPANEL to set
-     */
-    public void setACCUEILPANEL(String ACCUEILPANEL) {
-        this.ACCUEILPANEL = ACCUEILPANEL;
-    }
-
-    /**
      * @return the NOUVPARTIEPANEL
      */
     public String getNOUVPARTIEPANEL() {
         return NOUVPARTIEPANEL;
-    }
-
-    /**
-     * @param NOUVPARTIEPANEL the NOUVPARTIEPANEL to set
-     */
-    public void setNOUVPARTIEPANEL(String NOUVPARTIEPANEL) {
-        this.NOUVPARTIEPANEL = NOUVPARTIEPANEL;
     }
 
     /**
@@ -140,24 +142,10 @@ public class Fenetre {
     }
 
     /**
-     * @param CHARPARTIEPANEL the CHARPARTIEPANEL to set
-     */
-    public void setCHARPARTIEPANEL(String CHARPARTIEPANEL) {
-        this.CHARPARTIEPANEL = CHARPARTIEPANEL;
-    }
-
-    /**
      * @return the INTERFACEPANEL
      */
     public String getINTERFACEPANEL() {
         return INTERFACEPANEL;
-    }
-
-    /**
-     * @param INTERFACEPANEL the INTERFACEPANEL to set
-     */
-    public void setINTERFACEPANEL(String INTERFACEPANEL) {
-        this.INTERFACEPANEL = INTERFACEPANEL;
     }
 
     /**
@@ -187,16 +175,13 @@ public class Fenetre {
     public void setPanelInterface(JPanel panelInterface) {
         this.panelInterface = panelInterface;
     }
-    
+
     public InterfaceJeu getInterjeu() {
-  		return interjeu;
-  	}
+        return interjeu;
+    }
 
-
-  	public void setInterjeu(InterfaceJeu interjeu) {
-  		this.interjeu = interjeu;
-  	}
-
-
+    public void setInterjeu(InterfaceJeu interjeu) {
+        this.interjeu = interjeu;
+    }
 
 }

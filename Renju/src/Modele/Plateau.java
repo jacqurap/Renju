@@ -5,12 +5,14 @@
  */
 package Modele;
 
+import java.io.Serializable;
+
 /**
  * Le plateau
  *
  * @author jacqurap
  */
-public class Plateau {
+public class Plateau implements Serializable{
 
     public static final int CASEVIDE = 0;
     public static final int CASEBLANCHE = 1;

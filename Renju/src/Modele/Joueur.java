@@ -1,10 +1,12 @@
 package Modele;
 
+import java.io.Serializable;
+
 /**
  * Le joueur
  */
 
-public abstract class Joueur {
+public abstract class Joueur implements Serializable {
 
     private String nom;
     
