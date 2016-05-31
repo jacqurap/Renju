@@ -13,7 +13,7 @@ import java.util.Random;
  *
  * @author jacqurap
  */
-public class Plateau implements Serializable{
+public class Plateau implements Serializable {
 
     public static final int CASEVIDE = 0;
     public static final int CASEBLANCHE = 1;
@@ -27,7 +27,7 @@ public class Plateau implements Serializable{
     private int[][] numerocoup;
 
     public int rand;
-    
+
     /**
      * Creation d'un plateau
      *
@@ -38,18 +38,15 @@ public class Plateau implements Serializable{
         this.dimX = x;
         this.dimY = y;
         this.grille = new int[x][y];
-        this.numerocoup= new int[x][y];
-Random r = new Random(System.currentTimeMillis());
-rand = r.nextInt();
+        this.numerocoup = new int[x][y];
+        Random r = new Random(System.currentTimeMillis());
+        rand = r.nextInt();
     }
 
     /**
      * Constructeur par defaut
      */
     public Plateau() {
-        //this.dimX = DEFAULT_DIMX;
-        //this.dimY = DEFAULT_DIMY;
-        //this.grille = new int[DEFAULT_DIMX][DEFAULT_DIMY];
         this(DEFAULT_DIMX, DEFAULT_DIMY);
     }
 
@@ -74,7 +71,7 @@ rand = r.nextInt();
     public void setCase(int x, int y, int value) {
         grille[x][y] = value;
     }
-    
+
     public int getNumero(int x, int y) {
         return numerocoup[x][y];
     }
@@ -89,7 +86,6 @@ rand = r.nextInt();
     public void setNumero(int x, int y, int value) {
         numerocoup[x][y] = value;
     }
-    
 
     /**
      * Recupere la dimension du plateau en x
@@ -150,13 +146,12 @@ rand = r.nextInt();
         return newPlateau;
     }
 
-	public int[][] getNumerocoup() {
-		return numerocoup;
-	}
+    public int[][] getNumerocoup() {
+        return numerocoup;
+    }
 
-	public void setNumerocoup(int[][] numerocoup) {
-		this.numerocoup = numerocoup;
-	}
+    public void setNumerocoup(int[][] numerocoup) {
+        this.numerocoup = numerocoup;
+    }
 
- 
 }

@@ -23,16 +23,6 @@ public class SelectJoueurListener implements ActionListener {
         this.f = f;
     }
 
-    /*public SelectJoueurListener(String typeJ1, String typeJ2, String nomJ1, String nomJ2, String lvlIa1, String lvlIa2, int v) {
-        this.typeJ1 = typeJ1;
-        this.typeJ2 = typeJ2;
-        this.nomJ1 = nomJ1;
-        this.nomJ2 = nomJ2;
-        this.lvlIa1 = lvlIa1;
-        this.lvlIa2 = lvlIa2;
-        this.val = v;
-    }*/
-
     public SelectJoueurListener(NouvellePartie nPartie, int v, Fenetre f) {
         this.nouvpartie = nPartie;
         this.val = v;
@@ -44,16 +34,12 @@ public class SelectJoueurListener implements ActionListener {
         switch (val) {
             case 0:
                 pan.setVisible(false);
-                //val = -1;
                 break;
-            // TODO Auto-generated method stub
             case 1:
                 pan.setVisible(true);
-                //val = -1;
                 break;
 
             case 2:
-                //val = -1;
                 String J1;
                 String J2;
                 String nomJ1;
@@ -87,7 +73,6 @@ public class SelectJoueurListener implements ActionListener {
 
                 if (typeJ2 == "Joueur") {
                     J2 = "Modele.Humain";
-                    //nomJ2 = this.nomJ2;
                     nomJ2 = nouvpartie.getTxtFdj2().getText();
                 } else {
                     switch (nouvpartie.getSelectedButtonText(nouvpartie.getiAJ2())) {

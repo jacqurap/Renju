@@ -29,7 +29,6 @@ public class RefaireAction implements ActionListener {
      * @param annuler le bouton annuler
      * @param refaire le bouton refaire
      */
-
     public RefaireAction(AireDeJeu aire, JMenuItem annuler, JMenuItem refaire, JButton annu, JButton ref) {
         this.aire = aire;
         this.btnAnnuler = annuler;
@@ -40,29 +39,22 @@ public class RefaireAction implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //int[][] GrilleActuelle = aire.getPartie().getPlateau().getGrille();
-        //Plateau newPlateau = new Plateau();
-        //newPlateau.setGrille(GrilleActuelle);
 
         Point point = aire.getPartie().getRefaire().pop();
         aire.getPartie().getAnnuler().push(point);
-        //aire.getPartie().getPlateau().setGrille(plateau.getGrille());
         if (aire.getPartie().getNbCoups() % 2 == 0) {
             aire.getPartie().getPlateau().setCase(point.x, point.y, Plateau.CASENOIRE);
         } else {
             aire.getPartie().getPlateau().setCase(point.x, point.y, Plateau.CASEBLANCHE);
         }
         aire.getPartie().partieFini(point);
-       
         aire.getPartie().incNbCoups();
-        System.out.println("partiefini = " + aire.getPartie().isPartieFinie());
         getBtnAnnuler().setEnabled(true);
         annu.setEnabled(true);
         if (aire.getPartie().getRefaire().empty()) {
             getBtnRefaire().setEnabled(false);
             ref.setEnabled(false);
         }
-        //aire.getPartie().printStacks(); DEBUG
         aire.repaint();
     }
 
