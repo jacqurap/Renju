@@ -11,43 +11,40 @@ import Vue.*;
 
 public class AccueilListener implements ActionListener {
 	
+	private Fenetre fenetre;
 	private int val;
-	private JFrame fen;
+	private Popups popup;
 
-	public AccueilListener(int v, JFrame aFermer) {
+	public AccueilListener(Fenetre f, int v) {
+        this.fenetre = f;
         this.val = v;
-        this.fen = aFermer;
+
+    }
+	
+	public AccueilListener(Popups pop, int v) {
+        this.popup= pop;
+        this.val = v;
 
     }
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-            /*
+            
 		switch (val){
 		case 1:
-			fen.setVisible(false); 
-			NouvellePartie p;
-			p= new NouvellePartie();
-			val =-1;
+			fenetre.changePanel(fenetre.getNOUVPARTIEPANEL());
 			break;
-		case 2 : 
-			fen.setVisible(false);
-			ChargerPartie cp;
-			cp = new ChargerPartie();
-			val =-1;
+		case 2:
+			fenetre.changePanel(fenetre.getCHARPARTIEPANEL());
 			break;
-		case 3 :
-			Popups pop = new Popups();
-			pop.popRegles();
-			val =-1;
+		case 3:
+			popup.popRegles();
 			break;
-		case 4 : 
-			Popups poq =new Popups();
-			poq.popQuitterMenu();
-			val =-1;
+		case 4:
+			popup.popQuitterMenu();
 			break;
 		}
-			*/
+			
 		
 	}
 }

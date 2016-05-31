@@ -5,6 +5,8 @@ import java.awt.*;
 import javax.swing.*;
 
 import Controleur.Partie;
+import Listener.InterfaceJeuListener;
+import Listener.RefaireAction;
 import Modele.Humain;
 import Modele.Plateau;
 import java.awt.event.ActionEvent;
@@ -20,7 +22,7 @@ public class InterfaceJeu extends JPanel {
     private  JLabel tfJ1;
     private  JLabel tfJ2;
 
-    public InterfaceJeu(Fenetre f, final AireDeJeu aire) {
+    public InterfaceJeu(Fenetre f, AireDeJeu aire) {
         this.aire = aire;
         this.setLayout(new BorderLayout());
         final Popups popup = new Popups(f);
@@ -29,21 +31,11 @@ public class InterfaceJeu extends JPanel {
         JMenu menu_partie = new JMenu("Partie");
 
         JMenuItem item_sauv = new JMenuItem("Sauvegarder");
-        item_sauv.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popup.popSauver();
-            }
-        });
+        item_sauv.addActionListener(new InterfaceJeuListener(popup, 1));
         menu_partie.add(item_sauv);
 
         JMenuItem item_char = new JMenuItem("Charger");
-        item_char.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popup.popCharger();
-            }
-        });
+        item_char.addActionListener(new InterfaceJeuListener(popup, 2));
         menu_partie.add(item_char);
 
         menu_partie.addSeparator();
@@ -55,21 +47,11 @@ public class InterfaceJeu extends JPanel {
 
         menu_partie.addSeparator();
         JMenuItem item_reco = new JMenuItem("Recommencer");
-        item_reco.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popup.popRecommencer();
-            }
-        });
+        item_reco.addActionListener(new InterfaceJeuListener(popup, 3));
         menu_partie.add(item_reco);
 
         JMenuItem item_aban = new JMenuItem("Abandonner");
-        item_aban.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popup.popAbandonner();
-            }
-        });
+        item_aban.addActionListener(new InterfaceJeuListener(popup, 4));
         menu_partie.add(item_aban);
 
         // Menu Parametres
@@ -112,12 +94,7 @@ public class InterfaceJeu extends JPanel {
         // Aide
         JMenu menu_aide = new JMenu("Aide");
         JMenuItem aideJeu = new JMenuItem("Aide de jeu");
-        aideJeu.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popup.popRegles();
-            }
-        });
+        aideJeu.addActionListener(new InterfaceJeuListener(popup, 5));
         menu_aide.add(aideJeu);
         JMenuItem aPropos = new JMenuItem("A propos");
         menu_aide.add(aPropos);

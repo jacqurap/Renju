@@ -1,6 +1,8 @@
-package Vue;
+package Listener;
 
 import Modele.*;
+import Vue.AireDeJeu;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,7 +13,7 @@ import javax.swing.JMenuItem;
  * Actions du bouton Refaire
  * @author bochatom
  */
-class RefaireAction implements ActionListener {
+public class RefaireAction implements ActionListener {
 
     private AireDeJeu aire;
     private JMenuItem btnAnnuler;

@@ -6,9 +6,8 @@
 package Vue;
 
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.*;
+import Listener.PopupsListener;
 
 /**
  *
@@ -33,12 +32,7 @@ public class Popups {
         popRegle.add(new JLabel("Coups interdits"));
 
         JButton btnRetour = new JButton("Retour");
-        btnRetour.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popRegle.dispose();
-            }
-        });
+        btnRetour.addActionListener(new PopupsListener(popRegle));
         popRegle.add(btnRetour);
 
         popRegle.setVisible(true);
@@ -55,22 +49,10 @@ public class Popups {
         popQuitterMenu.setLayout(new FlowLayout());
 
         JButton btnQuitter = new JButton("Quitter");
-        btnQuitter.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                f.closeGame();
-                popQuitterMenu.dispose();
-                System.exit(0);
-            }
-        });
+        btnQuitter.addActionListener(new PopupsListener(popQuitterMenu,f,1));
 
         JButton btnAnnuler = new JButton("Annuler");
-        btnAnnuler.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popQuitterMenu.dispose();
-            }
-        });
+        btnAnnuler.addActionListener(new PopupsListener(popQuitterMenu));
 
         popQuitterMenu.add(new JLabel("Voulez-vous vraiment quitter l'application ?"));
         popQuitterMenu.add(btnQuitter);
@@ -96,22 +78,11 @@ public class Popups {
         JLabel warning = new JLabel("Attention vous allez perdre la partie en cours !");
         popCharger.add(warning);
         JButton btnCharger = new JButton("Charger");
-        btnCharger.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                f.changePanel(f.getINTERFACEPANEL());
-                popCharger.dispose();
-            }
-        });
+        btnCharger.addActionListener(new PopupsListener(popCharger,f,2));
         popCharger.add(btnCharger);
 
         JButton btnAnnuler = new JButton("Annuler");
-        btnAnnuler.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popCharger.dispose();
-            }
-        });
+        btnAnnuler.addActionListener(new PopupsListener(popCharger));
         popCharger.add(btnAnnuler);
 
         popCharger.setVisible(true);
@@ -129,12 +100,7 @@ public class Popups {
         popSauver.setLayout(new FlowLayout());
 
         final JButton btnSauvegarder = new JButton("Sauvegarder");
-        btnSauvegarder.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popSauver.dispose();
-            }
-        });
+        btnSauvegarder.addActionListener(new PopupsListener(popSauver));
         btnSauvegarder.setEnabled(false);
 
         final JLabel warning = new JLabel("Attention une partie est déjà sauvegardée sur ce slot, vous allez l'écraser !");
@@ -144,29 +110,12 @@ public class Popups {
         for (int i = 1; i <= 10; i++) {
             String val = String.valueOf(i);
             JRadioButton slot = new JRadioButton("Slot " + val);
-            slot.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    if (!btnSauvegarder.isEnabled()) {
-                        btnSauvegarder.setEnabled(true);
-                    }
-                }
-            });
+            slot.addActionListener(new PopupsListener(btnSauvegarder, 3));
             if (i < 5) { //pour tester
-                slot.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        warning.setVisible(true);
-                    }
-                });
+                slot.addActionListener(new PopupsListener(warning, 4));
             }
             if (i >= 5) {
-                slot.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        warning.setVisible(false);
-                    }
-                });
+                slot.addActionListener(new PopupsListener(warning, 5));
             }
             grpSlot.add(slot);
             popSauver.add(slot);
@@ -182,12 +131,7 @@ public class Popups {
         popSauver.add(btnSauvegarder);
 
         JButton btnAnnuler = new JButton("Annuler");
-        btnAnnuler.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popSauver.dispose();
-            }
-        });
+        btnAnnuler.addActionListener(new PopupsListener(popSauver));
         popSauver.add(btnAnnuler);
 
         popSauver.setVisible(true);
@@ -208,26 +152,11 @@ public class Popups {
         popRecommencer.add(warning);
 
         JButton btnRecommencer = new JButton("Recommencer");
-        btnRecommencer.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                AireDeJeu aire = new AireDeJeu(f.getAire().getJoueur1(), f.getAire().getNomJoueur1(), f.getAire().getJoueur2(), f.getAire().getNomJoueur2(),f);
-                f.setAire(aire);
-                f.changePanel(f.getACCUEILPANEL()); //pour ne pas freeze pendant le removeAll
-                f.refreshInterface();
-                f.changePanel(f.getINTERFACEPANEL());
-                popRecommencer.dispose();
-            }
-        });
+        btnRecommencer.addActionListener( new PopupsListener(popRecommencer, f,	6));
         popRecommencer.add(btnRecommencer);
 
         JButton btnAnnuler = new JButton("Annuler");
-        btnAnnuler.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popRecommencer.dispose();
-            }
-        });
+        btnAnnuler.addActionListener(new PopupsListener(popRecommencer));
         popRecommencer.add(btnAnnuler);
 
         popRecommencer.setVisible(true);
@@ -248,22 +177,11 @@ public class Popups {
         popAbandonner.add(warning);
 
         JButton btnAbandonner = new JButton("Abandonner");
-        btnAbandonner.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                f.changePanel(f.getACCUEILPANEL());
-                popAbandonner.dispose();
-            }
-        });
+        btnAbandonner.addActionListener(new PopupsListener(popAbandonner, f, 7));
         popAbandonner.add(btnAbandonner);
 
         JButton btnAnnuler = new JButton("Annuler");
-        btnAnnuler.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popAbandonner.dispose();
-            }
-        });
+        btnAnnuler.addActionListener(new PopupsListener(popAbandonner));
         popAbandonner.add(btnAnnuler);
 
         popAbandonner.setVisible(true);
