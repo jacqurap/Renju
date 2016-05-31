@@ -3,6 +3,8 @@ package Vue;
 import java.awt.*;
 import javax.swing.*;
 
+import Listener.EcouteurDeSouris;
+
 public class Fenetre {
 
     private JPanel cards;

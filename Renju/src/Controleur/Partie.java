@@ -33,8 +33,8 @@ public class Partie implements Serializable{
 	private boolean partieFinie = false;
 	private boolean j1Win = false;
 	private boolean j2Win = false;
-	private Stack<Plateau> annuler;
-	private Stack<Plateau> refaire;
+	private Stack<Point> annuler;
+	private Stack<Point> refaire;
 	private boolean ia1=false;
 
 	private boolean ia2=false;
@@ -128,15 +128,19 @@ public class Partie implements Serializable{
 			plateau.setCase(p.x, p.y, plateau.CASENOIRE);
 			if(ia2)
 				touria=true;
+                        else
+                            touria = false;
 		} else {
 			//InterfaceJeu.getTfJ1().setForeground(Color.RED); //Changement de surbrillance
 			//InterfaceJeu.getTfJ2().setForeground(Color.BLACK);
 			plateau.setCase(p.x, p.y, plateau.CASEBLANCHE);
 			if(ia1)
 				touria=true;
+                        else
+                            touria = false;
 		}
 		//System.out.println(Ia.evaluationPlateau(plateau));
-		annuler.push(oldp);
+		annuler.push(p);
 		InterfaceJeu.getITEMANNU().setEnabled(true);
 		InterfaceJeu.getITEMREFA().setEnabled(false);
 		InterfaceJeu.getButAnnuler().setEnabled(true);
@@ -156,19 +160,17 @@ public class Partie implements Serializable{
 		int couleur;
 		if (nbCoups % 2 == 0){
 			couleur = plateau.CASENOIRE;
-			if(tabou)
-				partieFiniTabou(this.plateau, p, couleur);
 		}
 		else
 			couleur = plateau.CASEBLANCHE;
-		partieFiniSansTabou(p, this.plateau, couleur);
+		partieFiniTabou(p, this.plateau, couleur);
 
 	}
 	public int partieFini(Point p, Plateau plateau, int couleur,boolean tabou) {
 		if(tabou && couleur == Plateau.CASENOIRE)
-			return partieFiniTabou(plateau, p, couleur);
+			return partieFiniTabou(p, plateau, couleur);
 		else 
-			return partieFiniSansTabou(p, plateau, couleur);
+			return partieFiniTabou(p, plateau, couleur);
 	}
 
 	public int partieFiniSansTabou(Point p, Plateau plateau, int couleur) {
@@ -310,7 +312,7 @@ public class Partie implements Serializable{
 		return 0;
 	}
 	 */
-	public int partieFiniTabou(Plateau plateau, Point point, int couleur) {
+	public int partieFiniTabou( Point point,Plateau plateau, int couleur) {
 		int i;
 		// ces boolean permettent de tester si les pions du joueur sont juxtaposes (pour tester la victoire)
 		boolean isJuxtHorizontalGauche = true, isJuxtHorizontalDroite = true, isJuxtVerticalHaut = true, isJuxtVerticalBas = true, isJuxtDiagonalDroiteHaut = true, isJuxtDiagonalGaucheBas = true, isJuxtDiagonalDroiteBas = true, isJuxtDiagonalGaucheHaut = true;
@@ -469,55 +471,8 @@ public class Partie implements Serializable{
 			nb33NonBloque++;
 		}
 
-		System.out.println("nb33NonBloque  :  "+ nb33NonBloque);
-		if(nb33NonBloque == 1 && juxtVertical == 2 && !isVerticalBasBloque && !isVerticalHautBloque){
-			for(i = 1; i<=2;i++){
-				if(point.y+i < plateau.getDimY() && plateau.getCase(point.x, point.y+i)== Plateau.CASENOIRE && nonbloq33(new Point(point.x,point.y+i),plateau,couleur,0)){
-					nb33NonBloque++;
-					break;
-				}
-				if(point.y-i > 0 && plateau.getCase(point.x, point.y-i)== Plateau.CASENOIRE && nonbloq33(new Point(point.x,point.y-i),plateau,couleur,0)){
-					nb33NonBloque++;
-					break;
-				}
-			}
-		}
-		if(nb33NonBloque == 1 && juxtHorizontal == 2 && !isHorizontalGaucheBloque && !isHorizontalDroiteBloque){
-			for(i = 1; i<=2;i++){
-				if(point.x +i < plateau.getDimX() && plateau.getCase(point.x+i, point.y)== Plateau.CASENOIRE && nonbloq33(new Point(point.x+i,point.y),plateau,couleur,1)){
-					nb33NonBloque++;
-					break;
-				}
-				if(point.x -i > 0 && plateau.getCase(point.x-i, point.y)== Plateau.CASENOIRE && nonbloq33(new Point(point.x-i,point.y),plateau,couleur,1)){
-					nb33NonBloque++;
-					break;
-				}
-			}
-		}
-		if(nb33NonBloque == 1 && juxtDiagonalDescendante == 2 && !isDiagonalGaucheHautBloque && !isDiagonalDroiteBasBloque){
-			for(i = 1; i<=2;i++){
-				if(point.x < plateau.getDimX() && point.y > 0 && plateau.getCase(point.x+i, point.y-i)== Plateau.CASENOIRE && nonbloq33(new Point(point.x+i,point.y-i),plateau,couleur,3)){
-					nb33NonBloque++;
-					break;
-				}
-				if(point.x-i > 0 && point.y +i < plateau.getDimY() && plateau.getCase(point.x-i, point.y+i)== Plateau.CASENOIRE && nonbloq33(new Point(point.x-i,point.y+i),plateau,couleur,3)){
-					nb33NonBloque++;
-					break;
-				}
-			}
-		}
-		if(nb33NonBloque == 1 && juxtDiagonalMontante == 2 && !isDiagonalGaucheBasBloque && !isDiagonalDroiteHautBloque){
-			for(i = 1; i<=2;i++){
-				if(point.x+i < plateau.getDimX() && point.y+i < plateau.getDimY() && plateau.getCase(point.x+i, point.y+i)== Plateau.CASENOIRE && nonbloq33(new Point(point.x+i,point.y+i),plateau,couleur,2)){
-					nb33NonBloque++;
-					break;
-				}
-				if(point.x-i < 0 && point.y-1 < 0 && plateau.getCase(point.x-i, point.y-i)== Plateau.CASENOIRE && nonbloq33(new Point(point.x-i,point.y-i),plateau,couleur,2)){
-					nb33NonBloque++;
-					break;
-				}
-			}
-		}
+		
+                
 
 
 		int nb44NonBloque = 0;
@@ -535,54 +490,7 @@ public class Partie implements Serializable{
 		}
 		
 		
-		if(nb44NonBloque == 1 && juxtVertical == 3 && (!isVerticalBasBloque || !isVerticalHautBloque)){
-			for(i = 1 ; i <= 3; i++){
-				if(point.y+i < plateau.getDimY() && plateau.getCase(point.x, point.y+i)== Plateau.CASENOIRE && nonbloq44(new Point(point.x,point.y+i),plateau,couleur,0)){
-					nb44NonBloque++;
-					break;
-				}
-				if(point.y > 0 && plateau.getCase(point.x, point.y-i)== Plateau.CASENOIRE && nonbloq44(new Point(point.x,point.y-i),plateau,couleur,0)){
-					nb44NonBloque++;
-					break;
-				}
-			}
-		}
-		if(nb44NonBloque == 1 && juxtHorizontal == 3 && (!isHorizontalGaucheBloque || !isHorizontalDroiteBloque)){
-			for(i = 1; i<=3;i++){
-				if(point.x +i < plateau.getDimX() && plateau.getCase(point.x+i, point.y)== Plateau.CASENOIRE && nonbloq44(new Point(point.x+i,point.y),plateau,couleur,1)){
-					nb44NonBloque++;
-					break;
-				}
-				if(point.x -i > 0 && plateau.getCase(point.x-i, point.y)== Plateau.CASENOIRE && nonbloq44(new Point(point.x-i,point.y),plateau,couleur,1)){
-					nb44NonBloque++;
-					break;
-				}
-			}
-		}
-		if(nb44NonBloque == 1 && juxtDiagonalDescendante == 3 && (!isDiagonalGaucheHautBloque || !isDiagonalDroiteBasBloque)){
-			for(i = 1; i<=3;i++){
-				if(point.x < plateau.getDimX() && point.y > 0 && plateau.getCase(point.x+i, point.y-i)== Plateau.CASENOIRE && nonbloq44(new Point(point.x+i,point.y-i),plateau,couleur,3)){
-					nb44NonBloque++;
-					break;
-				}
-				if(point.x-i > 0 && point.y +i < plateau.getDimY() && plateau.getCase(point.x-i, point.y+i)== Plateau.CASENOIRE && nonbloq44(new Point(point.x-i,point.y+i),plateau,couleur,3)){
-					nb44NonBloque++;
-					break;
-				}
-			}
-		}
-		if(nb44NonBloque == 1 && juxtDiagonalMontante == 3 && (!isDiagonalGaucheBasBloque || !isDiagonalDroiteHautBloque)){
-			for(i = 1; i<=3;i++){
-				if(point.x+i < plateau.getDimX() && point.y+i < plateau.getDimY() && plateau.getCase(point.x+i, point.y+i)== Plateau.CASENOIRE && nonbloq44(new Point(point.x+i,point.y+i),plateau,couleur,2)){
-					nb44NonBloque++;
-					break;
-				}
-				if(point.x-i < 0 && point.y-1 < 0 && plateau.getCase(point.x-i, point.y-i)== Plateau.CASENOIRE && nonbloq44(new Point(point.x-i,point.y-i),plateau,couleur,2)){
-					nb44NonBloque++;
-					break;
-				}
-			}
-		}
+		
 		if((couleur == Plateau.CASENOIRE) 
 				&& (juxtHorizontal > 4              /// ligne de plus de 5 pions
 						|| juxtVertical > 4 
@@ -1054,7 +962,7 @@ public class Partie implements Serializable{
 		 * @return annuler
 		 */
 
-		public Stack<Plateau> getAnnuler(){
+		public Stack<Point> getAnnuler(){
 			return annuler;
 		}
 
@@ -1063,7 +971,7 @@ public class Partie implements Serializable{
 		 * @return annuler
 		 */
 
-		public Stack<Plateau> getRefaire(){
+		public Stack<Point> getRefaire(){
 			return refaire;
 		}
 
@@ -1091,4 +999,19 @@ public class Partie implements Serializable{
 		public void setPlateau(Plateau p) {
 			this.plateau = p;
 		}
+
+                public void setPartieFinie(boolean b) {
+                        this.partieFinie = false;
+                }
+
+                public void setJ1Win(boolean b) {
+                        this.j1Win = b;
+                }
+                public void setJ2Win(boolean b) {
+                        this.j2Win = b;
+                }
+
+                public void setTouria(boolean b) {
+                        this.touria = b;
+                }
 	}

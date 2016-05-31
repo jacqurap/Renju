@@ -1,14 +1,20 @@
 package Vue;
 
+import Listener.AnnulerAction;
 import java.awt.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import Controleur.Partie;
+import Listener.InterfaceJeuListener;
+import Listener.RefaireAction;
 import Modele.Humain;
 import Modele.Plateau;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 public class InterfaceJeu extends JPanel {
 
@@ -20,7 +26,7 @@ public class InterfaceJeu extends JPanel {
     private  JLabel tfJ1;
     private  JLabel tfJ2;
 
-    public InterfaceJeu(Fenetre f, final AireDeJeu aire) {
+    public InterfaceJeu(Fenetre f, AireDeJeu aire) {
         this.aire = aire;
         this.setLayout(new BorderLayout());
         final Popups popup = new Popups(f);
@@ -29,21 +35,11 @@ public class InterfaceJeu extends JPanel {
         JMenu menu_partie = new JMenu("Partie");
 
         JMenuItem item_sauv = new JMenuItem("Sauvegarder");
-        item_sauv.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popup.popSauver(aire.getPartie());
-            }
-        });
+        item_sauv.addActionListener(new InterfaceJeuListener(popup,this, 1));
         menu_partie.add(item_sauv);
 
         JMenuItem item_char = new JMenuItem("Charger");
-        item_char.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popup.popCharger(aire.getPartie());
-            }
-        });
+        item_char.addActionListener(new InterfaceJeuListener(popup,this, 2));
         menu_partie.add(item_char);
 
         menu_partie.addSeparator();
@@ -55,21 +51,11 @@ public class InterfaceJeu extends JPanel {
 
         menu_partie.addSeparator();
         JMenuItem item_reco = new JMenuItem("Recommencer");
-        item_reco.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popup.popRecommencer();
-            }
-        });
+        item_reco.addActionListener(new InterfaceJeuListener(popup, 3));
         menu_partie.add(item_reco);
 
         JMenuItem item_aban = new JMenuItem("Abandonner");
-        item_aban.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popup.popAbandonner();
-            }
-        });
+        item_aban.addActionListener(new InterfaceJeuListener(popup, 4));
         menu_partie.add(item_aban);
 
         // Menu Parametres
@@ -112,12 +98,7 @@ public class InterfaceJeu extends JPanel {
         // Aide
         JMenu menu_aide = new JMenu("Aide");
         JMenuItem aideJeu = new JMenuItem("Aide de jeu");
-        aideJeu.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popup.popRegles();
-            }
-        });
+        aideJeu.addActionListener(new InterfaceJeuListener(popup, 5));
         menu_aide.add(aideJeu);
         JMenuItem aPropos = new JMenuItem("A propos");
         menu_aide.add(aPropos);
@@ -145,10 +126,11 @@ public class InterfaceJeu extends JPanel {
         paneJoueurs.setLayout(new GridLayout(0, 1));
         addComponent(paneJoueurs);
         
-        ImageIcon icone1 = createImageIcon("Ressources/Pion_Noir.png","Pion noir du joueur 1");
-        ImageIcon icone2 = createImageIcon("Ressources/Pion_Blanc.png", "Pion blanc du joueur 2");
+        
+       ImageIcon icone1 = createImageIcon("../Ressources/Pion_Noir.png","Pion noir du joueur 1");
+       ImageIcon icone2 = createImageIcon("../Ressources/Pion_Blanc.png", "Pion blanc du joueur 2");
 
-        tfJ1 = new JLabel("", icone1, JLabel.CENTER);
+        tfJ1 = new JLabel("", (ImageIcon)icone1, JLabel.CENTER);
         tfJ2 = new JLabel("", icone2, JLabel.CENTER);
         
         tfJ1.setForeground(Color.RED); // Subrillance de depart

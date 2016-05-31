@@ -46,7 +46,7 @@ public class AireDeJeu extends JComponent {
             TimerTask tache = new TimerTask() {
                 @Override
                 public void run() {
-                    if (partie.isTourIa()) {
+                    if (!partie.isPartieFinie() && partie.isTourIa()) {
                         partie.joueIa();
                         repaint();
                     }
@@ -76,7 +76,7 @@ public class AireDeJeu extends JComponent {
         
         //thème du terrain
         try {
-            BufferedImage img = ImageIO.read(new File("Ressources/trad.png"));
+            BufferedImage img = ImageIO.read(new File("../Ressources/trad.png"));
             drawable.drawImage(img, 0, 0, largeurAire, largeurAire, null);
         } catch (IOException ex) {
            Logger.getLogger(AireDeJeu.class.getName()).log(Level.SEVERE, null, ex);

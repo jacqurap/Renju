@@ -1,4 +1,4 @@
-package Vue;
+package Listener;
 
 import java.awt.Color;
 import java.awt.Point;
@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import Controleur.Partie;
+import Vue.AireDeJeu;
 
 public class EcouteurDeSouris implements MouseListener {
 

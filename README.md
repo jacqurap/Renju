@@ -38,20 +38,31 @@ Fonctionnalités
 - [ ]  Finir l'affichage
 - [ ] Améliorations diverses
 - [ ] Rapport IHM
+- [ ] Design
+- [x] Fin de partie
+- [ ] Règles
+- [ ] Nombres de coup adpaté à Anuler / Refaire
 
 > IA
 
-- [ ]  Faire le Minimax
+- [x]  Faire le Minimax
 - [ ] Ajouter les tabous
 - [ ] Tester les autres IA
 - [ ] Faire le IA vs IA
 - [ ] Rapport IA
 
+
 > Fonctionnalités
 
-- [ ] Intégrer les fonctions de sauvegarde et d'historique
+- [x] Intégrer les fonctions de sauvegarde
 - [ ] Faire le Compte-Rendu
 - [ ] Mettre en place les animations diverses (victoire/ défaite ...)
+- [ ] Revoir le code
+- [x] Sauvegarder / Charger
+- [ ] Problème Annuler / Refaire au Chargement de partie
+- [x] Subrillance joueurs
+- [ ] Historique
+
 
 ### Prochains Rendez-vous
 
