@@ -61,7 +61,8 @@ public class AireDeJeu extends JComponent {
 	@Override
     public void paintComponent(Graphics g) {
 		
-		if(this.getPartie().getNbCoups() %2 == 0){
+		// Surbrillance des Joueurs
+			if(this.getPartie().getNbCoups() %2 == 0){
             fenetre.getInterjeu().getTfJ1().setForeground(Color.RED);
             fenetre.getInterjeu().getTfJ2().setForeground(Color.BLACK); //.setForeground(Color.RED);
     	}
@@ -108,12 +109,33 @@ public class AireDeJeu extends JComponent {
                 if (partie.getPlateau().getCase(i, j) == Plateau.CASEBLANCHE) {
                     drawable.setColor(Color.white);
                     drawable.fillOval((i+1) * ligneSpace -decalPierre, (j+1) * ligneSpace - decalPierre, pierreRayon, pierreRayon);
+                          
+                    if(partie.getPlateau().getNumero(i, j)== partie.getNbCoups()){
+                    drawable.setColor(Color.RED);
+                    drawable.drawString(String.valueOf((partie.getPlateau().getNumero(i, j))), (i+1) * ligneSpace,(j+1) * ligneSpace);
+                    }
+                    else{
+                    	drawable.setColor(Color.BLACK);
+                    	drawable.drawString(String.valueOf((partie.getPlateau().getNumero(i, j))), (i+1) * ligneSpace,(j+1) * ligneSpace);
+                    }
+                    
                     drawable.setColor(Color.BLACK);
                     drawable.drawOval((i+1) * ligneSpace -decalPierre, (j+1) * ligneSpace - decalPierre, pierreRayon, pierreRayon);
                 } else if (partie.getPlateau().getCase(i, j) == Plateau.CASENOIRE) {
                     drawable.setColor(Color.BLACK);
                     drawable.fillOval((i+1) * ligneSpace -decalPierre, (j+1) * ligneSpace -decalPierre, pierreRayon, pierreRayon);
+                    
+                    if(partie.getPlateau().getNumero(i, j)== partie.getNbCoups()){
+                        drawable.setColor(Color.RED);
+                        drawable.drawString(String.valueOf((partie.getPlateau().getNumero(i, j))), (i+1) * ligneSpace,(j+1) * ligneSpace);
+                        }
+                     else{
+                        	drawable.setColor(Color.WHITE);
+                        	drawable.drawString(String.valueOf((partie.getPlateau().getNumero(i, j))), (i+1) * ligneSpace,(j+1) * ligneSpace);
+                        }
+                    
                 }
+               // System.out.println(String.valueOf(partie.getNbCoups()));
             }
         }
         System.out.println(partie.isJ2Win());

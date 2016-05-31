@@ -126,6 +126,7 @@ public class Partie implements Serializable{
 			//InterfaceJeu.getTfJ2().setForeground(Color.RED); //Changement de surbrillance
 			//InterfaceJeu.getTfJ1().setForeground(Color.BLACK);
 			plateau.setCase(p.x, p.y, plateau.CASENOIRE);
+
 			if(ia2)
 				touria=true;
                         else
@@ -134,6 +135,7 @@ public class Partie implements Serializable{
 			//InterfaceJeu.getTfJ1().setForeground(Color.RED); //Changement de surbrillance
 			//InterfaceJeu.getTfJ2().setForeground(Color.BLACK);
 			plateau.setCase(p.x, p.y, plateau.CASEBLANCHE);
+			
 			if(ia1)
 				touria=true;
                         else
@@ -148,6 +150,7 @@ public class Partie implements Serializable{
 		refaire.clear();
 		partieFini(p);
 		incNbCoups();
+		plateau.setNumero(p.x, p.y, nbCoups); //mettre le numero de coup dans la matrice
 		return true;
 	}
 

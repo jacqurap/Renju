@@ -24,6 +24,7 @@ public class Plateau implements Serializable{
     private int dimX;
     private int dimY;
     private int[][] grille;
+    private int[][] numerocoup;
 
     public int rand;
     
@@ -37,6 +38,7 @@ public class Plateau implements Serializable{
         this.dimX = x;
         this.dimY = y;
         this.grille = new int[x][y];
+        this.numerocoup= new int[x][y];
 Random r = new Random(System.currentTimeMillis());
 rand = r.nextInt();
     }
@@ -72,6 +74,22 @@ rand = r.nextInt();
     public void setCase(int x, int y, int value) {
         grille[x][y] = value;
     }
+    
+    public int getNumero(int x, int y) {
+        return numerocoup[x][y];
+    }
+
+    /**
+     * Attribue un numero de coup a une intersection
+     *
+     * @param x la position en x
+     * @param y la position en y
+     * @param value la valeur a attribuer
+     */
+    public void setNumero(int x, int y, int value) {
+        numerocoup[x][y] = value;
+    }
+    
 
     /**
      * Recupere la dimension du plateau en x
@@ -125,11 +143,20 @@ rand = r.nextInt();
         for (int i = 0; i < dimX; i++) {
             for (int j = 0; j < dimX; j++) {
                 newPlateau.setCase(i, j, grille[i][j]);
+                newPlateau.setNumero(i, j, numerocoup[i][j]);
             }
         }
         System.out.println("this.rand = " + this.rand + " \t newrand = " + newPlateau.rand);
         return newPlateau;
     }
+
+	public int[][] getNumerocoup() {
+		return numerocoup;
+	}
+
+	public void setNumerocoup(int[][] numerocoup) {
+		this.numerocoup = numerocoup;
+	}
 
  
 }
