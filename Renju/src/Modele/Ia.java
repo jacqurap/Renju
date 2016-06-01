@@ -32,9 +32,14 @@ public abstract class Ia extends Joueur {
      * @return liste, la liste des coups pertinents
      */
     
-    
     public ArrayList<Point> coupsPertinents(Plateau p, int nbCoups) {
         ArrayList<Point> liste = new ArrayList<>();
+        coupsPertinents(p, nbCoups, liste);
+        return liste;
+    }
+    
+    public void coupsPertinents(Plateau p, int nbCoups, ArrayList<Point> liste) {
+        //System.out.println("sqdgfssds<dfsqqqz");
         if (nbCoups == 0) {
             liste.add(new Point(7, 7));
         } else if (nbCoups == 1) {
@@ -62,13 +67,8 @@ public abstract class Ia extends Joueur {
                 }
             }
         }
-        return liste;
     }
     
-    public void MAJcoupsPertinents(Plateau p, int nbCoups, Point p1, Point p2){
-        
-    }
-
     /**
      * Evalue le coup a jouer
      *

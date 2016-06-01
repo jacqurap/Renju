@@ -18,6 +18,9 @@ import java.util.Random;
  */
 public class Ia3 extends Ia {
 
+    ArrayList<Point>[] listeDeListe;
+
+    private final static int profondeur = 5;
     /**
      * Creation de l'IA (Niveau 3)
      *
@@ -25,6 +28,10 @@ public class Ia3 extends Ia {
      */
     public Ia3(String nom) {
         super(nom);
+        listeDeListe = (ArrayList<Point>[]) new ArrayList[profondeur];
+        for (int i = 0; i < profondeur; i++) {
+            listeDeListe[i] = new ArrayList<Point>();
+        }
     }
 
     @Override
@@ -38,9 +45,11 @@ public class Ia3 extends Ia {
         } else {
             couleur = Plateau.CASEBLANCHE;
         }
-        for (Point p : coupsPertinents(plateau, partie.getNbCoups())) {
+        listeDeListe[profondeur - 1].clear();
+        coupsPertinents(plateau, partie.getNbCoups(), listeDeListe[profondeur - 1]);
+        for (Point p : listeDeListe[profondeur - 1]) {
             plateau.setCase(p.x, p.y, couleur);
-            listeCoupsValeur.add(new ValeurCoup(p, minimax(plateau, p, 4, plateau.getAutreCouleur(couleur), false, partie.getNbCoups(), Integer.MIN_VALUE, Integer.MAX_VALUE)));
+            listeCoupsValeur.add(new ValeurCoup(p, minimax(plateau, p, profondeur - 1, plateau.getAutreCouleur(couleur), false, partie.getNbCoups(), Integer.MIN_VALUE, Integer.MAX_VALUE)));
             plateau.setCase(p.x, p.y, Plateau.CASEVIDE);
         }
         Collections.sort(listeCoupsValeur);
@@ -75,6 +84,7 @@ public class Ia3 extends Ia {
     public int minimax(Plateau plateau, Point point, int profondeur, int couleur, boolean maximiser, int nbCoups, int alpha, int beta) {
         int meilleur;
         int valeur;
+        //System.out.println("profondeur = " + profondeur);
         int fin = evaluationCoup(plateau, point, plateau.getAutreCouleur(couleur));
         if (fin == Integer.MAX_VALUE) { // le joueur gagne
             if (!maximiser) {
@@ -99,7 +109,9 @@ public class Ia3 extends Ia {
         }
         if (maximiser) {
             meilleur = Integer.MIN_VALUE;
-            for (Point p : coupsPertinents(plateau, nbCoups)) {
+            listeDeListe[profondeur - 1].clear();
+            coupsPertinents(plateau, nbCoups, listeDeListe[profondeur - 1]);
+            for (Point p : listeDeListe[profondeur - 1]) {
                 plateau.setCase((int) p.getX(), (int) p.getY(), couleur);
                 valeur = minimax(plateau, p, profondeur - 1, plateau.getAutreCouleur(couleur), false, nbCoups + 1, alpha, beta);
                 meilleur = Math.max(meilleur, valeur);
@@ -112,7 +124,9 @@ public class Ia3 extends Ia {
             return meilleur;
         } else { //minimiser
             meilleur = Integer.MAX_VALUE;
-            for (Point p : coupsPertinents(plateau, nbCoups)) {
+            listeDeListe[profondeur - 1].clear();
+            coupsPertinents(plateau, nbCoups, listeDeListe[profondeur - 1]);
+            for (Point p : listeDeListe[profondeur - 1]) {
                 plateau.setCase((int) p.getX(), (int) p.getY(), couleur);
                 valeur = minimax(plateau, p, profondeur - 1, plateau.getAutreCouleur(couleur), true, nbCoups + 1, alpha, beta);
                 meilleur = Math.min(meilleur, valeur);
