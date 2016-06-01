@@ -61,15 +61,7 @@ public class AireDeJeu extends JComponent {
     }
 
     @Override
-    public void paintComponent(Graphics g) {
-
-    	// Nombre Coup Restant
-    	
-    	if (this.getPartie().getNbCoups() % 2 == 0) {
-    		g.drawString("J1 restant : "+ String.valueOf(this.getPartie().getNbCoups()-this.getPartie().getNbCoups()/2) , 75, 100);
-        } else {
-        }
-    	
+    public void paintComponent(Graphics g) {    	
     	
         // Surbrillance des Joueurs
         if (this.getPartie().getNbCoups() % 2 == 0) {
