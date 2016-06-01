@@ -61,7 +61,7 @@ public class Popups {
             protected void paintComponent(Graphics g) {
                 Dimension d = getParent().getSize();
                 try {
-                    BufferedImage img = ImageIO.read(new File("Ressources/fondpop.jpg"));
+                    BufferedImage img = ImageIO.read(new File("../Ressources/fondpop.jpg"));
                     g.drawImage(img, 0, 0, d.width, d.height, null);
                 } catch (IOException ex) {
                     Logger.getLogger(AireDeJeu.class.getName()).log(Level.SEVERE, null, ex);
