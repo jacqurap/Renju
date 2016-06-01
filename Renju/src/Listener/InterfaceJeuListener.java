@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 
 import Controleur.Partie;
 import Vue.*;
+import javax.swing.JCheckBoxMenuItem;
 
 public class InterfaceJeuListener implements ActionListener {
 
@@ -14,6 +15,7 @@ public class InterfaceJeuListener implements ActionListener {
     private Popups popup;
     private InterfaceJeu interjeu;
     private String theme;
+    private JCheckBoxMenuItem cb;
 
     public InterfaceJeuListener(Popups pop, InterfaceJeu ij, int v) {
         this.popup = pop;
@@ -32,6 +34,12 @@ public class InterfaceJeuListener implements ActionListener {
         this.val = v;
         this.interjeu = ij;
         this.theme = theme;
+    }
+    
+    public InterfaceJeuListener(int v, InterfaceJeu ij, JCheckBoxMenuItem cb) {
+        this.val = v;
+        this.interjeu = ij;
+        this.cb = cb;
     }
 
     @Override
@@ -56,6 +64,15 @@ public class InterfaceJeuListener implements ActionListener {
             case 6:
                 interjeu.getAire().setThemePlateau(theme);
                 interjeu.getAire().repaint();
+                break;
+            case 7:
+                interjeu.getAire().setHistorique(cb.isSelected());
+                interjeu.getAire().repaint();
+                break;
+            case 8:
+                interjeu.getAire().setNumCase(cb.isSelected());
+                interjeu.getAire().repaint();
+                break;
             default:;
         }
 

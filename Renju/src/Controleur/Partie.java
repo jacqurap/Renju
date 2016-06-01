@@ -339,13 +339,13 @@ public class Partie implements Serializable {
         if ((juxtVertical == 2 && vertical != 3 || vertical == 2) && !isVerticalBasBloque && !isVerticalHautBloque) {
             nb33NonBloque++;
         }
-        if ((juxtHorizontal == 2 || horizontal == 2) && !isHorizontalGaucheBloque && !isHorizontalDroiteBloque) {
+        if ((juxtHorizontal == 2 && horizontal != 3 || horizontal == 2) && !isHorizontalGaucheBloque && !isHorizontalDroiteBloque) {
             nb33NonBloque++;
         }
-        if ((juxtDiagonalDescendante == 2 || diagonalDescendante == 2) && !isDiagonalGaucheHautBloque && !isDiagonalDroiteBasBloque) {
+        if ((juxtDiagonalDescendante == 2 && diagonalDescendante != 3 || diagonalDescendante == 2) && !isDiagonalGaucheHautBloque && !isDiagonalDroiteBasBloque) {
             nb33NonBloque++;
         }
-        if ((juxtDiagonalMontante == 2 || diagonalMontante == 2) && !isDiagonalGaucheBasBloque && !isDiagonalDroiteHautBloque) {
+        if ((juxtDiagonalMontante == 2 && diagonalMontante != 3 || diagonalMontante == 2) && !isDiagonalGaucheBasBloque && !isDiagonalDroiteHautBloque) {
             nb33NonBloque++;
         }
         int nb44NonBloque = 0;

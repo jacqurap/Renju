@@ -91,7 +91,7 @@ public abstract class Ia extends Joueur {
         int horizontal = 0, vertical = 0, diagonalMontante = 0, diagonalDescendante = 0;
         // ces boolean servent a savoir si une ligne est bloque pour detecter les tabous
         boolean isHorizontalGaucheBloque = false, isHorizontalDroiteBloque = false, isVerticalHautBloque = false, isVerticalBasBloque = false, isDiagonalDroiteHautBloque = false, isDiagonalGaucheBasBloque = false, isDiagonalDroiteBasBloque = false, isDiagonalGaucheHautBloque = false;
-
+        int trouhorizontalg = 0, trouhorizontald = 0, trouverticalh = 0, trouverticalb = 0, troudiagonalMontanteg = 0, troudiagonalMontanted = 0, troudiagonalDescendanteg = 0, troudiagonalDescendanted = 0;
         int casee;
         for (i = 1; i <= 5; i++) {
             if (point.getX() + i < plateau.getDimX()) {
@@ -101,9 +101,12 @@ public abstract class Ia extends Joueur {
                         if (isJuxtHorizontalDroite) {
                             juxtHorizontal++;
                         }
-                        horizontal++;
+                         if (trouhorizontald < 2) {
+                            horizontal++;
+                         }
                     } else if (casee == Plateau.CASEVIDE) {
                         isJuxtHorizontalDroite = false;
+                        trouhorizontald++;
                     } else {
                         isHorizontalDroite = false;
                         isHorizontalGaucheBloque = true;
@@ -117,9 +120,12 @@ public abstract class Ia extends Joueur {
                         if (isJuxtHorizontalGauche) {
                             juxtHorizontal++;
                         }
-                        horizontal++;
+                        if (trouhorizontalg < 2) {
+                            horizontal++;
+                        }
                     } else if (casee == Plateau.CASEVIDE) {
                         isJuxtHorizontalGauche = false;
+                        trouhorizontalg++;
                     } else {
                         isHorizontalGauche = false;
                         isHorizontalGaucheBloque = true;
@@ -133,9 +139,12 @@ public abstract class Ia extends Joueur {
                         if (isJuxtVerticalHaut) {
                             juxtVertical++;
                         }
-                        vertical++;
+                        if (trouverticalh < 2) {
+                            vertical++;
+                        }
                     } else if (casee == Plateau.CASEVIDE) {
                         isJuxtVerticalHaut = false;
+                        trouverticalh++;
                     } else {
                         isVerticalHaut = false;
                         isVerticalHautBloque = true;
@@ -149,9 +158,12 @@ public abstract class Ia extends Joueur {
                         if (isJuxtVerticalBas) {
                             juxtVertical++;
                         }
-                        vertical++;
+                        if (trouverticalb < 2) {
+                            vertical++;
+                        }
                     } else if (casee == Plateau.CASEVIDE) {
                         isJuxtVerticalBas = false;
+                        trouverticalb++;
                     } else {
                         isVerticalBas = false;
                         isVerticalBasBloque = true;
@@ -165,9 +177,12 @@ public abstract class Ia extends Joueur {
                         if (isJuxtDiagonalDroiteHaut) {
                             juxtDiagonalMontante++;
                         }
-                        diagonalMontante++;
+                        if (troudiagonalMontanted < 2) {
+                            diagonalMontante++;
+                        }
                     } else if (casee == Plateau.CASEVIDE) {
                         isDiagonalDroiteHaut = false;
+                        troudiagonalMontanted++;
                     } else {
                         isDiagonalDroiteHaut = false;
                         isDiagonalDroiteHautBloque = true;
@@ -181,9 +196,12 @@ public abstract class Ia extends Joueur {
                         if (isJuxtDiagonalDroiteBas) {
                             juxtDiagonalDescendante++;
                         }
-                        diagonalDescendante++;
+                        if (troudiagonalDescendanted < 2) {
+                            diagonalDescendante++;
+                        }
                     } else if (casee == Plateau.CASEVIDE) {
                         isDiagonalDroiteBas = false;
+                        troudiagonalDescendanted++;
                     } else {
                         isDiagonalDroiteBas = false;
                         isDiagonalDroiteBasBloque = true;
@@ -197,9 +215,12 @@ public abstract class Ia extends Joueur {
                         if (isJuxtDiagonalGaucheHaut) {
                             juxtDiagonalDescendante++;
                         }
-                        diagonalDescendante++;
+                        if (troudiagonalDescendanteg < 2) {
+                            diagonalDescendante++;
+                        }
                     } else if (casee == Plateau.CASEVIDE) {
                         isDiagonalGaucheHaut = false;
+                        troudiagonalDescendanteg++;
                     } else {
                         isDiagonalGaucheHaut = false;
                         isDiagonalGaucheHautBloque = true;
@@ -213,9 +234,12 @@ public abstract class Ia extends Joueur {
                         if (isJuxtDiagonalGaucheBas) {
                             juxtDiagonalMontante++;
                         }
-                        diagonalMontante++;
+                        if (troudiagonalMontanteg < 2) {
+                            diagonalMontante++;
+                        }
                     } else if (casee == Plateau.CASEVIDE) {
                         isDiagonalGaucheBas = false;
+                        troudiagonalMontanteg++;
                     } else {
                         isDiagonalGaucheBas = false;
                         isDiagonalGaucheBasBloque = true;
@@ -225,16 +249,16 @@ public abstract class Ia extends Joueur {
         }
         
         int nb33NonBloque = 0;
-        if(juxtVertical == 2 && !isVerticalBasBloque && !isVerticalHautBloque){
+        if((juxtVertical == 2 && vertical != 3 || vertical == 2) && !isVerticalBasBloque && !isVerticalHautBloque){
             nb33NonBloque++;
         }
-        if(juxtHorizontal == 2 && !isHorizontalGaucheBloque && !isHorizontalDroiteBloque){
+        if((juxtHorizontal == 2 && horizontal!=3 || horizontal == 2) && !isHorizontalGaucheBloque && !isHorizontalDroiteBloque){
             nb33NonBloque++;
         }
-        if(juxtDiagonalDescendante == 2 && !isDiagonalGaucheHautBloque && !isDiagonalDroiteBasBloque){
+        if((juxtDiagonalDescendante == 2 && diagonalDescendante != 3 || diagonalDescendante == 2) && !isDiagonalGaucheHautBloque && !isDiagonalDroiteBasBloque){
             nb33NonBloque++;
         }
-        if(juxtDiagonalMontante == 2 && !isDiagonalGaucheBasBloque && !isDiagonalDroiteHautBloque){
+        if((juxtDiagonalMontante == 2 && diagonalMontante != 3 || diagonalMontante == 2) && !isDiagonalGaucheBasBloque && !isDiagonalDroiteHautBloque){
             nb33NonBloque++;
         }
         

@@ -89,6 +89,7 @@ public class InterfaceJeu extends JPanel {
 
         ButtonGroup grpLang = new ButtonGroup();
         JRadioButtonMenuItem rdFran = new JRadioButtonMenuItem("Français");
+        rdFran.setSelected(true);
         menu_lang.add(rdFran);
         grpLang.add(rdFran);
         JRadioButtonMenuItem rdAngl = new JRadioButtonMenuItem("Anglais");
@@ -99,10 +100,14 @@ public class InterfaceJeu extends JPanel {
 
         // Liste de options d'affichage
         JCheckBoxMenuItem cbHist = new JCheckBoxMenuItem("Historique");
+        cbHist.setSelected(true);
+        cbHist.addActionListener(new InterfaceJeuListener(7, this, cbHist));
         menu_param.add(cbHist);
         JCheckBoxMenuItem cbNbCoupRest = new JCheckBoxMenuItem("Coups Restants");
         menu_param.add(cbNbCoupRest);
         JCheckBoxMenuItem cbNumCases = new JCheckBoxMenuItem("Numéros des cases");
+        cbNumCases.setSelected(true);
+        cbNumCases.addActionListener(new InterfaceJeuListener(8, this, cbNumCases));
         menu_param.add(cbNumCases);
 
         // Aide
