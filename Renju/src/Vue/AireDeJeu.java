@@ -58,6 +58,14 @@ public class AireDeJeu extends JComponent {
     @Override
     public void paintComponent(Graphics g) {
 
+    	// Nombre Coup Restant
+    	
+    	if (this.getPartie().getNbCoups() % 2 == 0) {
+    		g.drawString("J1 restant : "+ String.valueOf(this.getPartie().getNbCoups()-this.getPartie().getNbCoups()/2) , 75, 100);
+        } else {
+        }
+    	
+    	
         // Surbrillance des Joueurs
         if (this.getPartie().getNbCoups() % 2 == 0) {
             fenetre.getInterjeu().getTfJ1().setForeground(Color.RED);
@@ -95,6 +103,16 @@ public class AireDeJeu extends JComponent {
         drawable.fillOval(4 * ligneSpace - (circleSize / 2), 12 * ligneSpace - (circleSize / 2), circleSize, circleSize);
         drawable.fillOval(12 * ligneSpace - (circleSize / 2), 12 * ligneSpace - (circleSize / 2), circleSize, circleSize);
         drawable.fillOval(8 * ligneSpace - (circleSize / 2), 8 * ligneSpace - (circleSize / 2), circleSize, circleSize);
+        
+    	// Nombre Coup Restant
+    	
+    	if (this.getPartie().getNbCoups() % 2 == 0) {
+    		drawable.drawString("J1 restant : "+ String.valueOf(60-this.getPartie().getNbCoups()/2) , 75, 100);
+    		drawable.drawString("J2 restant : "+ String.valueOf(60-this.getPartie().getNbCoups()/2) , 75, 200);
+        } else {
+        	drawable.drawString("J1 restant : "+ String.valueOf(60-(this.getPartie().getNbCoups()/2)-1) , 75, 100);
+    		drawable.drawString("J2 restant : "+ String.valueOf(60-this.getPartie().getNbCoups()/2) , 75, 200);
+        }
 
         //positionne les pierres
         drawable.setStroke(new BasicStroke(1)); //épaisseur du contour des pierres blanches
