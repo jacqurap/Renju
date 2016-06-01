@@ -42,7 +42,7 @@ import Listener.PopupsListener;
 public class Popups {
 
     public Fenetre f;
-    public File[] slot = new File[10];
+    public File[] slot = new File[9];
     public Partie part;
     public int SaveNum = 20;
     public String SaveName = "Sauvegarde";
@@ -124,19 +124,19 @@ public class Popups {
         panel.add(btnRetour);
 
         /*      final JDialog popRegle = new JDialog();
-        popRegle.setTitle("Aide de jeu");
+         popRegle.setTitle("Aide de jeu");
 
-        JDialog.setDefaultLookAndFeelDecorated(true);
-        popRegle.setSize(500, 200);
-        popRegle.setLocationRelativeTo(null);
-        popRegle.setLayout(new FlowLayout());
-        popRegle.add(new JLabel("Coups interdits"));
+         JDialog.setDefaultLookAndFeelDecorated(true);
+         popRegle.setSize(500, 200);
+         popRegle.setLocationRelativeTo(null);
+         popRegle.setLayout(new FlowLayout());
+         popRegle.add(new JLabel("Coups interdits"));
 
-        JButton btnRetour = new JButton("Retour");
-        btnRetour.addActionListener(new PopupsListener(popRegle));
-        popRegle.add(btnRetour);
+         JButton btnRetour = new JButton("Retour");
+         btnRetour.addActionListener(new PopupsListener(popRegle));
+         popRegle.add(btnRetour);
 
-        popRegle.setVisible(true);*/
+         popRegle.setVisible(true);*/
     }
 
     public void popQuitterMenu() {
@@ -214,7 +214,7 @@ public class Popups {
         warning.setVisible(true);
 
         ButtonGroup grpSlot = new ButtonGroup();
-        for (index = 1; index <= 10; index++) {
+        for (index = 1; index < 10; index++) {
             String val;
             boolean ready = true;
             if (slot[index - 1] == null) {
@@ -226,6 +226,7 @@ public class Popups {
             JRadioButton slot = new JRadioButton(val);
             slot.setEnabled(ready);
             slot.addActionListener(new PopupsListener(btnCharger, this, 3));
+            slot.addActionListener(new PopupsListener(warning, this, 9));
             grpSlot.add(slot);
             popCharger.add(slot);
         }
@@ -263,7 +264,7 @@ public class Popups {
         warning.setVisible(false);
 
         ButtonGroup grpSlot = new ButtonGroup();
-        for (index = 1; index <= 10; index++) {
+        for (index = 1; index < 10; index++) {
             String val;
             if (slot[index - 1] == null) {
                 val = (String.valueOf(index) + "e Slot");
@@ -358,7 +359,7 @@ public class Popups {
      */
     public void Sauvegarde() {
         TrouverChemin();
-        this.slot = new File[10];
+        this.slot = new File[9];
         File chemin = new File(SavePath);
         int size = (int) chemin.toString().length();
         System.out.println(size);
@@ -374,7 +375,7 @@ public class Popups {
                 num = Integer.parseInt(n);
                 System.out.println(num);
                 System.out.println(name);
-                if (num >= 0 && num <= 9) { //name.endsWith(".ser") && 
+                if (num >= 0 && num < 9) { //name.endsWith(".ser") && 
                     //f = new File(name.substring(size+1, (int)name.length()));
                     this.slot[num] = f;
                 }
@@ -386,7 +387,7 @@ public class Popups {
 
     public void Sauvegarder(Partie p) {
         System.out.println("Save initiated, " + SaveNum);
-        if (SaveNum >= 0 && SaveNum <= 9) {
+        if (SaveNum >= 0 && SaveNum < 9) {
             System.out.println("index ok");
             try {
                 System.out.println("Try start");
@@ -418,7 +419,6 @@ public class Popups {
      * @param i le numero de l'emplacement de sauvegarde
      * @return null
      */
-
     public Partie Charger() {
         if (SaveNum >= 0 && SaveNum <= 9) {
             System.out.println(SaveNum);
@@ -436,7 +436,7 @@ public class Popups {
                 System.out.println("Erreur lors du chargement du fichier");
             }
         }
-        return null;
+        return part;
     }
 
     public void TrouverChemin() {
@@ -444,7 +444,10 @@ public class Popups {
             String path = Popups.class.getProtectionDomain().getCodeSource().getLocation().getPath();
             String decodedPath = URLDecoder.decode(path, "UTF-8");
             SavePath = (decodedPath + "Saves/");
-            System.out.println(SavePath); //TODO Creation du dossier sauvegarde
+            if (!new File(SavePath).exists()) {
+                new File(SavePath).mkdirs();
+            }
+            System.out.println(SavePath);
         } catch (Exception e) {
             System.out.println("Erreur lors de la definition du chemin");
         }
