@@ -280,16 +280,21 @@ public abstract class Ia extends Joueur {
                 && (juxtHorizontal > 4              /// ligne de plus de 5 pions
                         || juxtVertical > 4 
                         || juxtDiagonalDescendante > 4 
-                        || juxtDiagonalMontante > 4
-                    || nb33NonBloque >= 2          /// 3 * 3 non bloque
-                    || nb44NonBloque >= 2           /// 4 * 4 non double bloque
-                
-                )){
+                        || juxtDiagonalMontante > 4)){
             return Integer.MIN_VALUE;
         }
+        
         if (juxtHorizontal >= 4 || juxtVertical >= 4 || juxtDiagonalDescendante >= 4 || juxtDiagonalMontante >= 4) {
             return Integer.MAX_VALUE;
         }
+        
+        if((couleur == Plateau.CASENOIRE) 
+                && ( nb33NonBloque >= 2          /// 3 * 3 non bloque
+                    || nb44NonBloque >= 2           /// 4 * 4 non double bloque                
+                )){
+            return Integer.MIN_VALUE;
+        }
+        
         
         valeur = 3 * (juxtHorizontal ^ 3 + juxtVertical ^ 3 + juxtDiagonalDescendante ^ 3 + juxtDiagonalMontante ^ 3) + horizontal ^ 3 + vertical ^ 3 + diagonalDescendante ^ 3 + diagonalMontante ^ 3;
         return valeur;

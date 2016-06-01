@@ -41,6 +41,7 @@ public class Ia4 extends Ia {
 		for (Point p : coupsPertinents(partie.getPlateau(), partie.getNbCoups())) {
 			Plateau plateau = partie.getPlateau();
 			plateau.setCase(p.x, p.y, couleur);
+                        
 			listeCoupsValeur.add(new ValeurCoup(p, minimax(partie.getPlateau(), p, 4, partie.getPlateau().getAutreCouleur(couleur), false,partie.getNbCoups(),Integer.MIN_VALUE, Integer.MAX_VALUE)));
 			plateau.setCase(p.x, p.y, Plateau.CASEVIDE);
 		}

@@ -153,6 +153,10 @@ public class Partie implements Serializable {
      */
     public void partieFini(Point p) {
         int couleur;
+        if(nbCoups == 119){
+            partieFinie = true;
+            return ;
+        }
         if (nbCoups % 2 == 0) {
             couleur = plateau.CASENOIRE;
         } else {
@@ -163,6 +167,10 @@ public class Partie implements Serializable {
     }
 
     public int partieFini(Point p, Plateau plateau, int couleur, boolean tabou) {
+        if(nbCoups == 119){
+            partieFinie = true;
+            return 3;
+        }
         return partieFiniTabou(p, plateau, couleur);
     }
 
