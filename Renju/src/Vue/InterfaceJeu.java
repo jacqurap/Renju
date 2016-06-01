@@ -92,6 +92,7 @@ public class InterfaceJeu extends JPanel {
 
         ButtonGroup grpLang = new ButtonGroup();
         JRadioButtonMenuItem rdFran = new JRadioButtonMenuItem("Français");
+        rdFran.setSelected(true);
         menu_lang.add(rdFran);
         grpLang.add(rdFran);
         JRadioButtonMenuItem rdAngl = new JRadioButtonMenuItem("Anglais");

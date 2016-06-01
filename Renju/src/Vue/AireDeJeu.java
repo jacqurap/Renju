@@ -86,7 +86,7 @@ public class AireDeJeu extends JComponent {
 
         //thème du terrain
         try {
-            BufferedImage img = ImageIO.read(new File("Ressources/" + getThemePlateau() + ".png"));
+            BufferedImage img = ImageIO.read(new File("src/Ressources/" + getThemePlateau() + ".png"));
             drawable.drawImage(img, 0, 0, largeurAire, largeurAire, null);
         } catch (IOException ex) {
             Logger.getLogger(AireDeJeu.class.getName()).log(Level.SEVERE, null, ex);
@@ -131,10 +131,40 @@ public class AireDeJeu extends JComponent {
             }
         }
 
+        
         //positionne les pierres
         drawable.setStroke(new BasicStroke(1)); //épaisseur du contour des pierres blanches
         int pierreRayon = (int) ((double) ligneSpace / (double) 1.5);
         int decalPierre = pierreRayon / 2;
+        
+        drawable.setColor(Color.CYAN);
+        
+        if(partie.getNbCoups()==0){
+        	// Centre
+        	drawable.fillRect((7 + 1) * ligneSpace - decalPierre, (7 + 1) * ligneSpace - decalPierre, pierreRayon, pierreRayon);
+        }
+        else{
+        	if(partie.getNbCoups()==1){
+        		// Centre + (1,0)
+                drawable.fillRect((8 + 1) * ligneSpace - decalPierre, (7 + 1) * ligneSpace - decalPierre, pierreRayon, pierreRayon);
+                // Centre + (1,1)
+                drawable.fillRect((8 + 1) * ligneSpace - decalPierre, (8 + 1) * ligneSpace - decalPierre, pierreRayon, pierreRayon);
+                // Centre + (0,1)
+                drawable.fillRect((7 + 1) * ligneSpace - decalPierre, (8 + 1) * ligneSpace - decalPierre, pierreRayon, pierreRayon);
+                // Centre + (-1,1)
+                drawable.fillRect((6 + 1) * ligneSpace - decalPierre, (8 + 1) * ligneSpace - decalPierre, pierreRayon, pierreRayon);
+                // Centre + (-1,0)
+                drawable.fillRect((6 + 1) * ligneSpace - decalPierre, (7 + 1) * ligneSpace - decalPierre, pierreRayon, pierreRayon);
+                // Centre + (-1,-1)
+                drawable.fillRect((6 + 1) * ligneSpace - decalPierre, (6 + 1) * ligneSpace - decalPierre, pierreRayon, pierreRayon);
+                // Centre + (0,-1)
+                drawable.fillRect((7 + 1) * ligneSpace - decalPierre, (6 + 1) * ligneSpace - decalPierre, pierreRayon, pierreRayon);
+                // Centre + (1,-1)
+                drawable.fillRect((8 + 1) * ligneSpace - decalPierre, (6 + 1) * ligneSpace - decalPierre, pierreRayon, pierreRayon);
+        	}
+        }
+       
+        
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 15; j++) {
                 //décalage pour numéro de coup
