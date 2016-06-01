@@ -2,8 +2,11 @@ package Vue;
 
 import java.awt.*;
 import javax.swing.*;
+import Listener.*;
 
 import Listener.EcouteurDeSouris;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class Fenetre {
 
@@ -39,22 +42,6 @@ public class Fenetre {
 
     public void changePanel(String panelName) {
         CardLayout cl = (CardLayout) (getCards().getLayout());
-        switch (panelName) {
-            case ACCUEILPANEL:
-                frame.setSize(1080, 720);
-                break;
-            case NOUVPARTIEPANEL:
-                frame.setSize(1080, 720);
-                break;
-            case CHARPARTIEPANEL:
-                frame.setSize(1080, 720);
-                break;
-            case INTERFACEPANEL:
-                frame.setSize(1080, 720);
-                break;
-            default:
-                frame.setSize(1080, 720);
-        }
         cl.show(getCards(), panelName);
     }
 

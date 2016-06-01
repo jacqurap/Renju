@@ -35,7 +35,7 @@ public class InterfaceJeuListener implements ActionListener {
         this.interjeu = ij;
         this.theme = theme;
     }
-    
+
     public InterfaceJeuListener(int v, InterfaceJeu ij, JCheckBoxMenuItem cb) {
         this.val = v;
         this.interjeu = ij;
@@ -71,6 +71,10 @@ public class InterfaceJeuListener implements ActionListener {
                 break;
             case 8:
                 interjeu.getAire().setNumCase(cb.isSelected());
+                interjeu.getAire().repaint();
+                break;
+            case 9:
+                interjeu.getAire().setCoupsRestants(cb.isSelected());
                 interjeu.getAire().repaint();
                 break;
             default:;
