@@ -31,16 +31,16 @@ public class Ia3 extends Ia {
     public Point solver(Partie partie) {
         int meilleur;
         int couleur;
+        Plateau plateau = partie.getPlateau().clone();
         ArrayList<ValeurCoup> listeCoupsValeur = new ArrayList<>();
         if (partie.getNbCoups() % 2 == 0) {
             couleur = Plateau.CASENOIRE;
         } else {
             couleur = Plateau.CASEBLANCHE;
         }
-        for (Point p : coupsPertinents(partie.getPlateau(), partie.getNbCoups())) {
-            Plateau plateau = partie.getPlateau();
+        for (Point p : coupsPertinents(plateau, partie.getNbCoups())) {
             plateau.setCase(p.x, p.y, couleur);
-            listeCoupsValeur.add(new ValeurCoup(p, minimax(partie.getPlateau(), p, 5, partie.getPlateau().getAutreCouleur(couleur), false, partie.getNbCoups(), Integer.MIN_VALUE, Integer.MAX_VALUE)));
+            listeCoupsValeur.add(new ValeurCoup(p, minimax(plateau, p, 4, plateau.getAutreCouleur(couleur), false, partie.getNbCoups(), Integer.MIN_VALUE, Integer.MAX_VALUE)));
             plateau.setCase(p.x, p.y, Plateau.CASEVIDE);
         }
         Collections.sort(listeCoupsValeur);
