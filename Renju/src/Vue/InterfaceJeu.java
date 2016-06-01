@@ -57,7 +57,7 @@ public class InterfaceJeu extends JPanel {
         item_reco.addActionListener(new InterfaceJeuListener(popup, 3));
         menu_partie.add(item_reco);
 
-        JMenuItem item_aban = new JMenuItem("Abandonner");
+        JMenuItem item_aban = new JMenuItem("Retourner au menu");
         item_aban.addActionListener(new InterfaceJeuListener(popup, 4));
         menu_partie.add(item_aban);
 
