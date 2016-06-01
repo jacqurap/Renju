@@ -28,6 +28,9 @@ public class InterfaceJeu extends JPanel {
     private AireDeJeu aire;
     private JLabel tfJ1;
     private JLabel tfJ2;
+    private JLabel coupRestJ1;
+    private JLabel coupRestJ2;
+    private JPanel paneJoueurs;
 
     public InterfaceJeu(Fenetre f, AireDeJeu aire) {
         this.aire = aire;
@@ -104,6 +107,7 @@ public class InterfaceJeu extends JPanel {
         cbHist.addActionListener(new InterfaceJeuListener(7, this, cbHist));
         menu_param.add(cbHist);
         JCheckBoxMenuItem cbNbCoupRest = new JCheckBoxMenuItem("Coups Restants");
+        cbNbCoupRest.addActionListener(new InterfaceJeuListener(9, this, cbNbCoupRest));
         menu_param.add(cbNbCoupRest);
         JCheckBoxMenuItem cbNumCases = new JCheckBoxMenuItem("Numéros des cases");
         cbNumCases.setSelected(true);
@@ -123,56 +127,47 @@ public class InterfaceJeu extends JPanel {
         barre.add(menu_param);
         barre.add(menu_aide);
         this.add(barre, BorderLayout.NORTH);
-        /*
-         JPanel paneJoueurs = new JPanel();
-         paneJoueurs.setLayout(new BorderLayout());
-         addComponent(paneJoueurs);
 
-         JPanel paneJoueur1 = new JPanel();
-         paneJoueur1.setLayout(new BoxLayout(paneJoueur1, BoxLayout.Y_AXIS));
-         addComponent(paneJoueur1, paneJoueurs);
-
-         JPanel paneJoueur2 = new JPanel();
-         paneJoueur2.setLayout(new BoxLayout(paneJoueur2, BoxLayout.Y_AXIS));
-         addComponent(paneJoueur2, paneJoueurs);
-         */
-        JPanel paneJoueurs = new JPanel();
+        //dans la fenêtre
+        paneJoueurs = new JPanel(); //éléments autres que l'aire de jeu
         paneJoueurs.setOpaque(false);
-        paneJoueurs.setPreferredSize(new Dimension(400, 0));
-
-        paneJoueurs.setLayout(new BoxLayout(paneJoueurs, BoxLayout.Y_AXIS));
-        addComponent(paneJoueurs);
+        paneJoueurs.setLayout(new GridLayout(3, 1));
+        //addComponent(paneJoueurs);
 
         ImageIcon icone1 = createImageIcon("../Ressources/Pion_Noir.png", "Pion noir du joueur 1");
         ImageIcon icone2 = createImageIcon("../Ressources/Pion_Blanc.png", "Pion blanc du joueur 2");
+        coupRestJ1 = new JLabel("", JLabel.CENTER);
+        coupRestJ2 = new JLabel("", JLabel.CENTER);
 
         Font font = new Font("Calibri", Font.BOLD, 25);
         tfJ1 = new JLabel("", (ImageIcon) icone1, JLabel.CENTER);
         tfJ1.setFont(font);
         tfJ2 = new JLabel("", icone2, JLabel.CENTER);
         tfJ2.setFont(font);
-
         tfJ1.setForeground(Color.RED); // Subrillance de depart
         // tfJ1.add
-
         // SurbrillanceTour(tfJ1, tfJ2, aire);
-        JPanel paneNoms = new JPanel();
-        paneNoms.setOpaque(false);
-        paneNoms.setLayout(new FlowLayout());
-        paneNoms.add(Box.createHorizontalGlue());
-        paneNoms.add(tfJ1);
-        paneNoms.add(Box.createHorizontalGlue());
-        paneNoms.add(tfJ2);
-        paneNoms.add(Box.createHorizontalGlue());
-        tfJ1.setAlignmentY(Component.CENTER_ALIGNMENT);
+        JPanel paneJ1 = new JPanel();
+        paneJ1.setOpaque(false);
+        paneJ1.setLayout(new GridLayout(4, 1));
+        paneJ1.add(Box.createHorizontalGlue());
+        paneJ1.add(tfJ1);
+        paneJ1.add(coupRestJ1);
+        paneJ1.add(Box.createHorizontalGlue());
 
+        JPanel paneJ2 = new JPanel();
+        paneJ2.setLayout(new GridLayout(4, 1));
+        paneJ2.add(Box.createHorizontalGlue());
+        paneJ2.setOpaque(false);
+        paneJ2.add(tfJ2);
+        paneJ2.add(coupRestJ2);
+        paneJ2.add(Box.createHorizontalGlue());
+        
         JPanel paneBoutons = new JPanel();
         paneBoutons.setOpaque(false);
         paneBoutons.setLayout(new FlowLayout());
-
         addButton(btnAnnuler, paneBoutons);
         btnAnnuler.setEnabled(false);
-
         addButton(btnRefaire, paneBoutons);
         AnnulerAction annu = new AnnulerAction(this.getAire(), getITEMANNU(), getITEMREFA(), btnAnnuler, btnRefaire);
         RefaireAction ref = new RefaireAction(this.getAire(), getITEMANNU(), getITEMREFA(), btnAnnuler, btnRefaire);
@@ -181,10 +176,17 @@ public class InterfaceJeu extends JPanel {
         ITEMREFA.addActionListener(ref);
         btnRefaire.addActionListener(ref);
         btnRefaire.setEnabled(false);
-
-        paneJoueurs.add(paneNoms);
         paneJoueurs.add(paneBoutons);
+        paneJoueurs.add(paneJ1);
+        paneJoueurs.add(paneJ2);
+        
+        /*
+        paneContentJoueurs = new JPanel(new GridLayout(1,3));
+        paneContentJoueurs.add(Box.createHorizontalGlue());
+        paneContentJoueurs.add(paneJoueurs);
+        paneContentJoueurs.add(Box.createHorizontalGlue());
 
+        */
         this.add(paneJoueurs, BorderLayout.EAST);
         this.add(this.aire, BorderLayout.CENTER);
 
@@ -227,7 +229,7 @@ public class InterfaceJeu extends JPanel {
 
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 if (button.isEnabled()) {
-                setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                    setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                 }
             }
         });
@@ -323,4 +325,45 @@ public class InterfaceJeu extends JPanel {
     	}
     	
     }*/
+    /**
+     * @return the coupRestJ2
+     */
+    public JLabel getCoupRestJ2() {
+        return coupRestJ2;
+    }
+
+    /**
+     * @param coupRestJ2 the coupRestJ2 to set
+     */
+    public void setCoupRestJ2(JLabel coupRestJ2) {
+        this.coupRestJ2 = coupRestJ2;
+    }
+
+    /**
+     * @return the coupRestJ1
+     */
+    public JLabel getCoupRestJ1() {
+        return coupRestJ1;
+    }
+
+    /**
+     * @param coupRestJ1 the coupRestJ1 to set
+     */
+    public void setCoupRestJ1(JLabel coupRestJ1) {
+        this.coupRestJ1 = coupRestJ1;
+    }
+
+    /**
+     * @return the paneContentJoueurs
+     */
+    public JPanel getPaneContentJoueurs() {
+        return paneJoueurs;
+    }
+
+    /**
+     * @param paneContentJoueurs the paneContentJoueurs to set
+     */
+    public void setPaneContentJoueurs(JPanel paneContentJoueurs) {
+        this.paneJoueurs = paneContentJoueurs;
+    }
 }

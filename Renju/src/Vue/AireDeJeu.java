@@ -10,10 +10,13 @@ import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
 import Controleur.Partie;
+import Listener.PopupsListener;
 import Modele.Humain;
 import Modele.Plateau;
 import java.util.*;
 import java.util.logging.*;
+import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 
 /**
@@ -30,6 +33,7 @@ public class AireDeJeu extends JComponent {
     private String themePlateau;
     private boolean numCase;
     private boolean historique;
+    private boolean coupsRestants;
 
     /**
      * Creation de l'aire de jeu
@@ -43,6 +47,7 @@ public class AireDeJeu extends JComponent {
         this.themePlateau = "Bois";
         this.numCase = true;
         this.historique = true;
+        this.coupsRestants = false;
 
         partie = new Partie(J1, nomJ1, J2, nomJ2);
         if (this.partie.isIa1() || this.partie.isIa2()) {
@@ -62,7 +67,14 @@ public class AireDeJeu extends JComponent {
 
     @Override
     public void paintComponent(Graphics g) {
-  	
+        Graphics2D drawable = (Graphics2D) g;
+        drawable.setStroke(new BasicStroke(2)); //épaisseur des lignes
+        Dimension d = getParent().getParent().getSize();
+        int largeurAire = d.height - 23;
+
+        int tailleFont = largeurAire / 45;
+        g.setFont(new Font("Calibri", Font.BOLD, tailleFont));
+
         // Surbrillance des Joueurs
         if (this.getPartie().getNbCoups() % 2 == 0) {
             fenetre.getInterjeu().getTfJ1().setForeground(Color.GREEN);
@@ -71,13 +83,6 @@ public class AireDeJeu extends JComponent {
             fenetre.getInterjeu().getTfJ2().setForeground(Color.GREEN);
             fenetre.getInterjeu().getTfJ1().setForeground(Color.BLACK);
         }
-
-        Graphics2D drawable = (Graphics2D) g;
-        drawable.setStroke(new BasicStroke(2)); //épaisseur des lignes
-        int largeurAire = getParent().getSize().height - 23;
-
-        int tailleFont = largeurAire / 45;
-        g.setFont(new Font("Calibri", Font.BOLD, tailleFont));
 
         //thème du terrain
         try {
@@ -103,19 +108,23 @@ public class AireDeJeu extends JComponent {
         drawable.fillOval(4 * ligneSpace - (circleSize / 2), 12 * ligneSpace - (circleSize / 2), circleSize, circleSize);
         drawable.fillOval(12 * ligneSpace - (circleSize / 2), 12 * ligneSpace - (circleSize / 2), circleSize, circleSize);
         drawable.fillOval(8 * ligneSpace - (circleSize / 2), 8 * ligneSpace - (circleSize / 2), circleSize, circleSize);
-        
-    	// Nombre Coup Restant
-    	
-    	if (this.getPartie().getNbCoups() % 2 == 0) {
-    		drawable.drawString("J1 restant : "+ String.valueOf(60-this.getPartie().getNbCoups()/2) , 75, 100);
-    		drawable.drawString("J2 restant : "+ String.valueOf(60-this.getPartie().getNbCoups()/2) , 75, 200);
+
+        // Nombre Coup Restant
+        if (isCoupsRestants()) {
+            if (this.getPartie().getNbCoups() % 2 == 0) {
+                fenetre.getInterjeu().getCoupRestJ1().setText(String.valueOf(60 - this.getPartie().getNbCoups() / 2) + " coups restants");
+                fenetre.getInterjeu().getCoupRestJ2().setText(String.valueOf(60 - this.getPartie().getNbCoups() / 2) + " coups restants");
+            } else {
+                fenetre.getInterjeu().getCoupRestJ1().setText(String.valueOf(60 - (this.getPartie().getNbCoups() / 2) - 1) + " coups restants");
+                fenetre.getInterjeu().getCoupRestJ2().setText(String.valueOf(60 - this.getPartie().getNbCoups() / 2) + " coups restants");
+            }
         } else {
-        	drawable.drawString("J1 restant : "+ String.valueOf(60-(this.getPartie().getNbCoups()/2)-1) , 75, 100);
-    		drawable.drawString("J2 restant : "+ String.valueOf(60-this.getPartie().getNbCoups()/2) , 75, 200);
+            fenetre.getInterjeu().getCoupRestJ1().setText("");
+            fenetre.getInterjeu().getCoupRestJ2().setText("");
         }
 
         //trace numéro des cases
-        if (isNumCase()) {            
+        if (isNumCase()) {
             for (int i = 1; i < 16; i++) {
                 drawable.drawString(String.valueOf(i), ligneSpace / 5, largeurAire - i * ligneSpace);
                 drawable.drawString(Character.toString((char) (i + 64)), i * ligneSpace, largeurAire - ligneSpace / 5);
@@ -198,6 +207,33 @@ public class AireDeJeu extends JComponent {
                 }
                 // System.out.println(String.valueOf(partie.getNbCoups()));
             }
+
+        }
+
+        if (partie.isPartieFinie()) { //a compléter pour la fin
+            JDialog pop = new JDialog();
+            pop.setLayout(new GridLayout(3,1));
+            pop.setTitle("Fin de la partie");
+            JLabel txt = new JLabel();
+            if (partie.isJ1Win()) {
+                txt.setText(partie.getJoueur1().getNom() + " a gagné !");
+            } else if (partie.isJ2Win()) {
+                txt.setText(partie.getJoueur2().getNom() + " a gagné !");
+            } else {
+                txt.setText("Egalite");
+            }
+            pop.add(txt);
+            JButton reco = new JButton("Recommencer");
+            reco.addActionListener(new PopupsListener(pop, fenetre, 6));
+            pop.add(reco);
+            JButton aban = new JButton("Abandonner");
+            aban.addActionListener(new PopupsListener(pop, fenetre, 7));
+            pop.add(aban);
+            JDialog.setDefaultLookAndFeelDecorated(true);
+            pop.setSize(300, 150);
+            pop.setLocationRelativeTo(null);
+            pop.setVisible(true);
+
         }
     }
 
@@ -282,4 +318,19 @@ public class AireDeJeu extends JComponent {
     public void setHistorique(boolean historique) {
         this.historique = historique;
     }
+
+    /**
+     * @return the coupsRestants
+     */
+    public boolean isCoupsRestants() {
+        return coupsRestants;
+    }
+
+    /**
+     * @param coupsRestants the coupsRestants to set
+     */
+    public void setCoupsRestants(boolean coupsRestants) {
+        this.coupsRestants = coupsRestants;
+    }
+
 }
