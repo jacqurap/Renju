@@ -50,17 +50,11 @@ public class Ia3 extends Ia {
         }
 
         int valeurMax = listeCoupsValeur.get(0).valeur;
-        //System.out.println(valeurMax);
         int range = valeurMax;
-        //System.out.println(range);
         int i = 1;
         while (i < listeCoupsValeur.size() && listeCoupsValeur.get(i).valeur >= range) {
             i++;
         }
-		//for (ValeurCoup vc: listeCoupsValeur){
-        //    System.out.println(vc);
-        //}
-        //System.out.println(i);
         Random rand = new Random();
         if (i > 1) {
             return listeCoupsValeur.get(rand.nextInt(i - 1)).point;
@@ -97,7 +91,11 @@ public class Ia3 extends Ia {
             }
         }
         if (profondeur == 0) {
-            return fin;
+            if (!maximiser) {
+                return fin;
+            } else {
+                return -fin;
+            }
         }
         if (maximiser) {
             meilleur = Integer.MIN_VALUE;

@@ -14,6 +14,7 @@ import Modele.Humain;
 import Modele.Plateau;
 import java.util.*;
 import java.util.logging.*;
+import javax.swing.JLabel;
 
 /**
  * L'aire de jeu
@@ -27,6 +28,8 @@ public class AireDeJeu extends JComponent {
     private String nomJoueur2;
     private Fenetre fenetre;
     private String themePlateau;
+    private boolean numCase;
+    private boolean historique;
 
     /**
      * Creation de l'aire de jeu
@@ -38,6 +41,8 @@ public class AireDeJeu extends JComponent {
         this.nomJoueur2 = nomJ2;
         this.fenetre = f;
         this.themePlateau = "Bois";
+        this.numCase = true;
+        this.historique = true;
 
         partie = new Partie(J1, nomJ1, J2, nomJ2);
         if (this.partie.isIa1() || this.partie.isIa2()) {
@@ -68,16 +73,19 @@ public class AireDeJeu extends JComponent {
     	
         // Surbrillance des Joueurs
         if (this.getPartie().getNbCoups() % 2 == 0) {
-            fenetre.getInterjeu().getTfJ1().setForeground(Color.RED);
-            fenetre.getInterjeu().getTfJ2().setForeground(Color.BLACK); //.setForeground(Color.RED);
+            fenetre.getInterjeu().getTfJ1().setForeground(Color.GREEN);
+            fenetre.getInterjeu().getTfJ2().setForeground(Color.BLACK);
         } else {
-            fenetre.getInterjeu().getTfJ2().setForeground(Color.RED);
+            fenetre.getInterjeu().getTfJ2().setForeground(Color.GREEN);
             fenetre.getInterjeu().getTfJ1().setForeground(Color.BLACK);
         }
 
         Graphics2D drawable = (Graphics2D) g;
         drawable.setStroke(new BasicStroke(2)); //épaisseur des lignes
         int largeurAire = getParent().getSize().height - 23;
+
+        int tailleFont = largeurAire / 45;
+        g.setFont(new Font("Calibri", Font.BOLD, tailleFont));
 
         //thème du terrain
         try {
@@ -114,36 +122,55 @@ public class AireDeJeu extends JComponent {
     		drawable.drawString("J2 restant : "+ String.valueOf(60-this.getPartie().getNbCoups()/2) , 75, 200);
         }
 
+        //trace numéro des cases
+        if (isNumCase()) {            
+            for (int i = 1; i < 16; i++) {
+                drawable.drawString(String.valueOf(i), ligneSpace / 5, largeurAire - i * ligneSpace);
+                drawable.drawString(Character.toString((char) (i + 64)), i * ligneSpace, largeurAire - ligneSpace / 5);
+            }
+        }
+
         //positionne les pierres
         drawable.setStroke(new BasicStroke(1)); //épaisseur du contour des pierres blanches
         int pierreRayon = (int) ((double) ligneSpace / (double) 1.5);
         int decalPierre = pierreRayon / 2;
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 15; j++) {
+                //décalage pour numéro de coup
+                int taille = partie.getPlateau().getNumero(i, j);
+                if (taille < 10) {
+                    taille = 1;
+                } else if (taille < 100) {
+                    taille = 2;
+                } else {
+                    taille = 3;
+                }
+
                 if (partie.getPlateau().getCase(i, j) == Plateau.CASEBLANCHE) {
                     drawable.setColor(Color.white);
                     drawable.fillOval((i + 1) * ligneSpace - decalPierre, (j + 1) * ligneSpace - decalPierre, pierreRayon, pierreRayon);
-
-                    if (partie.getPlateau().getNumero(i, j) == partie.getNbCoups()) {
-                        drawable.setColor(Color.RED);
-                        drawable.drawString(String.valueOf((partie.getPlateau().getNumero(i, j))), (i + 1) * ligneSpace, (j + 1) * ligneSpace);
-                    } else {
-                        drawable.setColor(Color.BLACK);
-                        drawable.drawString(String.valueOf((partie.getPlateau().getNumero(i, j))), (i + 1) * ligneSpace, (j + 1) * ligneSpace);
+                    if (historique) {
+                        if (partie.getPlateau().getNumero(i, j) == partie.getNbCoups()) {
+                            drawable.setColor(Color.RED);
+                            drawable.drawString(String.valueOf((partie.getPlateau().getNumero(i, j))), (i + 1) * ligneSpace - (tailleFont / 4) * taille, (j + 1) * ligneSpace + (tailleFont / 4));
+                        } else {
+                            drawable.setColor(Color.BLACK);
+                            drawable.drawString(String.valueOf((partie.getPlateau().getNumero(i, j))), (i + 1) * ligneSpace - (tailleFont / 4) * taille, (j + 1) * ligneSpace + (tailleFont / 4));
+                        }
                     }
-
                     drawable.setColor(Color.BLACK);
                     drawable.drawOval((i + 1) * ligneSpace - decalPierre, (j + 1) * ligneSpace - decalPierre, pierreRayon, pierreRayon);
                 } else if (partie.getPlateau().getCase(i, j) == Plateau.CASENOIRE) {
                     drawable.setColor(Color.BLACK);
                     drawable.fillOval((i + 1) * ligneSpace - decalPierre, (j + 1) * ligneSpace - decalPierre, pierreRayon, pierreRayon);
-
-                    if (partie.getPlateau().getNumero(i, j) == partie.getNbCoups()) {
-                        drawable.setColor(Color.RED);
-                        drawable.drawString(String.valueOf((partie.getPlateau().getNumero(i, j))), (i + 1) * ligneSpace, (j + 1) * ligneSpace);
-                    } else {
-                        drawable.setColor(Color.WHITE);
-                        drawable.drawString(String.valueOf((partie.getPlateau().getNumero(i, j))), (i + 1) * ligneSpace, (j + 1) * ligneSpace);
+                    if (historique) {
+                        if (partie.getPlateau().getNumero(i, j) == partie.getNbCoups()) {
+                            drawable.setColor(Color.RED);
+                            drawable.drawString(String.valueOf((partie.getPlateau().getNumero(i, j))), (i + 1) * ligneSpace - (tailleFont / 4) * taille, (j + 1) * ligneSpace + (tailleFont / 4));
+                        } else {
+                            drawable.setColor(Color.WHITE);
+                            drawable.drawString(String.valueOf((partie.getPlateau().getNumero(i, j))), (i + 1) * ligneSpace - (tailleFont / 4) * taille, (j + 1) * ligneSpace + (tailleFont / 4));
+                        }
                     }
 
                 }
@@ -204,5 +231,33 @@ public class AireDeJeu extends JComponent {
      */
     public void setThemePlateau(String themePlateau) {
         this.themePlateau = themePlateau;
+    }
+
+    /**
+     * @return the numCase
+     */
+    public boolean isNumCase() {
+        return numCase;
+    }
+
+    /**
+     * @param numCase the numCase to set
+     */
+    public void setNumCase(boolean numCase) {
+        this.numCase = numCase;
+    }
+
+    /**
+     * @return the historique
+     */
+    public boolean isHistorique() {
+        return historique;
+    }
+
+    /**
+     * @param historique the historique to set
+     */
+    public void setHistorique(boolean historique) {
+        this.historique = historique;
     }
 }

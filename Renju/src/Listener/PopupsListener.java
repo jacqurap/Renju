@@ -62,18 +62,20 @@ public class PopupsListener implements ActionListener {
 
             case 3:
                 if (!jcomp.isEnabled()) {
-                    fpop.setSaveNum(Character.getNumericValue(((JRadioButton) e.getSource()).getText().charAt(0)));
+                    System.out.println("NUMERO : " + fpop.getSaveNum());
                     jcomp.setEnabled(true);
                 }
                 break;
 
             case 4:
                 jcomp.setVisible(true);
+                fpop.setSaveNum(Character.getNumericValue(((JRadioButton) e.getSource()).getText().charAt(0)));
                 fpop.setErase(true);
                 break;
 
             case 5:
                 jcomp.setVisible(false);
+                fpop.setSaveNum(Character.getNumericValue(((JRadioButton) e.getSource()).getText().charAt(0)));
                 fpop.setErase(false);
                 break;
 
@@ -92,8 +94,12 @@ public class PopupsListener implements ActionListener {
                 break;
 
             case 8:
-                popup.dispose();
                 fpop.Sauvegarder(fpop.getPart());
+                ((JDialog)jcomp).dispose();
+                break;
+
+            case 9:
+                fpop.setSaveNum(Character.getNumericValue(((JRadioButton) e.getSource()).getText().charAt(0)));
                 break;
 
             default:
