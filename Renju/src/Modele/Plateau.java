@@ -6,7 +6,6 @@
 package Modele;
 
 import java.io.Serializable;
-import java.util.Random;
 
 /**
  * Le plateau
@@ -26,7 +25,6 @@ public class Plateau implements Serializable {
     private int[][] grille;
     private int[][] numerocoup;
 
-    public int rand;
 
     /**
      * Creation d'un plateau
@@ -39,8 +37,6 @@ public class Plateau implements Serializable {
         this.dimY = y;
         this.grille = new int[x][y];
         this.numerocoup = new int[x][y];
-        Random r = new Random(System.currentTimeMillis());
-        rand = r.nextInt();
     }
 
     /**
@@ -142,7 +138,6 @@ public class Plateau implements Serializable {
                 newPlateau.setNumero(i, j, numerocoup[i][j]);
             }
         }
-        System.out.println("this.rand = " + this.rand + " \t newrand = " + newPlateau.rand);
         return newPlateau;
     }
 

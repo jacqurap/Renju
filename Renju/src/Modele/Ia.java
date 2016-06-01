@@ -64,6 +64,10 @@ public abstract class Ia extends Joueur {
         }
         return liste;
     }
+    
+    public void MAJcoupsPertinents(Plateau p, int nbCoups, Point p1, Point p2){
+        
+    }
 
     /**
      * Evalue le coup a jouer
