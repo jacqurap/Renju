@@ -159,7 +159,7 @@ public class Popups {
 
         JDialog.setDefaultLookAndFeelDecorated(true);
 
-        popQuitterMenu.setSize(500, 200);
+        
         popQuitterMenu.setLocationRelativeTo(null);
         popQuitterMenu.add(pane);
         pane.setLayout(new BorderLayout());
@@ -189,7 +189,7 @@ public class Popups {
         addButton(btnAnnuler, paneboutons, popQuitterMenu);
         paneboutons.add(Box.createHorizontalGlue());
         pane.add(paneboutons, BorderLayout.CENTER);
-
+        popQuitterMenu.pack();
         popQuitterMenu.setVisible(true);
     }
 
