@@ -49,6 +49,7 @@ public class Popups {
     int index;
     boolean erase = false;
     public String SavePath;
+    public static Color fond = new Color(56, 137, 129);
 
     public Popups(Fenetre f) {
         this.f = f;
@@ -57,7 +58,7 @@ public class Popups {
     public void popRegles() {
 
         final JDialog popRegle = new JDialog();
-        JPanel panel = new JPanel() {
+        JPanel panel = new JPanel() /*{
             protected void paintComponent(Graphics g) {
                 Dimension d = getParent().getSize();
                 try {
@@ -69,7 +70,8 @@ public class Popups {
                     g.fillRect(0, 0, d.width, d.height);
                 }
             }
-        };
+        }*/;
+        panel.setBackground(fond);
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         JTextArea text = new JTextArea();
         text.setOpaque(false);
