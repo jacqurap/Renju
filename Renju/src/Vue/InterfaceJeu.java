@@ -115,7 +115,7 @@ public class InterfaceJeu extends JPanel {
         menu_param.addSeparator();
 
         // Liste de options d'affichage
-        JCheckBoxMenuItem cbHist = new JCheckBoxMenuItem("Historique");
+        JCheckBoxMenuItem cbHist = new JCheckBoxMenuItem("Numéro des coups");
         cbHist.setSelected(true);
         cbHist.addActionListener(new InterfaceJeuListener(7, this, cbHist));
         menu_param.add(cbHist);
