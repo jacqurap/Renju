@@ -89,5 +89,11 @@
 -- Mardi 31 Mai
 
 - IHM : Mise en place du design de l'application
-- IA : Mise en place des tabou
+- IA : Mise en place des tabous
 - Fonctionnalité : Mise en place des animations, de l'historique
+
+-- Mercredi 1 Juin
+
+- IHM : Réorganiation de l'interface + ajout d'élements graphiques, début animation
+- IA : Optimisation IA, tabous
+- Fonctionnalité : Modification de la sauvegarde, correction chargement de partie, ajout nombre de coups, ajout premiers coups à jouer
