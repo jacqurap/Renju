@@ -120,6 +120,7 @@ public class InterfaceJeu extends JPanel {
         aideJeu.addActionListener(new InterfaceJeuListener(popup, 5));
         menu_aide.add(aideJeu);
         JMenuItem aPropos = new JMenuItem("A propos");
+        aPropos.addActionListener(new InterfaceJeuListener(popup, 10));
         menu_aide.add(aPropos);
 
         JMenuBar barre = new JMenuBar();
