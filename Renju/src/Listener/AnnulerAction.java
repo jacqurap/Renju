@@ -41,8 +41,9 @@ public class AnnulerAction implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        Point point;
         if (!aire.getPartie().isTourIa() && (!aire.getPartie().isIa1() || aire.getPartie().getNbCoups() > 1)) {
-            Point point = aire.getPartie().getAnnuler().pop();
+            point = aire.getPartie().getAnnuler().pop();
             aire.getPartie().getRefaire().push(point);
             aire.getPartie().getPlateau().setCase(point.x, point.y, Plateau.CASEVIDE);
             aire.getPartie().decNbCoups();
@@ -72,15 +73,29 @@ public class AnnulerAction implements ActionListener {
                     annu.setEnabled(false);
                 }
             }
-            if (aire.getPartie().isIa1() && aire.getPartie().getNbCoups() % 2 == 0) {
+            /*if (aire.getPartie().isIa1() && aire.getPartie().getNbCoups() % 2 == 0) {
                 aire.getPartie().setTouria(true);
             }
             if (aire.getPartie().isIa2() && aire.getPartie().getNbCoups() % 2 == 1) {
                 aire.getPartie().setTouria(true);
+            }*/
+        } else if (aire.getPartie().isPartieFinie() && aire.getPartie().isTourIa()) {
+            point = aire.getPartie().getAnnuler().pop();
+            aire.getPartie().getRefaire().push(point);
+            aire.getPartie().getPlateau().setCase(point.x, point.y, Plateau.CASEVIDE);
+            aire.getPartie().decNbCoups();
+            aire.getPartie().setPartieFinie(false);
+            aire.getPartie().setJ1Win(false);
+            aire.getPartie().setJ2Win(false);
+            getBtnRefaire().setEnabled(true);
+            ref.setEnabled(true);
+            if (aire.getPartie().getAnnuler().empty()) {
+                getBtnAnnuler().setEnabled(false);
+                annu.setEnabled(false);
             }
-            aire.repaint();
+            aire.getPartie().setTouria(false);
         }
-
+        aire.repaint();
     }
 
     /**

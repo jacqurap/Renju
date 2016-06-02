@@ -55,22 +55,22 @@ public class RefaireAction implements ActionListener {
             getBtnRefaire().setEnabled(false);
             ref.setEnabled(false);
         }
-        if (aire.getPartie().isIa1() || aire.getPartie().isIa2()) {
-        	 Point point2 = aire.getPartie().getRefaire().pop();
-             aire.getPartie().getAnnuler().push(point2);
-             if (aire.getPartie().getNbCoups() % 2 == 0) {
-                 aire.getPartie().getPlateau().setCase(point2.x, point2.y, Plateau.CASENOIRE);
-             } else {
-                 aire.getPartie().getPlateau().setCase(point2.x, point2.y, Plateau.CASEBLANCHE);
-             }
-             aire.getPartie().partieFini(point2);
-             aire.getPartie().incNbCoups();
-             getBtnAnnuler().setEnabled(true);
-             annu.setEnabled(true);
-             if (aire.getPartie().getRefaire().empty()) {
-                 getBtnRefaire().setEnabled(false);
-                 ref.setEnabled(false);
-        }
+        if (!aire.getPartie().isPartieFinie() && (aire.getPartie().isIa1() || aire.getPartie().isIa2())) {
+            Point point2 = aire.getPartie().getRefaire().pop();
+            aire.getPartie().getAnnuler().push(point2);
+            if (aire.getPartie().getNbCoups() % 2 == 0) {
+                aire.getPartie().getPlateau().setCase(point2.x, point2.y, Plateau.CASENOIRE);
+            } else {
+                aire.getPartie().getPlateau().setCase(point2.x, point2.y, Plateau.CASEBLANCHE);
+            }
+            aire.getPartie().partieFini(point2);
+            aire.getPartie().incNbCoups();
+            getBtnAnnuler().setEnabled(true);
+            annu.setEnabled(true);
+            if (aire.getPartie().getRefaire().empty()) {
+                getBtnRefaire().setEnabled(false);
+                ref.setEnabled(false);
+            }
         }
         aire.repaint();
     }
