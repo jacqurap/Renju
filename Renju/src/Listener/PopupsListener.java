@@ -54,15 +54,20 @@ public class PopupsListener implements ActionListener {
 
             case 2:
                 fenetre.getAire().setPartie(fpop.Charger());
-                
+
             	// Annuler / Refaire après chargement de la partie
-            	
-            	if(!fenetre.getAire().getPartie().getAnnuler().isEmpty()){
-            		InterfaceJeu.getButAnnuler().setEnabled(true);
-            	}
-            	if(!fenetre.getAire().getPartie().getRefaire().isEmpty()){
-            		InterfaceJeu.getButRefaire().setEnabled(true);
-            	}
+                if (!fenetre.getAire().getPartie().getAnnuler().isEmpty()) {
+                    InterfaceJeu.getButAnnuler().setEnabled(true);
+                } else {
+                    InterfaceJeu.getButAnnuler().setEnabled(false);
+
+                }
+                if (!fenetre.getAire().getPartie().getRefaire().isEmpty()) {
+                    InterfaceJeu.getButRefaire().setEnabled(true);
+                } else {
+                    InterfaceJeu.getButRefaire().setEnabled(false);
+
+                }
                 fenetre.getInterjeu().getTfJ1().setText(fenetre.getAire().getPartie().getJoueur1().getNom());
                 fenetre.getInterjeu().getTfJ2().setText(fenetre.getAire().getPartie().getJoueur2().getNom());
                 fenetre.getAire().repaint();
@@ -106,7 +111,7 @@ public class PopupsListener implements ActionListener {
 
             case 8:
                 fpop.Sauvegarder(fpop.getPart());
-                ((JDialog)jcomp).dispose();
+                ((JDialog) jcomp).dispose();
                 break;
 
             case 9:

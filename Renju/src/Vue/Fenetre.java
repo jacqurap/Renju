@@ -41,6 +41,9 @@ public class Fenetre {
     }
 
     public void changePanel(String panelName) {
+        if(panelName == CHARPARTIEPANEL){
+            //RefreshSaves();
+        }
         CardLayout cl = (CardLayout) (getCards().getLayout());
         cl.show(getCards(), panelName);
     }

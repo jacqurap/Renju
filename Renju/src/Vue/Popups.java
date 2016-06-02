@@ -390,6 +390,9 @@ public class Popups {
         if (SaveNum >= 0 && SaveNum < 9) {
             System.out.println("index ok");
             try {
+                if (erase) {
+                    slot[SaveNum - 1].delete();
+                }
                 System.out.println("Try start");
                 //File f = new File(i + "." + p.getJoueur1().getNom() + "-vs-" + p.getJoueur2().getNom() + ".ser");
                 SaveName = (SaveNum - 1 + "-" + SaveName + ".ser");
@@ -403,9 +406,6 @@ public class Popups {
                 //slot[i] =  fichier;
                 SaveName = "Sauvegarde";
                 System.out.println("Save Done" + SaveNum);
-                if (erase) {
-                    slot[SaveNum - 1].delete();
-                }
                 SaveNum = 20;
             } catch (IOException | NullPointerException e) {
                 System.out.println("Erreur lors de la sauvegarde du fichier");
@@ -425,8 +425,11 @@ public class Popups {
             try {
                 System.out.println(slot[SaveNum - 1]);
                 FileInputStream fis = new FileInputStream(slot[SaveNum - 1]);
+                System.out.println("recu");
                 ObjectInputStream ois = new ObjectInputStream(fis);
+                System.out.println("recu");
                 Object p = ois.readObject();
+                System.out.println("recu");
                 ois.close();
                 if (p instanceof Partie) {
                     SaveNum = 20;
