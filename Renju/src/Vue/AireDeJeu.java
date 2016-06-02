@@ -34,6 +34,7 @@ public class AireDeJeu extends JComponent {
     private boolean numCase;
     private boolean historique;
     private boolean coupsRestants;
+    public static Color Rose = new Color(255, 0, 255);
 
     /**
      * Creation de l'aire de jeu
@@ -137,7 +138,7 @@ public class AireDeJeu extends JComponent {
         int pierreRayon = (int) ((double) ligneSpace / (double) 1.5);
         int decalPierre = pierreRayon / 2;
         
-        drawable.setColor(Color.CYAN);
+        drawable.setColor(Rose);
         
         if(partie.getNbCoups()==0){
         	// Centre
