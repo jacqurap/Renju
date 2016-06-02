@@ -77,6 +77,7 @@ public class InterfaceJeuListener implements ActionListener {
                 interjeu.getAire().setCoupsRestants(cb.isSelected());
                 interjeu.getAire().repaint();
                 break;
+            case 10 : popup.popAPropos();
             default:;
         }
 

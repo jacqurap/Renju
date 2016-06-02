@@ -192,6 +192,72 @@ public class Popups {
         popQuitterMenu.pack();
         popQuitterMenu.setVisible(true);
     }
+    
+    public void popAPropos() {
+
+        final JDialog popAPropos = new JDialog();
+        JPanel panelap = new JPanel() {
+            protected void paintComponent(Graphics g) {
+                Dimension d = getParent().getSize();
+                try {
+                    BufferedImage img = ImageIO.read(new File("src/Ressources/fondpop.jpg"));
+                    g.drawImage(img, 0, 0, d.width, d.height, null);
+                } catch (IOException ex) {
+                    Logger.getLogger(AireDeJeu.class.getName()).log(Level.SEVERE, null, ex);
+                    g.setColor(Color.BLUE);
+                    g.fillRect(0, 0, d.width, d.height);
+                }
+            }
+        };
+        panelap.setLayout(new BoxLayout(panelap, BoxLayout.Y_AXIS));
+        JTextArea text = new JTextArea();
+        text.setOpaque(false);
+        text.setForeground(Color.white);
+        text.setFont(new Font("Calibri", Font.BOLD, 15));
+        JScrollPane scrollPane = new JScrollPane(panelap,
+                ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        panelap.add(text);
+        popAPropos.add(scrollPane);
+        JDialog.setDefaultLookAndFeelDecorated(true);
+        popAPropos.setTitle("A Propos");
+
+        text.setText(
+        		"Dans le cadre du projet de fin d'année au semestre 6 à l'IM²AG\n"
+                + "Licence 3 Informatique\n"
+                + "\n"
+        		+"Ce logiciel a été construit par le groupe 4 (Renju) :\n"
+                + "\n"
+                + "Mathieu BOCHATON\n"
+                + "Guillaume CHAPUT\n"
+                + "Clément HERESAZ\n"
+                + "Raphaël JACQUET\n"
+                + "Julien NAVAILS\n"
+                + "Benjamin ROHAUT\n"
+                + "\n"
+                + "Merci à tous les professeurs pour leur accompagnement et leurs conseils.\n"
+                + "\n"
+                + "© 2016 Groupe 4, IM²AG, Université Grenoble Alpes \n"
+                );
+
+        text.setEditable(false);
+        text.setSelectionColor(Color.green);
+        
+
+        JButton btnRetour = new JButton("Retour");
+        btnRetour.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	popAPropos.dispose();
+            }
+        }
+        );
+        panelap.add(btnRetour);
+        popAPropos.pack();
+        popAPropos.setLocationRelativeTo(null);
+        popAPropos.setVisible(true);
+    }
 
     public void popCharger(Partie partie) {
         Sauvegarde();
@@ -329,7 +395,7 @@ public class Popups {
 
     public void popAbandonner() {
         JDialog popAbandonner = new JDialog();
-        popAbandonner.setTitle("Abandonner");
+        popAbandonner.setTitle("Retourner au menu");
 
         JDialog.setDefaultLookAndFeelDecorated(true);
 
@@ -338,10 +404,10 @@ public class Popups {
         popAbandonner.setLocationRelativeTo(null);
         popAbandonner.setLayout(new FlowLayout());
 
-        JLabel warning = new JLabel("Attention : la partie sera perdue si elle n'est pas sauvegardée! Voulez-vous vraiment abandonner la partie en cours, et retourner au menu principale ?");
+        JLabel warning = new JLabel("Attention : la partie sera perdue si elle n'est pas sauvegardée! Voulez-vous vraiment quitter la partie en cours, et retourner au menu principale ?");
         popAbandonner.add(warning);
 
-        JButton btnAbandonner = new JButton("Abandonner");
+        JButton btnAbandonner = new JButton("Retourner au menu");
         btnAbandonner.addActionListener(new PopupsListener(popAbandonner, f, 7));
         popAbandonner.add(btnAbandonner);
 
