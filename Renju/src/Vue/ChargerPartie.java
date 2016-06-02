@@ -19,27 +19,39 @@ import java.awt.event.ActionListener;
  */
 public class ChargerPartie extends JPanel {
 
+    ButtonGroup grpPartie = new ButtonGroup();
+    Fenetre fenetre;
+
     public ChargerPartie(Fenetre f) {
+        this.fenetre = f;
+        RefreshSaves();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-        JButton btnCharger = new JButton("Charger");
-        btnCharger.addActionListener(new ChargerPartieListener(f));
-        btnCharger.setEnabled(false);
-
-        ButtonGroup grpPartie = new ButtonGroup();
-        for (int i = 1; i <= 10; i++) {
-            String val = String.valueOf(i);
-            JRadioButton rb = new JRadioButton("Slot " + val);
-            rb.addActionListener(new SlotChargerListener(btnCharger));
-            grpPartie.add(rb);
-            this.add(rb);
-        }
-
-        this.add(btnCharger);
 
         JButton btnAnnuler = new JButton("Annuler");
         btnAnnuler.addActionListener(new AnnulerVersAccueilListener(f));
         this.add(btnAnnuler);
+
+    }
+
+    public void RefreshSaves() {
+        //maj donnees sauvegardes
+        final Popups pop = new Popups(fenetre);
+        pop.Sauvegarde();
+        int vide = 0;
+        for (int i = 1; i < 10; i++) {
+            if (pop.getSlot()[i - 1] != null) {
+                String val = (pop.getSlot()[i - 1].toString().substring(pop.getSavePath().length() + 2, (int) pop.getSlot()[i - 1].toString().length() - 4));
+                JButton rb = new JButton(val);
+                rb.addActionListener(new ChargerPartieListener(fenetre, i));
+                grpPartie.add(rb);
+                this.add(rb);
+                vide++;
+            }
+        }
+        if (vide == 0) {
+            JLabel warning = new JLabel("Aucune sauvegarde disponible");
+            this.add(warning);
+        }
 
     }
 }

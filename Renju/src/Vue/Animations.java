@@ -18,24 +18,23 @@ import javax.swing.JPanel;
  * @author rohautb
  */
 public class Animations {
-    long timer = 250; //temps en ms entre l'affichage de 2 lettres
-    String message = "Victoire"; //eébut ou fin du message a afficher
-    public JPanel pan;
+    long timer = 30; //temps en ms entre l'affichage de 2 lettres
     ImageIcon icon = new ImageIcon("/home/r/rohautb/TestAnimation/loading.gif");
     JLabel copyLabel = new JLabel(icon);
     /**
      * @param pan = panneau où s'affichera le message
-     * @param name = pseudo du joueur victorieux
+     * @param message = message a afficher
      */
-    public void win(JPanel pan, String name){
-        Font font = new Font("Courrier New", Font.PLAIN, 40);
+    public void win(JPanel pan, String message){
+        Font font = new Font("Calibri", Font.BOLD, 40);
         JLabel game = new JLabel("", JLabel.CENTER);
+        pan.setOpaque(false);
         String gj;
-        gj = (message + '\n' + name);
-        game.setForeground(Color.BLUE);
+        gj = message;
+        game.setForeground(Color.WHITE);
         game.setFont(font);
         pan.add(game);
-        for (int i = 1; i <= gj.length(); i++){
+        for (int i = 0; i <= gj.length(); i++){
                 game.setText(gj.substring(0,i));
                 pan.repaint();
                 try {
@@ -46,8 +45,7 @@ public class Animations {
         }
     }
     
-    public void loading(JPanel p){
-        this.pan = p;
+    public void loading(final JPanel pan){
         pan.add(copyLabel);
 	pan.addMouseMotionListener(new MouseMotionAdapter() {
 		public void mouseMoved(MouseEvent me){
