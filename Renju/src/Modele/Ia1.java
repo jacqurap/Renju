@@ -22,18 +22,12 @@ public class Ia1 extends Ia{
 	 * @param nom le nom de l'IA
 	 */
 	
-    public Ia1(String nom){
+    public Ia1(String nom) {
         super(nom);
-    }
-    
-    @Override
-    public Point solver(Partie partie){
-        ArrayList<Point> listCoupsPertinents = this.coupsPertinents(partie.getPlateau(),partie.getNbCoups());
-        Random rand = new Random();
-        System.out.println(listCoupsPertinents.size());
-        if(listCoupsPertinents.size()==1){
-        	return listCoupsPertinents.get(0);
+        this.profondeur = 2;
+        listeDeListe = (ArrayList<Point>[]) new ArrayList[profondeur];
+        for (int i = 0; i < profondeur; i++) {
+            listeDeListe[i] = new ArrayList<Point>(225);
         }
-    	return listCoupsPertinents.get(rand.nextInt(listCoupsPertinents.size()-1));
     }
 }

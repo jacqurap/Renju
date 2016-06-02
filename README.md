@@ -45,9 +45,9 @@ Fonctionnalités
 > IA
 
 - [x]  Faire le Minimax
-- [ ] Ajouter les tabous
+- [x] Ajouter les tabous
 - [ ] Tester les autres IA
-- [ ] Faire le IA vs IA
+- [x] Faire le IA vs IA
 - [ ] Rapport IA
 
 
@@ -58,9 +58,9 @@ Fonctionnalités
 - [ ] Mettre en place les animations diverses (victoire/ défaite ...)
 - [ ] Revoir le code
 - [x] Sauvegarder / Charger
-- [ ] Problème Annuler / Refaire au Chargement de partie
+- [x] Problème Annuler / Refaire au Chargement de partie
 - [x] Subrillance joueurs
-- [ ] Historique
+- [x] Historique
 
 
 ### Prochains Rendez-vous

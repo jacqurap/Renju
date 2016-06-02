@@ -395,7 +395,7 @@ public class Popups {
 
     public void popAbandonner() {
         JDialog popAbandonner = new JDialog();
-        popAbandonner.setTitle("Abandonner");
+        popAbandonner.setTitle("Retourner au menu");
 
         JDialog.setDefaultLookAndFeelDecorated(true);
 
@@ -404,10 +404,10 @@ public class Popups {
         popAbandonner.setLocationRelativeTo(null);
         popAbandonner.setLayout(new FlowLayout());
 
-        JLabel warning = new JLabel("Attention : la partie sera perdue si elle n'est pas sauvegardée! Voulez-vous vraiment abandonner la partie en cours, et retourner au menu principale ?");
+        JLabel warning = new JLabel("Attention : la partie sera perdue si elle n'est pas sauvegardée! Voulez-vous vraiment quitter la partie en cours, et retourner au menu principale ?");
         popAbandonner.add(warning);
 
-        JButton btnAbandonner = new JButton("Abandonner");
+        JButton btnAbandonner = new JButton("Retourner au menu");
         btnAbandonner.addActionListener(new PopupsListener(popAbandonner, f, 7));
         popAbandonner.add(btnAbandonner);
 
