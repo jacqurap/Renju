@@ -241,7 +241,7 @@ public class AireDeJeu extends JComponent {
             reco.addActionListener(new PopupsListener(pop, fenetre, 6));
             addButton(reco,paneButtons,pop);
             paneButtons.add(Box.createRigidArea(new Dimension(30,0)));
-            JButton aban = new JButton("Abandonner");
+            JButton aban = new JButton("Retourner au menu");
             aban.addActionListener(new PopupsListener(pop, fenetre, 7));
             addButton(aban,paneButtons,pop);
             paneButtons.add(Box.createHorizontalGlue());
