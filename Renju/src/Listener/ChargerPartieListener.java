@@ -10,11 +10,15 @@ import javax.swing.JFrame;
 
 import Controleur.Partie;
 import Vue.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class ChargerPartieListener implements ActionListener {
@@ -42,7 +46,7 @@ public class ChargerPartieListener implements ActionListener {
         //affichage du panel interface de jeu
         f.changePanel(f.getINTERFACEPANEL());
         f.getAire().setPartie(pop.Charger());
-        
+
         //lancement thread de l'ia
         if (f.getAire().getPartie().isIa1() || f.getAire().getPartie().isIa2()) {
             Timer t = new Timer();
@@ -50,8 +54,10 @@ public class ChargerPartieListener implements ActionListener {
                 @Override
                 public void run() {
                     if (!f.getAire().getPartie().isPartieFinie() && f.getAire().getPartie().isTourIa()) {
+                        f.getInterjeu().Loading(true);
                         f.getAire().getPartie().joueIa();
                         f.getAire().repaint();
+                        f.getInterjeu().Loading(false);
                     }
                 }
             };
@@ -100,4 +106,16 @@ public class ChargerPartieListener implements ActionListener {
     public void setF(Fenetre f) {
         this.f = f;
     }
+
+  /**  public void loading(final AireDeJeu pan) {
+        pan.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent me) {
+                pan.add(copyLabel);
+                copyLabel.setLocation(me.getX(), me.getY());
+                pan.repaint();
+                pan.remove(copyLabel);
+            }
+        });
+    }*/
 }
