@@ -61,8 +61,10 @@ public class AireDeJeu extends JComponent {
                 @Override
                 public void run() {
                     if (!partie.isPartieFinie() && partie.isTourIa()) {
+                        fenetre.getInterjeu().Loading(true);
                         partie.joueIa();
                         repaint();
+                        fenetre.getInterjeu().Loading(false);
                     }
                 }
             };
@@ -232,7 +234,6 @@ public class AireDeJeu extends JComponent {
             panePop.setLayout(new GridLayout(2, 1));
             pop.setTitle("Fin de la partie");
             final JPanel paneAni = new JPanel();
-            final Animations ani = new Animations();
             panePop.add(paneAni);
             JPanel paneButtons = new JPanel();
             paneButtons.setOpaque(false);
@@ -256,11 +257,11 @@ public class AireDeJeu extends JComponent {
             Thread th = new Thread(new Runnable() {
                 public void run() {
                     if (partie.isJ1Win()) {
-                        ani.win(paneAni, "Victoire de " + partie.getJoueur1().getNom() + " !");
+                        win(paneAni, "Victoire de " + partie.getJoueur1().getNom() + " !");
                     } else if (partie.isJ2Win()) {
-                        ani.win(paneAni, "Victoire de " + partie.getJoueur2().getNom() + " !");
+                        win(paneAni, "Victoire de " + partie.getJoueur2().getNom() + " !");
                     } else {
-                        ani.win(paneAni, "Egalite !");
+                        win(paneAni, "Egalite !");
                     }
                 }
             });
@@ -290,7 +291,31 @@ public class AireDeJeu extends JComponent {
         });
         comp.add(button);
     }
-
+        
+    /**
+     * animation de victoire
+     *
+     */
+    public void win(JPanel pan, String message) {
+        Font font = new Font("Calibri", Font.BOLD, 40);
+        JLabel game = new JLabel("", JLabel.CENTER);
+        pan.setOpaque(false);
+        String gj;
+        gj = message;
+        game.setForeground(Color.WHITE);
+        game.setFont(font);
+        pan.add(game);
+        for (int i = 0; i <= gj.length(); i++) {
+            game.setText(gj.substring(0, i));
+            pan.repaint();
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+        
     public Partie getPartie() {
         return this.partie;
     }

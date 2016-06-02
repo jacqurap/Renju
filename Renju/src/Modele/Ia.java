@@ -45,7 +45,6 @@ public abstract class Ia extends Joueur {
     }
     
     public void coupsPertinents(Plateau p, int nbCoups, ArrayList<Point> liste) {
-        //System.out.println("sqdgfssds<dfsqqqz");
         if (nbCoups == 0) {
             liste.add(new Point(7, 7));
         } else if (nbCoups == 1) {
@@ -83,7 +82,6 @@ public abstract class Ia extends Joueur {
      * @param couleur la couleur de la pierre
      * @return valeur, le poids du coup a jouer
      */
-    //Fonction a modifier
     public static int evaluationCoup(Plateau plateau, Point point, int couleur) {
         int i;
         int valeur;
@@ -319,7 +317,6 @@ public abstract class Ia extends Joueur {
                         
                         tmp = evaluationCoup(plateau, p, Plateau.CASENOIRE);
                         if(tmp == Integer.MAX_VALUE){
-                           // System.out.println("-----------");
                             if(couleur == Plateau.CASENOIRE)
                                 return tmp;
                             else
@@ -350,7 +347,6 @@ public abstract class Ia extends Joueur {
                 }
             }
         }
-        //System.out.println("-------  " + valeur);
         return valeur;
     }
 
@@ -378,9 +374,6 @@ public abstract class Ia extends Joueur {
         }
         Collections.sort(listeCoupsValeur);
         Collections.reverse(listeCoupsValeur);
-        for (int i = 0; i < listeCoupsValeur.size(); i++) {
-            System.out.println(listeCoupsValeur.get(i).point + "  " + listeCoupsValeur.get(i).valeur);
-        }
 
         int valeurMax = listeCoupsValeur.get(0).valeur;
         int range = valeurMax;

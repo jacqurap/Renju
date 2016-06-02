@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,12 +32,24 @@ public class InterfaceJeu extends JPanel {
     private JLabel coupRestJ1;
     private JLabel coupRestJ2;
     private JPanel paneJoueurs;
+    private JLabel copyLabel;
 
     public InterfaceJeu(Fenetre f, AireDeJeu aire) {
         this.aire = aire;
         this.setLayout(new BorderLayout());
         final Popups popup = new Popups(f);
 
+        //animation charement du coup
+        try{
+            String path = InterfaceJeu.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+            String decodedPath = URLDecoder.decode(path, "UTF-8");
+            String LoadPath = (decodedPath + "Ressources/");
+            ImageIcon icon = new ImageIcon(LoadPath + "loading.gif");
+            copyLabel = new JLabel(icon);
+        }catch (Exception ex) {
+            System.out.println("Erreur lors de l'acces au gif");
+        }
+        
         // Menu Partie
         JMenu menu_partie = new JMenu("Partie");
 
@@ -102,7 +115,7 @@ public class InterfaceJeu extends JPanel {
         menu_param.addSeparator();
 
         // Liste de options d'affichage
-        JCheckBoxMenuItem cbHist = new JCheckBoxMenuItem("Historique");
+        JCheckBoxMenuItem cbHist = new JCheckBoxMenuItem("Numéro des coups");
         cbHist.setSelected(true);
         cbHist.addActionListener(new InterfaceJeuListener(7, this, cbHist));
         menu_param.add(cbHist);
@@ -128,11 +141,11 @@ public class InterfaceJeu extends JPanel {
         barre.add(menu_param);
         barre.add(menu_aide);
         this.add(barre, BorderLayout.NORTH);
-
+        
         //dans la fenêtre
         paneJoueurs = new JPanel(); //éléments autres que l'aire de jeu
         paneJoueurs.setOpaque(false);
-        paneJoueurs.setLayout(new GridLayout(3, 1));
+        paneJoueurs.setLayout(new GridLayout(4, 1));
         //addComponent(paneJoueurs);
 
         ImageIcon icone1 = createImageIcon("../Ressources/Pion_Noir.png", "Pion noir du joueur 1");
@@ -180,6 +193,8 @@ public class InterfaceJeu extends JPanel {
         paneJoueurs.add(paneBoutons);
         paneJoueurs.add(paneJ1);
         paneJoueurs.add(paneJ2);
+        paneJoueurs.add(copyLabel);
+        copyLabel.setVisible(false);
         
         /*
         paneContentJoueurs = new JPanel(new GridLayout(1,3));
@@ -366,5 +381,9 @@ public class InterfaceJeu extends JPanel {
      */
     public void setPaneContentJoueurs(JPanel paneContentJoueurs) {
         this.paneJoueurs = paneContentJoueurs;
+    }
+    
+    public void Loading(boolean Loads){
+        copyLabel.setVisible(Loads);
     }
 }

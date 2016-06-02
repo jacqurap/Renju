@@ -41,6 +41,9 @@ public class Fenetre {
     }
 
     public void changePanel(String panelName) {
+        if(panelName == CHARPARTIEPANEL){
+            //RefreshSaves();
+        }
         CardLayout cl = (CardLayout) (getCards().getLayout());
         cl.show(getCards(), panelName);
     }
@@ -74,6 +77,7 @@ public class Fenetre {
                 //Display the window.
                 getFrame().setSize(1080, 720);
                 getFrame().setLocationRelativeTo(null);
+                getFrame().setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Ressources/iconeRenju.png")));
                 getFrame().setVisible(true);
             }
         });

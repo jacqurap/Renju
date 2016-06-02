@@ -50,7 +50,11 @@ public class SelectJoueurListener implements ActionListener {
                 typeJ1 = nouvpartie.getSelectedButtonText(nouvpartie.getRbItemJ1());
                 if (typeJ1 == "Joueur") {
                     J1 = "Modele.Humain";
-                    nomJ1 = nouvpartie.getTxtFdj1().getText();
+                    if (nouvpartie.getTxtFdj1().getText().length() > 15) {
+                        nomJ1 = nouvpartie.getTxtFdj1().getText().substring(0, 15);
+                    }else{
+                        nomJ1 = nouvpartie.getTxtFdj1().getText();
+                    }
                 } else {
                     switch (nouvpartie.getSelectedButtonText(nouvpartie.getiAJ1())) {
                         case "Facile":
@@ -73,7 +77,11 @@ public class SelectJoueurListener implements ActionListener {
 
                 if (typeJ2 == "Joueur") {
                     J2 = "Modele.Humain";
-                    nomJ2 = nouvpartie.getTxtFdj2().getText();
+                    if (nouvpartie.getTxtFdj2().getText().length() > 15) {
+                        nomJ2 = nouvpartie.getTxtFdj2().getText().substring(0, 15);
+                    }else{
+                        nomJ2 = nouvpartie.getTxtFdj2().getText();
+                    }
                 } else {
                     switch (nouvpartie.getSelectedButtonText(nouvpartie.getiAJ2())) {
                         case "Facile":

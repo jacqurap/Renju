@@ -49,6 +49,7 @@ public class Popups {
     int index;
     boolean erase = false;
     public String SavePath;
+    public static Color fond = new Color(56, 137, 129);
 
     public Popups(Fenetre f) {
         this.f = f;
@@ -57,7 +58,7 @@ public class Popups {
     public void popRegles() {
 
         final JDialog popRegle = new JDialog();
-        JPanel panel = new JPanel() {
+        JPanel panel = new JPanel() /*{
             protected void paintComponent(Graphics g) {
                 Dimension d = getParent().getSize();
                 try {
@@ -69,7 +70,8 @@ public class Popups {
                     g.fillRect(0, 0, d.width, d.height);
                 }
             }
-        };
+        }*/;
+        panel.setBackground(fond);
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         JTextArea text = new JTextArea();
         text.setOpaque(false);
@@ -456,6 +458,9 @@ public class Popups {
         if (SaveNum >= 0 && SaveNum < 9) {
             System.out.println("index ok");
             try {
+                if (erase) {
+                    slot[SaveNum - 1].delete();
+                }
                 System.out.println("Try start");
                 //File f = new File(i + "." + p.getJoueur1().getNom() + "-vs-" + p.getJoueur2().getNom() + ".ser");
                 SaveName = (SaveNum - 1 + "-" + SaveName + ".ser");
@@ -469,9 +474,6 @@ public class Popups {
                 //slot[i] =  fichier;
                 SaveName = "Sauvegarde";
                 System.out.println("Save Done" + SaveNum);
-                if (erase) {
-                    slot[SaveNum - 1].delete();
-                }
                 SaveNum = 20;
             } catch (IOException | NullPointerException e) {
                 System.out.println("Erreur lors de la sauvegarde du fichier");
@@ -491,8 +493,11 @@ public class Popups {
             try {
                 System.out.println(slot[SaveNum - 1]);
                 FileInputStream fis = new FileInputStream(slot[SaveNum - 1]);
+                System.out.println("recu");
                 ObjectInputStream ois = new ObjectInputStream(fis);
+                System.out.println("recu");
                 Object p = ois.readObject();
+                System.out.println("recu");
                 ois.close();
                 if (p instanceof Partie) {
                     SaveNum = 20;
