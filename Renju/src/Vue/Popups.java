@@ -443,7 +443,7 @@ public class Popups {
                 num = Integer.parseInt(n);
                 System.out.println(num);
                 System.out.println(name);
-                if (num >= 0 && num < 9) { //name.endsWith(".ser") && 
+                if (num >= 0 && num < 10) { //name.endsWith(".ser") && 
                     //f = new File(name.substring(size+1, (int)name.length()));
                     this.slot[num] = f;
                 }
@@ -455,7 +455,7 @@ public class Popups {
 
     public void Sauvegarder(Partie p) {
         System.out.println("Save initiated, " + SaveNum);
-        if (SaveNum >= 0 && SaveNum < 9) {
+        if (SaveNum > 0 && SaveNum < 10) {
             System.out.println("index ok");
             try {
                 if (erase) {
@@ -488,7 +488,7 @@ public class Popups {
      * @return null
      */
     public Partie Charger() {
-        if (SaveNum >= 0 && SaveNum <= 9) {
+        if (SaveNum > 0 && SaveNum < 10) {
             System.out.println(SaveNum);
             try {
                 System.out.println(slot[SaveNum - 1]);

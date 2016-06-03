@@ -19,13 +19,14 @@ public class Fenetre {
     private AireDeJeu aire;
     private InterfaceJeu interjeu;
     private JPanel panelInterface;
+    private ChargerPartie cp;
 
     public void addComponentToPane(Container pane) {
 
         setAire(new AireDeJeu("Modele.Humain", "Joueur1", "Modele.Humain", "Joueur2", this));
         Accueil acc = new Accueil(this);
         NouvellePartie np = new NouvellePartie(this);
-        ChargerPartie cp = new ChargerPartie(this);
+        cp = new ChargerPartie(this);
         setPanelInterface(new JPanel());
         getPanelInterface().setLayout(new BorderLayout());
 
@@ -41,9 +42,7 @@ public class Fenetre {
     }
 
     public void changePanel(String panelName) {
-        if(panelName == CHARPARTIEPANEL){
-            //RefreshSaves();
-        }
+        cp.RefreshSaves();
         CardLayout cl = (CardLayout) (getCards().getLayout());
         cl.show(getCards(), panelName);
     }

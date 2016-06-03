@@ -26,15 +26,12 @@ public class ChargerPartie extends JPanel {
         this.fenetre = f;
         RefreshSaves();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-        JButton btnAnnuler = new JButton("Annuler");
-        btnAnnuler.addActionListener(new AnnulerVersAccueilListener(f));
-        this.add(btnAnnuler);
-
     }
 
     public void RefreshSaves() {
-        //maj donnees sauvegardes
+        //suppression des anciennes donnees
+        this.removeAll();
+        //ajouts donnees sauvegardes
         final Popups pop = new Popups(fenetre);
         pop.Sauvegarde();
         int vide = 0;
@@ -52,6 +49,9 @@ public class ChargerPartie extends JPanel {
             JLabel warning = new JLabel("Aucune sauvegarde disponible");
             this.add(warning);
         }
+        JButton btnAnnuler = new JButton("Annuler");
+        btnAnnuler.addActionListener(new AnnulerVersAccueilListener(fenetre));
+        this.add(btnAnnuler);
 
     }
 }
