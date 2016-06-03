@@ -78,7 +78,7 @@ public class PopupsListener implements ActionListener {
 
             case 3:
                 if (!jcomp.isEnabled()) {
-                    System.out.println("NUMERO : " + fpop.getSaveNum());
+                    //System.out.println("NUMERO : " + fpop.getSaveNum());
                     jcomp.setEnabled(true);
                 }
                 break;
