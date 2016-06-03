@@ -401,7 +401,6 @@ public abstract class Ia extends Joueur {
     public int minimax(Plateau plateau, Point point, int profondeur, int couleur, boolean maximiser, int nbCoups, int alpha, int beta) {
         int meilleur;
         int valeur;
-        //System.out.println("profondeur = " + profondeur);
         int fin = evaluationCoup(plateau, point, plateau.getAutreCouleur(couleur));
         if (fin == Integer.MAX_VALUE) { // le joueur gagne
             if (!maximiser) {
