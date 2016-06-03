@@ -37,8 +37,6 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
-import com.sun.org.apache.bcel.internal.generic.FMUL;
-import com.sun.xml.internal.messaging.saaj.soap.JpegDataContentHandler;
 
 import Listener.PopupsListener;
 
