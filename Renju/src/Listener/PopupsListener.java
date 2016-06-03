@@ -5,6 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
+import Modele.Humain;
+import Modele.Ia1;
+import Modele.Ia2;
 import Vue.*;
 
 public class PopupsListener implements ActionListener {
@@ -54,7 +57,43 @@ public class PopupsListener implements ActionListener {
 
             case 2:
                 fenetre.getAire().setPartie(fpop.Charger());
-
+                if(fenetre.getAire().getPartie().getJoueur1() instanceof Humain){
+                	fenetre.getAire().setJoueur1("Modele.Humain");
+                	fenetre.getAire().setNomJoueur1(fenetre.getAire().getPartie().getJoueur1().getNom());
+                }
+                else{
+                	if(fenetre.getAire().getPartie().getJoueur1() instanceof Ia1){
+                		fenetre.getAire().setJoueur1("Modele.Ia1");
+                		fenetre.getAire().setNomJoueur1("Facile");
+                	}
+                	else if(fenetre.getAire().getPartie().getJoueur1() instanceof Ia2){
+                		fenetre.getAire().setJoueur1("Modele.Ia2");
+                		fenetre.getAire().setNomJoueur1("Moyen");
+                	}
+                	else{
+                    		fenetre.getAire().setJoueur1("Modele.Ia3");
+                    		fenetre.getAire().setNomJoueur1("Dificile");
+                	}
+                }
+                if(fenetre.getAire().getPartie().getJoueur2() instanceof Humain){
+                	fenetre.getAire().setJoueur2("Modele.Humain");
+                	fenetre.getAire().setNomJoueur2(fenetre.getAire().getPartie().getJoueur2().getNom());
+                }
+                else{
+                	if(fenetre.getAire().getPartie().getJoueur2() instanceof Ia1){
+                		fenetre.getAire().setJoueur2("Modele.Ia1");
+                		fenetre.getAire().setNomJoueur2("Facile");
+                	}
+                	else if(fenetre.getAire().getPartie().getJoueur2() instanceof Ia2){
+                		fenetre.getAire().setJoueur2("Modele.Ia2");
+                		fenetre.getAire().setNomJoueur2("Moyen");
+                	}
+                	else{
+                    	fenetre.getAire().setJoueur2("Modele.Ia3");
+                    	fenetre.getAire().setNomJoueur1("Dificile");
+                	}
+                }
+                
             	// Annuler / Refaire après chargement de la partie
                 if (!fenetre.getAire().getPartie().getAnnuler().isEmpty()) {
                     InterfaceJeu.getButAnnuler().setEnabled(true);
