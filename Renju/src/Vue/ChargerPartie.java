@@ -45,8 +45,9 @@ public class ChargerPartie extends JPanel {
         int vide = 0;
         for (int i = 1; i < 10; i++) {
             if (pop.getSlot()[i - 1] != null) {
-                String val = (pop.getSlot()[i - 1].toString().substring(pop.getSavePath().length() + 2, (int) pop.getSlot()[i - 1].toString().length() - 4));
+                String val = (pop.getSlot()[i - 1].toString().substring(pop.getSavePath().length() +1, (int) pop.getSlot()[i - 1].toString().length() - 4));
                 JButton rb = new JButton(val);
+                rb.setOpaque(true);
                 rb.addActionListener(new ChargerPartieListener(fenetre, i));
                 grpPartie.add(rb);
                 this.addButton(rb);
@@ -66,6 +67,7 @@ public class ChargerPartie extends JPanel {
             btnVide.setForeground(Color.white);
         }
         JButton btnAnnuler = new JButton("Retour à l'accueil");
+        btnAnnuler.setOpaque(true);
         btnAnnuler.addActionListener(new AnnulerVersAccueilListener(fenetre));
         this.addButton(btnAnnuler);
     }

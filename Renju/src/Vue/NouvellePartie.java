@@ -177,10 +177,12 @@ public class NouvellePartie extends JPanel {
         paneBoutons.setLayout(new BoxLayout(paneBoutons, BoxLayout.X_AXIS));
         addComponent(paneBoutons, paneTout);
         JButton btnOk = new JButton("Ok");
+        btnOk.setOpaque(true);
         addButton(btnOk, paneBoutons);
         //  btnOk.addActionListener(new SelectJoueurListener(getSelectedButtonText(rbMenuItemJ1), getSelectedButtonText(rbMenuItemJ2), j1.getText(), j2.getText(), getSelectedButtonText(groupIaJ1), getSelectedButtonText(groupIaJ2), 2));
         btnOk.addActionListener(new SelectJoueurListener(this, 2, f));
         JButton btnRetour = new JButton("Retour");
+        btnRetour.setOpaque(true);
         btnRetour.addActionListener(new AnnulerVersAccueilListener(f));
         paneBoutons.add(Box.createRigidArea(new Dimension(150, 0)));
         addButton(btnRetour, paneBoutons);

@@ -65,7 +65,7 @@ public class Popups {
         // JDialog
         final JDialog popRegle = new JDialog();
         JDialog.setDefaultLookAndFeelDecorated(true);
-        popRegle.setSize(800, 500);
+        popRegle.setSize(1100, 600);
        // popRegle.setMinimumSize(JFrame.MAXIMIZED_HORIZ & JFrame.MAXIMIZED_VERT);
         popRegle.setLocationRelativeTo(null);
         popRegle.setTitle("Aide de jeu");
@@ -324,6 +324,7 @@ public class Popups {
                 + "\n\n");
 
         JButton btnRetour = new JButton("Retour");
+        btnRetour.setOpaque(true);
         btnRetour.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -363,9 +364,11 @@ public class Popups {
         pane.setLayout(new BorderLayout());
 
         JButton btnQuitter = new JButton("Quitter");
+        btnQuitter.setOpaque(true);
         btnQuitter.addActionListener(new PopupsListener(popQuitterMenu, f, 1));
 
         JButton btnAnnuler = new JButton("Annuler");
+        btnAnnuler.setOpaque(true);
         btnAnnuler.addActionListener(new PopupsListener(popQuitterMenu));
 
         JPanel paneTxt = new JPanel();
@@ -444,6 +447,7 @@ public class Popups {
         
 
         JButton btnRetour = new JButton("Retour");
+        btnRetour.setOpaque(true);
         btnRetour.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -481,6 +485,7 @@ public class Popups {
         //paneCharger.setFont(new Font("Calibri", Font.BOLD, 15));
         
         JButton btnCharger = new JButton("Charger");
+        btnCharger.setOpaque(true);
         btnCharger.addActionListener(new PopupsListener(popCharger, f, this, 2));
         btnCharger.setEnabled(false);
 
@@ -520,6 +525,7 @@ public class Popups {
        /// popCharger.add(btnCharger);
 
         JButton btnAnnuler = new JButton("Annuler");
+        btnAnnuler.setOpaque(true);
         btnAnnuler.addActionListener(new PopupsListener(popCharger));
        // popCharger.add(btnAnnuler);
         
@@ -572,6 +578,7 @@ public class Popups {
         paneSauver.setBackground(fond);
 
         JButton btnSauvegarder = new JButton("Sauvegarder");
+        btnSauvegarder.setOpaque(true);
         btnSauvegarder.addActionListener(new PopupsListener(popSauver, this, 8));
         btnSauvegarder.setEnabled(false);
 
@@ -625,6 +632,7 @@ public class Popups {
         paneBouton.add(btnSauvegarder);
 
         JButton btnAnnuler = new JButton("Annuler");
+        btnAnnuler.setOpaque(true);
         btnAnnuler.addActionListener(new PopupsListener(popSauver));
         paneBouton.add(btnAnnuler);
         
@@ -709,10 +717,12 @@ public class Popups {
         boutonreco.setOpaque(false);
         panelRecommencer.add(boutonreco);
         JButton btnRecommencer = new JButton("Recommencer");
+        btnRecommencer.setOpaque(true);
         btnRecommencer.addActionListener(new PopupsListener(popRecommencer, f, 6));
         boutonreco.add(btnRecommencer);
         
         JButton btnAnnuler = new JButton("Annuler");
+        btnAnnuler.setOpaque(true);
         btnAnnuler.addActionListener(new PopupsListener(popRecommencer));
         boutonreco.add(btnAnnuler);
         
@@ -768,10 +778,12 @@ public class Popups {
         paneAbandonner.add(boutonreco);
         
         JButton btnAbandonner = new JButton("Retourner au menu");
+        btnAbandonner.setOpaque(true);
         btnAbandonner.addActionListener(new PopupsListener(popAbandonner, f, 7));
         boutonreco.add(btnAbandonner);
 
         JButton btnAnnuler = new JButton("Annuler");
+        btnAnnuler.setOpaque(true);
         btnAnnuler.addActionListener(new PopupsListener(popAbandonner));
         boutonreco.add(btnAnnuler);
 
@@ -952,6 +964,7 @@ public class Popups {
     private void addButton(final JButton button, JComponent comp, final JDialog dialog) {
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.setFocusPainted(false);
+        button.setOpaque(true);
         button.setBackground(new Color(247, 128, 104));
         button.setForeground(Color.white);
         button.setBorderPainted(false);

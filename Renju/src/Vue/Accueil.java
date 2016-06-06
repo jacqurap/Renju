@@ -25,18 +25,22 @@ public class Accueil extends JPanel {
         this.add(Box.createRigidArea(new Dimension(0, 100)));
         this.add(Box.createVerticalGlue());
         JButton btnNouvellePartie = new JButton("Démarrer une partie");
+        btnNouvellePartie.setOpaque(true);
         btnNouvellePartie.addActionListener(new AccueilListener(f, 1));
         addButton(btnNouvellePartie);
 
         JButton btnChargerPartie = new JButton("Charger une partie");
+        btnChargerPartie.setOpaque(true);
         btnChargerPartie.addActionListener(new AccueilListener(f, 2));
         addButton(btnChargerPartie);
 
         JButton btnAideJeu = new JButton("Consulter les règles");
+        btnAideJeu.setOpaque(true);
         btnAideJeu.addActionListener(new AccueilListener(popup, 3));
         addButton(btnAideJeu);
 
         JButton btnQuitter = new JButton("Quitter le jeu");
+        btnQuitter.setOpaque(true);
         btnQuitter.addActionListener(new AccueilListener(popup, 4));
         addButton(btnQuitter);
 
@@ -59,6 +63,7 @@ public class Accueil extends JPanel {
     private void addButton(final JButton button) {
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.setFocusPainted(false);
+        button.setOpaque(true);
         button.setBackground(new Color(247, 128, 104));
         button.setForeground(Color.white);
         button.setBorderPainted(false);

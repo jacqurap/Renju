@@ -180,8 +180,10 @@ public class InterfaceJeu extends JPanel {
         JPanel paneBoutons = new JPanel();
         paneBoutons.setOpaque(false);
         paneBoutons.setLayout(new FlowLayout());
+        btnAnnuler.setOpaque(true);
         addButton(btnAnnuler, paneBoutons);
         btnAnnuler.setEnabled(false);
+        btnRefaire.setOpaque(true);
         addButton(btnRefaire, paneBoutons);
         AnnulerAction annu = new AnnulerAction(this.getAire(), getITEMANNU(), getITEMREFA(), btnAnnuler, btnRefaire);
         RefaireAction ref = new RefaireAction(this.getAire(), getITEMANNU(), getITEMREFA(), btnAnnuler, btnRefaire);
@@ -235,6 +237,7 @@ public class InterfaceJeu extends JPanel {
     private void addButton(final JButton button, Container pane) {
         button.setFocusPainted(false);
         button.setBorderPainted(false);
+        button.setOpaque(true);
         button.setFont(new Font("Calibri", Font.BOLD, 25));
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {

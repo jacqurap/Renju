@@ -273,6 +273,7 @@ public class AireDeJeu extends JComponent {
         private void addButton(final JButton button, JComponent comp, final JDialog dialog) {
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.setFocusPainted(false);
+        button.setOpaque(true);
         button.setBackground(new Color(247, 128, 104));
         button.setForeground(Color.white);
         button.setBorderPainted(false);
